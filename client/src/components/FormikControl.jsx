@@ -4,7 +4,7 @@ import Input from "./Input";
 import Select from "./Select";
 import Radio from "./Radio";
 import Checkbox from "./Checkbox";
-import Tristate1 from "./Tristate1";
+import TristateHelper from "./TristateHelper";
 import ImageUpload from "./ImageUpload";
 
 export default function FormikControl(props) {
@@ -22,7 +22,7 @@ export default function FormikControl(props) {
     case "checkbox":
       return <Checkbox {...rest} />;
     case "tristate-checkbox":
-      return <Tristate1 {...rest} />;
+      return <TristateHelper {...rest} />;
     case "upload":
       return <ImageUpload {...rest} />;
     default:

@@ -1,50 +1,39 @@
-import { useState } from "react";
 import { Field } from "formik";
+import TristateCheckbox from "./TristateCheckbox";
 
-export default function TristateHelper(props) {
-  const { label, name, options, ...rest } = props;
+export default function Tristate(props) {
+  const { label, name, manualSetFieldValue, options, className, labelStyle, inputStyle, } =
+    props;
+  // There must be a whitespace at the end of the following string
+  const defaultLabelStyle = "font-bold text-base my-1 ";
 
   return (
-    <div className="flex flex-wrap gap-2">
-      <label>{label}</label>
-      <div>
-        {options.map((option, index) => {
-          const STATUS_STATES = [
-            `${option.key}`,
-            `+ ${option.key}`,
-            `- ${option.key}`,
-          ];
-          const [status, setStatus] = useState(0);
-          function handleClick(e) {
-            const newStatus = (status + 1) % STATUS_STATES.length;
-            setStatus(newStatus);
-            console.log(e.target.value);
-          }
-          console.log(`${name}[${index}]`)
-          return (
-            <Field
+    // The whitespace at the end of the string & the round brackets
+    // enclosing the ternary operators are important!
+    <div
+      className={
+        "my-4 relative flex items-center flex-wrap " + (className ? className : "")
+      }
+    >
+      <label
+        htmlFor={name}
+        className={defaultLabelStyle + (labelStyle ? labelStyle : "")}
+      >
+        {label}
+      </label>
+      <Field name={name}>
+        {({ field }) => {
+          return options.map((option, index) => (
+            <TristateCheckbox
               key={option.key}
-              name={`${name}[${index}]`}
-              readOnly
-              value={STATUS_STATES[status]}
-              onClick={handleClick}
-              className={
-                "inline-flex items-center p-1 " +
-                "rounded-md cursor-pointer justify-between" +
-                "border-2 border-slate-800 select-none" +
-                "md:hover:text-white md:hover:bg-slate-500 "
-              }
-              {...rest}
+              index={index}
+              option={option}
+              name={name}
+              manualSetFieldValue={manualSetFieldValue}
             />
-          );
-        })}
-      </div>
+          ));
+        }}
+      </Field>
     </div>
   );
 }
-
-// {options.map((option) => {
-//   return (
-//     <TristateCheckbox key={option.key} option={option} {...rest} />
-//   );
-// })}

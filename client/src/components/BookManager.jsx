@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 
 import BookList from "./BookList";
-import SearchSidebarNew from "./SearchSidebarNew";
+import SearchSidebarNew from "./SearchSidebar";
 import useFetch from "../hooks/useFetch";
 import MultiCarousel from "./MultiCarousel";
 
