@@ -5,7 +5,7 @@ import { Formik, Form } from "formik";
 import { useEffect, useState, useContext } from "react";
 
 import { UserContext } from "../UserContext";
-import FormikControl from "./FormikControl";
+import FormikControl from "./Formik/FormikControl";
 
 export default function BookRegistrationForm() {
   const { user } = useContext(UserContext);

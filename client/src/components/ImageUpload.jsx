@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Field, ErrorMessage } from "formik";
-import FormikErrorMessageText from "./FormikErrorMessageText";
+import FormikErrorMessageText from "./Formik/FormikErrorMessageText";
 
 export default function ImageUpload(props) {
   const { label, name, value, ...rest } = props;

@@ -4,7 +4,7 @@ import { Formik, Form } from "formik";
 
 import { FilterSVG } from "../assets/svg";
 import BookList from "./BookList";
-import FormikControl from "./FormikControl";
+import FormikControl from "./Formik/FormikControl";
 
 export default function SearchSidebarNew() {
   const [filterActive, setFilterActive] = useState(false);

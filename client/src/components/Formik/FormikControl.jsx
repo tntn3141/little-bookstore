@@ -5,7 +5,7 @@ import Select from "./Select";
 import Radio from "./Radio";
 import Checkbox from "./Checkbox";
 import TristateHelper from "./TristateHelper";
-import ImageUpload from "./ImageUpload";
+import ImageUpload from "../ImageUpload";
 
 export default function FormikControl(props) {
   const { control, ...rest } = props;

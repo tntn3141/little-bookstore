@@ -4,7 +4,7 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { UserContext } from "../UserContext";
-import FormikControl from "../components/FormikControl";
+import FormikControl from "../components/Formik/FormikControl";
 
 export default function LoginForm() {
   const { user, setUser } = useContext(UserContext);

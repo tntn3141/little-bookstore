@@ -5,7 +5,7 @@ import { Formik, Form } from "formik";
 import { Link, Navigate } from "react-router-dom";
 
 import { UserContext } from "../UserContext";
-import FormikControl from "../components/FormikControl";
+import FormikControl from "../components/Formik/FormikControl";
 
 export default function Register() {
   const [redirect, setRedirect] = useState(false);

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Button from "./Button";
 import {BookSolidSVG, MenuSVG} from "../assets/svg"
 
 const Nav = () => {
