@@ -1,6 +1,5 @@
 import { useContext, useState, useRef, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import Button from "./Button";
 
 import {
   BookSolidSVG,
@@ -91,7 +90,6 @@ export default function Header() {
           <li className="md:hidden text-xl my-10">
             <Link className="text-gray-800 hover:text-gray-400 duration-500">Cart</Link>
           </li>
-          <Button>Get Started</Button>
         </ul>
 
         <div>

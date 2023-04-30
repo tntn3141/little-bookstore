@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { Formik, Form } from "formik";
 
-import FilterIndicator from "./FilterIndicator";
+import { FilterSVG } from "../assets/svg";
 import BookList from "./BookList";
 import FormikControl from "./FormikControl";
 
@@ -47,9 +47,6 @@ export default function SearchSidebarNew() {
     filteredValues.genres = genres.filter(Boolean);
     filteredValues.format = format.filter(Boolean);
 
-    console.log("Filtered queries: ")
-    console.log(filteredValues)
-
     try {
       const response = await axios.get("/api/books", {
         params: { filterQuery: filteredValues },
@@ -76,7 +73,7 @@ export default function SearchSidebarNew() {
                 setFilterActive(!filterActive);
               }}
             >
-              <FilterIndicator filterActive={filterActive} />
+              <FilterSVG filterActive={filterActive} />
             </button>
             <div>
               <input

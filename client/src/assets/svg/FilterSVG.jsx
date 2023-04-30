@@ -1,4 +1,4 @@
-export default function FilterIndicator(props) {
+export default function FilterSVG(props) {
   const { filterActive } = props;
   return (
     <>
@@ -8,6 +8,7 @@ export default function FilterIndicator(props) {
           viewBox="0 0 24 24"
           fill="currentColor"
           className="w-6 h-6"
+          {...props}
         >
           <path
             fillRule="evenodd"
@@ -23,6 +24,7 @@ export default function FilterIndicator(props) {
           strokeWidth={1.5}
           stroke="currentColor"
           className="w-6 h-6"
+          {...props}
         >
           <path
             strokeLinecap="round"
