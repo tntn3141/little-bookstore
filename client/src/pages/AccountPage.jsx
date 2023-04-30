@@ -56,25 +56,23 @@ export default function AccountPage() {
       </nav>
       {subpage === "profile" && (
         <div className="text-center max-w-lg mx-auto">
-          <div>          <p>
-            Logged in as {user.name}. Role: {user.isAdmin && "Admin" || "User"}
-          </p>
-          <button
-            onClick={handleLogOut}
-            className="bg-slate-950 text-white max-w-xl"
-          >
-            Log out
-          </button>
+          <div>
+            {" "}
+            <p>
+              Logged in as {user.name}. Role:{" "}
+              {(user.isAdmin && "Admin") || "User"}
+            </p>
+            <button
+              onClick={handleLogOut}
+              className="bg-slate-950 text-white max-w-xl"
+            >
+              Log out
+            </button>
           </div>
-
         </div>
       )}
-      {(subpage === "dashboard" && user.isAdmin) && (
-        <BookRegistrationForm />
-      )}
-      {subpage === "wish-list" && (
-        <BookManager />
-      )}
+      {subpage === "dashboard" && user.isAdmin && <BookRegistrationForm />}
+      {subpage === "wish-list" && <BookManager />}
     </div>
   );
 }
