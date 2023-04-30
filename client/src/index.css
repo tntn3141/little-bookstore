@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Fasthand&display=swap');
+
+input[type='text'], input[type='email'], input[type='password'] {
+    @apply w-full my-3 py-2 px-3;
+}
+
+input[type='email'], input[type='password'], .name-input  {
+    border-bottom: 1px solid black;
+}
+
+button.primary {
+    @apply bg-black text-white rounded-lg p-2 w-full;
+}
