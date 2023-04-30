@@ -2,16 +2,55 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Fasthand&display=swap');
-
-input[type='text'], input[type='email'], input[type='password'] {
-    @apply w-full my-3 py-2 px-3;
+html,
+body {
+  overflow-x: hidden;
 }
 
-input[type='email'], input[type='password'], .name-input  {
+input[type="radio"]:checked + label {
+  background-color: rgb(30 41 59); /* Tailwind bg-slate-800 */
+  color: white;
+}
+
+/* For footer */
+.content-container {
+  min-height: calc(100vh - 112px);
+}
+.footer {
+  position: relative;
+  left: 0;
+  bottom: 0;
+}
+
+/* input:checked + label {
+	border-color: black;
+} */
+
+/* .login-input {
+    @apply w-full p-3
+} */
+
+/* input[type='email'], input[type='password']  {
+    @apply w-full my-3 px-3;
     border-bottom: 1px solid black;
+} */
+
+/* .login-input:focus + label {
+    @apply  top-[11%] right-[50%] text-xs
+} */
+
+/* button.primary {
+    @apply bg-black text-white rounded-lg p-2;
 }
 
-button.primary {
-    @apply bg-black text-white rounded-lg p-2 w-full;
+.submit-form-input {
+    @apply border-slate-950 border bg-slate-200 p-1
 }
+
+.submit-form-radio label {
+    @apply cursor-pointer rounded-xl bg-blue-300 text-white p-1 select-none m-1 
+}
+
+.submit-form-radio input[type='radio'] {
+    @apply appearance-none
+} */

@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "notional-cab-384210",
+  "private_key_id": "146e9e056a32d85f36d07f5d83ca5f93358a30ad",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC2SYtXp56xFm+c\ni0vi3xHhNeT4SsKjY90RjQaZTB9ChgOSUA9VAKaeTniDP4ZPwxfPqfGs0klaIjZ7\n+HtZseqQUv8vOngI3VSFl4guXcCcz8JgYGnHy/lmMZLLKKXz/lpkbDUz1wqCvqKl\nkjKMxfW42j/eH4HwcSyFN8WHhSB7fFa/w8+TSBq+ULwvpVadB49pM1WXD8z4jsx9\nLK2X8G3ZbNHzEEsRYaC7AZuFLyEHzKnh3dHkXOcGYXdZm3Y3BrnsF9iGVJjmg2IG\nJPMwIIwNv6AcQz5wTE7Crq2bU5AudgFWYiUgAPzTP4C4T6UaIoarVtKQkpyrDbc1\nj0oGo5ylAgMBAAECggEAIcFstEat9E0bTfndi52TSgkY5YGymV8cyOs8lZarEz6N\n2sJIlI0STa5qUqOo04xlFGd8AWzPeIltXXeeH/X6Yc98wdop8DpMNJDi/vMNf/xZ\nGk/ARudWv73eWRCl6pDnXEFNeNQRdjSnGdIA2mCuKBUCTre28DeE7wZs5bOZWERV\nLRM+0r12bHitWTR+hEGpZcFF/wK/Cbkm51Ix0HLNDDdrH2P5djiaWVdwscmVtHG9\nw9g7UtS6jnhuqNzYBdg444uCrb+nOPwAZvU445vBsVDxaVxIhwUNYO8+DrdfX5aV\nf6WigdjgiY15UziQ3oMxiDyEUi5bt8+10wSaNP+4AQKBgQD8yL7qcVKEcn7zmih9\nKyAHUyaImwwSutLujDV++KmuS1HLJWt8EjGIOVTcysb9t+FBJvF7Vd+493rMqonC\nMZWiZhL7TEebyen+uSD1g74p2OoaD/+cjUMchy3JCksHrwztI9XFTznWrx2Oh7tW\niZLHG0JQQsEd8xh2iW7YmN6e5QKBgQC4mzU+yJkV1V9/pHfK6o9Smnc0l+1+PTk8\n8JrZg6wNtX/0mlyQV71/6Wu7U8GWnOIUvdWS5+103hFsDHwrGt5NcgNiAns/wZKb\nxWMr5PzZvvz0XVCWLFOGJUyZrsnMBXG/LsUHvJ/ynrCmvfSUR5L0JEmSBowubiPg\n7mVaccdqwQKBgQDTSBLSr38x9uUHRS1cWUQ++w/1E+rGaOLOweAgzUQ9yvSFoDQz\nkp1V5913YgFqpVuf8iXaWY9R8X/xOwVDi+AuybRJ2Jrtqplq71+N9dxm68fXmtGi\nDywt1wq8w16tAHIEb3RIo4yLVPiWXfqGPRyyUKVfojv5hWtIAFzmqvc/xQKBgCIt\n6m/TaDSYqvPRGbTiNOMQYl3Ee15SK5TS33jCXkqzfhtlsRmwhQ93wlCOs1sVdO5u\nL2rhsh9fNk6RCTRZ5yrjnyi4WOV3C5P3ueLYpNAUAnWkCVWko1pE8afKquYxY9wH\n5scF739WTlKw/OWvUtANH+n/eFjoX5A302ApjMiBAoGAK73Arh7Av99GRXgqrMNc\ngGE/k9DAutEsqOvuGXxULq0BQj6ApUKiNTEOKbcJBtzZiV6grHieI6wXCSovjOOs\nhmI0Lcyv5Ppo8GG2u2TyB/ZBUIvouTnn3FktilK94Z1jlVyFhcdYJ0WknI+Hpdv/\nisQu/DS83jV4uCeK68zE924=\n-----END PRIVATE KEY-----\n",
+  "client_email": "little-bookstore-manager@notional-cab-384210.iam.gserviceaccount.com",
+  "client_id": "101956267305854819786",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/little-bookstore-manager%40notional-cab-384210.iam.gserviceaccount.com"
+}
