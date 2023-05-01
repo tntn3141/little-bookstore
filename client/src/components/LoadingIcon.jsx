@@ -1,6 +1,6 @@
 import loadingdot from "../assets/images/loadingdot.gif";
 
-function LoadingText() {
+function LoadingIcon() {
   return (
     <div className="flex w-full h-full items-center justify-center">
       <img src={loadingdot} alt="Loading..." />
@@ -8,4 +8,4 @@ function LoadingText() {
   );
 }
 
-export default LoadingText;
+export default LoadingIcon;

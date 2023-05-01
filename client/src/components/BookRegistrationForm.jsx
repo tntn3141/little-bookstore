@@ -1,56 +1,33 @@
 import axios from "axios";
-import * as Yup from "yup";
 import { v4 as uuidv4 } from "uuid";
 import { Formik, Form } from "formik";
 import { useEffect, useState, useContext } from "react";
 
 import { UserContext } from "../UserContext";
 import FormikControl from "./Formik/FormikControl";
+import {
+  bookInitialValues,
+  bookValidationSchema,
+  bookLanguages,
+  bookFormats,
+  bookCategories,
+  bookTags,
+} from "./FormSetup";
 
 export default function BookRegistrationForm() {
   const { user } = useContext(UserContext);
   const [cover, setCover] = useState();
   const [coverPreview, setCoverPreview] = useState();
+  const [test, setTest] = useState();
 
   // Clean up image blob preview
   useEffect(() => {
     return () => coverPreview && URL.revokeObjectURL(coverPreview.tempPreview);
   }, [coverPreview]);
 
-  const initialValues = {
-    title: "",
-    author: "",
-    publicationYear: "",
-    stock: 1,
-    price: "",
-    publisher: "",
-    format: "",
-    pages: "",
-    tags: [],
-    category: "",
-    description: "",
-    coverImage: "",
-    ratingAllPoints: 0,
-    ratingAllTimes: 0,
-  };
+  const initialValues = bookInitialValues;
   // TODO: make coverImage required (might have to make FormikControl)
-  const validationSchema = Yup.object().shape({
-    title: Yup.string().required("Required"),
-    author: Yup.string().required("Required"),
-    publicationYear: Yup.number().positive().integer().required("Required"),
-    price: Yup.number().positive().required("Required"),
-    publisher: Yup.string().required("Required"),
-    pages: Yup.number().positive().integer().required("Required"),
-    stock: Yup.number().positive().integer().required("Required"),
-    language: Yup.string().required("Required"),
-    format: Yup.string().required("Required"),
-    category: Yup.string().required("Required"),
-    tags: Yup.array().min(1, "Select at least one tag").required("Required"),
-    description: Yup.string().required("Required"),
-    ratingAllPoints: Yup.number(),
-    ratingAllTimes: Yup.number(),
-    coverImage: Yup.mixed(),
-  });
+  const validationSchema = bookValidationSchema;
 
   async function handleBookSubmit(values, actions) {
     let fileId = uuidv4();
@@ -59,7 +36,7 @@ export default function BookRegistrationForm() {
     const newFile = new File([blob], fileId, { type: "image/jpeg" });
 
     // Using FormData to send both the form values (in req.body) and the file(s)
-    // (in req.file, extracted via multer middleware) to the back-end
+    // (in req.file, extracted via multer middleware) to the backend
     let formData = new FormData();
     formData.append("coverImage", newFile);
     for (const key in values) {
@@ -159,54 +136,25 @@ export default function BookRegistrationForm() {
               label="Language"
               name="language"
               selected="English" // English by default
-              options={[
-                { key: "English", value: "English" },
-                { key: "Vietnamese", value: "Vietnamese" },
-                { key: "Other", value: "Other" },
-              ]}
+              options={bookLanguages}
             />
             <FormikControl
               control="radio"
               label="Format"
               name="format"
-              options={[
-                { key: "Paperback", value: "Paperback" },
-                { key: "Hardcover", value: "Hardcover" },
-              ]}
+              options={bookFormats}
             />
             <FormikControl
               control="radio"
               label="Category"
               name="category"
-              options={[
-                { key: "Fiction", value: "Fiction" },
-                { key: "Nonfiction", value: "Nonfiction" },
-              ]}
+              options={bookCategories}
             />
             <FormikControl
               control="checkbox"
               label="Tags"
               name="tags"
-              options={[
-                { key: "Adventure", value: "Adventure" },
-                { key: "Romance", value: "Romance" },
-                { key: "Thriller", value: "Thriller" },
-                { key: "Horror", value: "Horror" },
-                { key: "Contemporary", value: "Contemporary" },
-                { key: "Fantasy", value: "Fantasy" },
-                { key: "Historical", value: "Historical" },
-                { key: "Children", value: "Children" },
-                { key: "Self-help", value: "Self-help" },
-                { key: "Classic", value: "Classic" },
-                { key: "Technology", value: "Technology" },
-                { key: "Guide", value: "Guide" },
-                { key: "Sci-fi", value: "Sci-fi" },
-                { key: "Mystery", value: "Mystery"},
-                { key: "Relationships", value: "Relationships"},
-                { key: "Memoir", value: "Memoir"},
-                { key: "Graphic Novel", value: "Graphic Novel" },
-                { key: "Arts", value: "Arts" },
-              ]}
+              options={bookTags}
             />
             <FormikControl
               control="textarea"
@@ -249,30 +197,34 @@ export default function BookRegistrationForm() {
                 type="button"
                 className="uppercase p-2 bg-gray-900 font-bold text-white"
                 onClick={() => {
-                  let random = Math.floor(Math.random() * 51);
-                  formik.setFieldValue("ratingAllTimes", random);
-                  formik.setFieldValue(
-                    "ratingAllPoints",
-                    random * Math.floor(Math.random() * 6)
-                  );
-                  console.log(
-                    "Random ratings generated",
-                    formik.values.ratingAllPoints,
-                    formik.values.ratingAllTimes
-                  );
+                  let randomTimes = Math.floor(Math.random() * 50) + 1;
+                  let randomPoints =
+                    randomTimes * Math.floor(Math.floor(Math.random() * 5)) + 1;
+                  let randomAverage = randomPoints / randomTimes;
+                  formik.setFieldValue("ratingAllTimes", randomTimes);
+                  formik.setFieldValue("ratingAllPoints", randomPoints);
+                  setTest([randomTimes, randomPoints, randomAverage]);
                 }}
               >
                 Generate
               </button>
+              {test ? (
+                <div>
+                  Ratings {test[0]}, points {test[1]}. Average {test[2]}{" "}
+                </div>
+              ) : (
+                ""
+              )}
             </div>
-
-            <button
-              type="submit"
-              disabled={!formik.isValid}
-              className="uppercase w-full mt-5 p-4 bg-gray-900 font-bold text-white"
-            >
-              Submit
-            </button>
+            <div className="flex">
+              <button
+                type="submit"
+                disabled={!formik.isValid}
+                className="uppercase mx-auto w-[60%] sm:w-[40%] my-10 p-4 bg-gray-900 font-bold text-white"
+              >
+                Submit
+              </button>
+            </div>
           </Form>
         );
       }}

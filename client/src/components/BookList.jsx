@@ -1,28 +1,30 @@
 import { Link } from "react-router-dom";
 import { Typography } from "./Typography";
+import { getVNDPrice } from "../helpers/helpers";
 
 export default function BookList(props) {
   const { items } = props;
-  const vndPrice = (value) =>
-    new Intl.NumberFormat("vi-VN", {
-      style: "currency",
-      currency: "VND",
-    }).format(value);
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6 p-4">
       {items.map((item) => {
         return (
           <div
             key={item._id}
-            className="flex flex-col items-center mx-auto border p-4 text-center"
+            className="text-center h-[100%]"
           >
             <Link to={`/item/${item._id}`}>
-              <img src={item.coverImage} alt="" width="100" className="mx-auto"/>
-              <div>
-                <Typography variant="title" className="line-clamp-2">{item.title}</Typography>
-                <Typography variant="author">{item.author}</Typography>
-                <p className="font-bold">{vndPrice(item.price)}</p>
+              <div className="flex flex-col h-[100%] p-2">
+                <img src={item.coverImage} alt="" className="h-[75%]" />
+                <div>
+                  <Typography variant="title" className="line-clamp-1">
+                    {item.title}
+                  </Typography>
+                  <Typography variant="author">{item.author}</Typography>
+                  <Typography variant="title" className="text-red-600 font-bold">
+                    {getVNDPrice(item.price)}
+                  </Typography>
+                </div>
               </div>
             </Link>
           </div>

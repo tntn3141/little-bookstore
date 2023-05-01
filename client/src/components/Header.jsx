@@ -28,7 +28,7 @@ export default function Header() {
   const links = [
     { name: "Trending", link: "/trending" },
     { name: "Best Sellers", link: "/best-sellers" },
-    { name: "About Us", link: "about" },
+    { name: "About Us", link: "/about" },
   ];
 
   function useOutsideAlerter(ref) {
