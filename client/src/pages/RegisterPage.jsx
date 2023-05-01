@@ -16,15 +16,19 @@ export default function Register() {
     email: "",
     password: "",
     confirmPassword: "",
+    admin: false,
   };
   const validationSchema = Yup.object({
+    name: Yup.string().required("Required"),
     email: Yup.string().email("Invalid").required("Required"),
     password: Yup.string().required("Required"),
     confirmPassword: Yup.string()
       .oneOf([Yup.ref("password"), ""], "Passwords must match")
       .required("Required"),
+    admin: Yup.boolean(),
   });
   const handleRegisterSubmit = async (values) => {
+    console.log(values)
     try {
       await axios.post("/api/auth/register", values);
       alert("Registration successful.");
@@ -44,7 +48,7 @@ export default function Register() {
   }
 
   return (
-    <div className="flex flex-col mt-20 max-w-md mx-auto">
+    <div className="flex flex-col mt-36 max-w-md mx-auto">
       <h1 className="mx-auto text-5xl">Hello</h1>
       <Formik
         initialValues={initialValues}
@@ -53,46 +57,61 @@ export default function Register() {
       >
         {(formik) => {
           return (
-            <Form className="mx-auto mt-8">
+            <Form className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
               <div className="justify-center flex">
                 <Link
                   to={"/login"}
-                  className="border-2 border-gray-950 p-3 uppercase"
+                  className="border-2 border-gray-800 p-3 uppercase"
                 >
-                  <span className="font-grey-700">Log in</span>
+                  <span className="font-grey-700 font-bold">Log in</span>
                 </Link>
                 <Link
                   to={"/register"}
-                  className="border-2 border-gray-950 p-3 uppercase"
+                  className="border-2 border-gray-800 p-3 uppercase"
                 >
-                  <span className="font-bold">Sign up</span>
+                  <span className="text-black font-bold">Sign up</span>
                 </Link>
               </div>
+              <div className="flex gap-4">
+                <FormikControl
+                  control="input"
+                  type="text"
+                  label="Name"
+                  name="name"
+                />
+                <FormikControl
+                  control="input"
+                  type="email"
+                  label="Email"
+                  name="email"
+                />
+              </div>
+              <div className="flex gap-4">
+                <FormikControl
+                  control="input"
+                  type="password"
+                  label="Password"
+                  name="password"
+                />
+                <FormikControl
+                  control="input"
+                  type="password"
+                  label="Confirm password"
+                  name="confirmPassword"
+                />
+              </div>
+              <div>
+                <FormikControl
+                  control="radio"
+                  label="Becomes an admin (for testing)"
+                  name="admin"
+                  options={[
+                    { key: "Yes", value: "true" },
+                    { key: "No", value: "false" },
+                  ]}
+                />
+              </div>
 
-              <FormikControl
-                control="input"
-                type="text"
-                label="Name"
-                name="name"
-              />
-              <FormikControl
-                control="input"
-                type="email"
-                label="Email"
-                name="email"
-              />
-              <FormikControl
-                control="input"
-                type="password"
-                label="Password"
-                name="password"
-              />
-              <FormikControl
-                control="input"
-                type="password"
-                label="Confirm password"
-                name="confirmPassword"
-              />
               <button
                 type="submit"
                 disabled={!formik.isValid}

@@ -45,7 +45,7 @@ export default function LoginForm() {
   }
 
   return (
-    <div className="flex flex-col mt-20 max-w-md mx-auto mt-36">
+    <div className="flex flex-col max-w-md mx-auto mt-36">
       <h1 className="mx-auto text-5xl">Hello</h1>
       <Formik
         initialValues={initialValues}
@@ -58,15 +58,15 @@ export default function LoginForm() {
               <div className="justify-center flex">
                 <Link
                   to={"/login"}
-                  className="border-2 border-gray-950 p-3 uppercase"
+                  className="border-2 border-gray-800 p-3 uppercase"
                 >
-                  <span className="font-bold">Log in</span>
+                  <span className="font-bold text-black">Log in</span>
                 </Link>
                 <Link
                   to={"/register"}
                   className="border-2 border-gray-950 p-3 uppercase"
                 >
-                  <span className="font-grey-700">Sign up</span>
+                  <span className="font-bold font-grey-700">Sign up</span>
                 </Link>
               </div>
 

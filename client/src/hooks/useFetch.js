@@ -8,7 +8,6 @@ export default function useFetch(url, configOptions) {
 
   useEffect(() => {
     setLoading(true);
-    console.log("useFetch running", configOptions)
     axios
       .get(url, configOptions)
       .then((response) => setData(response.data))
@@ -17,7 +16,6 @@ export default function useFetch(url, configOptions) {
   }, [url]);
 
   const refetch = () => {
-    console.log("refetch")
     setLoading(true);
     axios
       .get(url, configOptions)

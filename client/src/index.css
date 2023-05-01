@@ -21,36 +21,3 @@ input[type="radio"]:checked + label {
   left: 0;
   bottom: 0;
 }
-
-/* input:checked + label {
-	border-color: black;
-} */
-
-/* .login-input {
-    @apply w-full p-3
-} */
-
-/* input[type='email'], input[type='password']  {
-    @apply w-full my-3 px-3;
-    border-bottom: 1px solid black;
-} */
-
-/* .login-input:focus + label {
-    @apply  top-[11%] right-[50%] text-xs
-} */
-
-/* button.primary {
-    @apply bg-black text-white rounded-lg p-2;
-}
-
-.submit-form-input {
-    @apply border-slate-950 border bg-slate-200 p-1
-}
-
-.submit-form-radio label {
-    @apply cursor-pointer rounded-xl bg-blue-300 text-white p-1 select-none m-1 
-}
-
-.submit-form-radio input[type='radio'] {
-    @apply appearance-none
-} */

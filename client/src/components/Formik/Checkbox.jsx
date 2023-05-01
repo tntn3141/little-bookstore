@@ -11,20 +11,28 @@ export default function Checkbox(props) {
     labelStyle,
     inputStyle,
     subLabelStyle,
+    reset,
     ...rest
   } = props;
-  const defaultLabelStyle = "font-bold text-base my-1";
-  const defaultInputStyle = "hidden peer";
-  const defaultSubLabelStyle =
+  let defaultClassName = "my-4 relative ";
+  let defaultLabelStyle = "font-bold text-base my-1 ";
+  let defaultInputStyle = "hidden peer ";
+  let defaultSubLabelStyle =
     "inline-flex items-center justify-between p-1 " +
     "rounded-md cursor-pointer border-2 border-slate-800 " +
     "peer-checked:bg-slate-800 peer-checked:text-white " +
     "md:hover:text-white md:hover:bg-slate-500 ";
-
+  if (reset) {
+    defaultClassName = "";
+    defaultLabelStyle = "";
+    defaultInputStyle = "";
+    defaultSubLabelStyle = "";
+  }
+  
   return (
     <div
       className={
-        "my-4 relative  " + (className ? className : "")
+        defaultClassName + (className ? className : "")
       }
     >
       <div className="my-1">

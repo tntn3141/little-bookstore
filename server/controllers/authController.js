@@ -4,14 +4,16 @@ import jwt from "jsonwebtoken";
 import UserModel from "../models/userModel.js";
 
 export const register = async (req, res, next) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, admin } = req.body;
   const bcryptSalt = bcrypt.genSaltSync(10);
+  let isAdmin = (admin === "true");
 
   try {
     const newUser = await UserModel.create({
       name,
       email,
       password: bcrypt.hashSync(password, bcryptSalt),
+      isAdmin: isAdmin
     });
     res.json(newUser);
   } catch (error) {

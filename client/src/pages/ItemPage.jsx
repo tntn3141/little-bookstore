@@ -47,7 +47,7 @@ export default function ItemPage() {
                 {data.author}
               </Typography>
               <Rating
-                user_id={user._id}
+                user_id={user?._id || null}
                 item_id={itemId}
                 ratings={[data.ratingAllPoints, data.ratingAllTimes]}
                 className="flex gap-2 items-center"

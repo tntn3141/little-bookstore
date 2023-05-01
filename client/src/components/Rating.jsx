@@ -19,16 +19,20 @@ export default function Rating(props) {
   }, []);
 
   async function handleRating(value) {
-    try {
-      setRating(value);
-      const response = await axios.post("/api/rating/", {
-        user_id: user_id,
-        item_id: item_id,
-        value: value,
-      });
-      setRating(response.data.value);
-    } catch (error) {
-      alert("Rating failed. " + error);
+    if (!user_id) {
+      alert("Please log in to do this action");
+    } else {
+      try {
+        setRating(value);
+        const response = await axios.post("/api/rating/", {
+          user_id: user_id,
+          item_id: item_id,
+          value: value,
+        });
+        setRating(response.data.value);
+      } catch (error) {
+        alert("Rating failed. " + error);
+      }
     }
   }
 

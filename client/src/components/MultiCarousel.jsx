@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 
 function MultiCarousel(props) {
   const { items } = props;
-  console.log(items);
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
