@@ -16,6 +16,7 @@ export default function useFetch(url, configOptions) {
   }, [url]);
 
   const refetch = () => {
+    console.log("refetching...");
     setLoading(true);
     axios
       .get(url, configOptions)

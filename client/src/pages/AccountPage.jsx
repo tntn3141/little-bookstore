@@ -4,7 +4,7 @@ import { Navigate, Link, useParams } from "react-router-dom";
 
 import { UserContext } from "../UserContext";
 import BookRegistrationForm from "../components/BookRegistrationForm";
-import BookManager from "../components/BookManager";
+import ProductDisplay from "../components/ProductDisplay";
 
 export default function AccountPage() {
   const { ready, user, setUser } = useContext(UserContext);
@@ -72,7 +72,7 @@ export default function AccountPage() {
         </div>
       )}
       {subpage === "dashboard" && user.isAdmin && <BookRegistrationForm />}
-      {subpage === "wish-list" && <BookManager />}
+      {subpage === "wish-list" && <ProductDisplay />}
     </div>
   );
 }

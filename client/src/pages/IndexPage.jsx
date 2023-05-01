@@ -1,11 +1,11 @@
-import BookManager from "../components/BookManager";
+import ProductDisplay from "../components/ProductDisplay";
 import Hero from "../components/Hero";
 
 export default function IndexPage() {
   return (
     <>
       <Hero />
-      <BookManager />
+      <ProductDisplay />
     </>
   );
 }
