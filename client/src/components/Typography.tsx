@@ -11,7 +11,9 @@ type Variant =
   | "body-big"
   | "body"
   | "body-small"
-  | "small";
+  | "small"
+  | "title"
+  | "author";
 
 interface Props {
   variant: Variant;
@@ -31,7 +33,9 @@ const tags: Record<Variant, ElementType> = {
   "body-big": "p",
   body: "p",
   "body-small": "p",
-  small: "span"
+  small: "span",
+  title: "p",
+  author: "p"
 };
 
 const sizes: Record<Variant, string> = {
@@ -45,7 +49,9 @@ const sizes: Record<Variant, string> = {
   "body-big": "text-xl font-bold md:text-lg lg:text-xl",
   body: "text-lg md:text-md lg:text-lg",
   "body-small": "text-md md:text-sm lg:text-md",
-  small: "text-sm sm:text-xs"
+  small: "text-sm sm:text-xs",
+  title: "text-sm font-bold sm:text-md lg:text-lg",
+  author: "italic text-sm sm:text-md lg:text-lg",
 };
 
 export const Typography = ({ variant, children, className, as }: Props) => {

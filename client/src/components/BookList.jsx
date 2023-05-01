@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { Typography } from "./Typography";
 
 export default function BookList(props) {
   const { items } = props;
@@ -8,21 +9,19 @@ export default function BookList(props) {
       currency: "VND",
     }).format(value);
 
-  console.log(items)
-
   return (
-    <div className="flex flex-wrap">
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
       {items.map((item) => {
         return (
           <div
             key={item._id}
-            className="flex flex-col m-4 gap-4 border border-red-500 items-center mx-auto "
+            className="flex flex-col items-center mx-auto border p-4 text-center"
           >
             <Link to={`/item/${item._id}`}>
               <img src={item.coverImage} alt="" width="100" className="mx-auto"/>
               <div>
-                <p className="text-xl font-bold">{item.title}</p>
-                <p className="italic">{item.author}</p>
+                <Typography variant="title" className="line-clamp-2">{item.title}</Typography>
+                <Typography variant="author">{item.author}</Typography>
                 <p className="font-bold">{vndPrice(item.price)}</p>
               </div>
             </Link>

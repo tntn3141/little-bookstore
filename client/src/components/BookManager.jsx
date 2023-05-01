@@ -34,8 +34,6 @@ export default function BookManager() {
           Load more
         </button>
       )}
-      {data && <MultiCarousel items={data} />}
-      <p>ssssssssssssssss</p>
       {/* <div className="flex my-4 mx-auto place-content-center">
         <input type="text" value={query} onChange={handleSearch} />
       </div> */}

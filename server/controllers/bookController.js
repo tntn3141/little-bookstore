@@ -106,8 +106,9 @@ export const getBooks = async (req, res, next) => {
     }
   }
 
+
+  // Simple recommendation algorithm (average rating)
   if (recommendation) {
-    // Simple recommendation algorithm (average rating)
     try {
       const recommendedBooks = await BookModel.aggregate([
         { $match: { _id: { $nin: [recommendation] } } },
