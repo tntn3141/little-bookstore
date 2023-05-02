@@ -22,8 +22,8 @@ input[type="radio"]:checked + label {
   bottom: 0;
 }
 
-/* Formik and other types of input */
-/* Single */
+/* Formik and other types of input START */
+
 .default-container {
   @apply my-4 relative;
 }
@@ -36,6 +36,10 @@ input[type="radio"]:checked + label {
   @apply my-1 bg-slate-200 text-justify border-2 
   appearance-none w-full p-1 border-gray-200 focus:outline-none 
   focus:bg-white focus:border-blue-500;
+}
+
+.default-select-input {
+  @apply mx-2 border border-black;
 }
 
 /* Multiple items, like radio, checkbox */
@@ -64,5 +68,30 @@ input[type="radio"]:checked + label {
 .default-textarea-input {
   @apply my-1 bg-slate-200 text-justify border-2 resize-y
   appearance-none w-full p-1 border-gray-200
-  focus:outline-none focus:bg-white focus:border-blue-500
+  focus:outline-none focus:bg-white focus:border-blue-500;
 }
+
+.default-slider-input {
+  @apply w-full h-2 bg-gray-200 rounded-lg appearance-none 
+  cursor-pointer dark:bg-gray-700;
+}
+
+.default-tristate-container {
+  @apply my-4 relative flex items-center flex-wrap;
+}
+
+.default-tristate-input {
+  @apply text-center justify-between p-1 rounded-md my-1
+  cursor-pointer border-2 border-slate-800
+  md:hover:text-white md:hover:bg-slate-500;
+}
+
+.default-tristate-positive {
+  @apply text-white bg-slate-800;
+}
+
+.default-tristate-negative {
+  @apply bg-slate-300 border-dashed;
+}
+
+/* Formik and other types of input END */

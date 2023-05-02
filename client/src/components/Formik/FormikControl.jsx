@@ -5,6 +5,7 @@ import Select from "./Select";
 import Radio from "./Radio";
 import Checkbox from "./Checkbox";
 import TristateHelper from "./TristateHelper";
+import RangeSlider from "./RangeSlider";
 import ImageUpload from "../ImageUpload";
 
 export default function FormikControl(props) {
@@ -23,6 +24,8 @@ export default function FormikControl(props) {
       return <Checkbox {...rest} />;
     case "tristate-checkbox":
       return <TristateHelper {...rest} />;
+    case "range-slider":
+      return <RangeSlider {...rest} />;
     case "upload":
       return <ImageUpload {...rest} />;
     default:

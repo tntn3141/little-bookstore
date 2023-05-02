@@ -2,22 +2,26 @@ import { Field } from "formik";
 import TristateCheckbox from "./TristateCheckbox";
 
 export default function Tristate(props) {
-  const { label, name, manualSetFieldValue, options, className, labelStyle, inputStyle, } =
-    props;
-  // There must be a whitespace at the end of the following string
-  const defaultLabelStyle = "font-bold text-base my-1 ";
+  const {
+    label,
+    name,
+    manualSetFieldValue,
+    options,
+    containerStyle,
+    labelStyle,
+  } = props;
 
   return (
     // The whitespace at the end of the string & the round brackets
     // enclosing the ternary operators are important!
     <div
       className={
-        "my-4 relative flex items-center flex-wrap " + (className ? className : "")
+        "default-tristate-container " + (containerStyle ? containerStyle : "")
       }
     >
       <label
         htmlFor={name}
-        className={defaultLabelStyle + (labelStyle ? labelStyle : "")}
+        className={"default-label " + (labelStyle ? labelStyle : "")}
       >
         {label}
       </label>

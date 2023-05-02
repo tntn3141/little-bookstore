@@ -17,10 +17,10 @@ export default function Footer() {
           <img src={email} alt="" />
           <Typography variant="md">tntn3141@gmail.com</Typography>
         </div>
-        <div className="flex gap-2">
-          <img src={github24} alt="" />
-          <a href="https://github.com/tntn3141">
-            <Typography variant="md">https://github.com/tntn3141</Typography>
+        <div>
+          <a href="https://github.com/tntn3141" className="flex gap-2">
+            <img src={github24} alt="" />
+            <Typography variant="md" className="hover:underline-offset-1 hover:underline">https://github.com/tntn3141</Typography>
           </a>
         </div>
       </div>

@@ -17,11 +17,11 @@ export default function BookList(props) {
               <div className="flex flex-col h-[100%] p-2">
                 <img src={item.coverImage} alt="" className="h-[75%]" />
                 <div>
-                  <Typography variant="title" className="line-clamp-1">
+                  <Typography variant="lg" className="line-clamp-1 font-normal sm:font-bold">
                     {item.title}
                   </Typography>
-                  <Typography variant="author">{item.author}</Typography>
-                  <Typography variant="title" className="text-red-600 font-bold">
+                  <Typography variant="author" className="line-clamp-1">{item.author}</Typography>
+                  <Typography variant="lg" className="text-red-600 font-bold">
                     {getVNDPrice(item.price)}
                   </Typography>
                 </div>

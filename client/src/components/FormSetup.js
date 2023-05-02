@@ -77,3 +77,20 @@ export const bookTags = [
   { key: "Graphic Novel", value: "Graphic Novel" },
   { key: "Arts", value: "Arts" },
 ];
+
+// Meant for price range in search/filter
+// The quote syntax of values should be ' "example": 123 ' 
+// so that JSON.parse works properly
+export const bookPriceRanges = [
+  { key: "Any", value: "" },
+  { key: "< 200,000 VND", value: '{ "$lt": 200000 }' },
+  {
+    key: "200,000 - 400,000 VND",
+    value: '{ "$gte": 200000, "$lte": 400000 }',
+  },
+  {
+    key: "400,000 - 600,000 VND",
+    value: '{ "$gte": 400000, "$lte": 600000 }',
+  },
+  { key: "> 600,000 VND", value: '{ "$gt": 600000 }' },
+];
