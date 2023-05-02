@@ -61,8 +61,8 @@ export default function SearchSidebarNew() {
       onSubmit={handleSearchSubmit}
     >
       {(formik) => (
-        <div className="flex flex-col my-2 mx-auto place-content-center w-[90%]">
-          <div className="flex gap-6 my-2 justify-center">
+        <div className="flex flex-col my-2 mx-auto place-content-center w-[90%] lg:w-[50%]">
+          <div className="flex gap-4 my-2 justify-center">
             <button
               type="button"
               onClick={() => {
@@ -72,10 +72,14 @@ export default function SearchSidebarNew() {
             >
               {filterActive ? <FilterSolidSVG /> : <FilterSVG />}
             </button>
-            <div>
+            <div className="flex">
               <input
                 type="text"
-                
+                className={"default-input"
+                  // "my-1 bg-slate-200 text-justify border-2 " +
+                  // "appearance-none w-full p-1 border-gray-200 " +
+                  // "focus:outline-none focus:bg-white focus:border-blue-500"
+                }
                 onChange={(e) => setKey(e.target.value)}
               />
               {livesearchResult && (
@@ -87,14 +91,14 @@ export default function SearchSidebarNew() {
                   })}
                 </div>
               )}
-            </div>
-            <button
+              <button
                 type="button"
                 className="bg-black text-white font-bold px-3"
                 onClick={() => console.log("clicked")}
               >
                 <SearchSVG />
               </button>
+            </div>
           </div>
           <Form>
             {filterActive && (

@@ -7,25 +7,27 @@ import FormikErrorMessageText from "./FormikErrorMessageText";
 // Why did I use "{...field}" at line 26? Because I needed to make of use formik's onBlur, onChange, name inside "field"
 // You can use destructuring to get onBlur, onChange, name out instead to replace "{...field}" on line 26, but this looks cleaner in my opinion
 
-// Default style: radio input is invisible
+// Default style: radio input is not displayed
 
 export default function Radio(props) {
-  const { label, name, options, className, labelStyle, inputStyle, ...rest } =
-    props;
-  const defaultLabelStyle = "font-bold text-base my-1";
-  const defaultInputStyle = "appearance-none";
+  const {
+    label,
+    name,
+    options,
+    containerStyle,
+    labelStyle,
+    inputStyle,
+    subLabelstyle,
+    ...rest
+  } = props;
 
   return (
     // The whitespace at the end of the string & the round brackets
     // enclosing the ternary operators are important!
-    <div
-      className={
-        "my-2 relative flex items-center " + (className ? className : "")
-      }
-    >
+    <div className={"default-list-container " + (containerStyle ? containerStyle : "")}>
       <label
         htmlFor={name}
-        className={defaultLabelStyle + " " + (labelStyle ? labelStyle : "")}
+        className={"default-label " + (labelStyle ? labelStyle : "")}
       >
         {label}
       </label>
@@ -37,17 +39,18 @@ export default function Radio(props) {
                 <input
                   type="radio"
                   id={option.value}
-                  className={defaultInputStyle + " " + inputStyle}
+                  className={
+                    "default-list-input " + (inputStyle ? inputStyle : "")
+                  }
                   {...field} // Refer to the comment on line 5
                   value={option.value} // Refer to the comment on line 5
                   checked={field.value === option.value}
                 />
                 <label
                   htmlFor={option.value}
-                  className="inline-flex items-center text-base  
-                    p-1 rounded-md cursor-pointer justify-between
-                    md:hover:text-white md:hover:bg-slate-500
-                    border-2 border-slate-800 select-none"
+                  className={
+                    "default-list-label " + (subLabelstyle ? subLabelstyle : "")
+                  }
                 >
                   {option.key}
                 </label>

@@ -21,3 +21,48 @@ input[type="radio"]:checked + label {
   left: 0;
   bottom: 0;
 }
+
+/* Formik and other types of input */
+/* Single */
+.default-container {
+  @apply my-4 relative;
+}
+
+.default-label {
+  @apply font-bold text-base my-1;
+}
+
+.default-input {
+  @apply my-1 bg-slate-200 text-justify border-2 
+  appearance-none w-full p-1 border-gray-200 focus:outline-none 
+  focus:bg-white focus:border-blue-500;
+}
+
+/* Multiple items, like radio, checkbox */
+.default-list-container {
+  @apply my-2 relative flex items-center;
+}
+
+.default-list-label {
+  @apply inline-flex items-center text-base  
+  justify-between p-1 rounded-md cursor-pointer 
+  md:hover:text-white md:hover:bg-slate-500
+  border-2 border-slate-800 select-none;
+}
+
+.default-list-input {
+  @apply appearance-none;
+}
+
+.default-checkbox-sublabel {
+  @apply inline-flex items-center justify-between select-none
+  p-1 rounded-md cursor-pointer border-2 border-slate-800
+  peer-checked:bg-slate-800 peer-checked:text-white
+  md:hover:text-white md:hover:bg-slate-500;
+}
+
+.default-textarea-input {
+  @apply my-1 bg-slate-200 text-justify border-2 resize-y
+  appearance-none w-full p-1 border-gray-200
+  focus:outline-none focus:bg-white focus:border-blue-500
+}

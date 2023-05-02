@@ -14,3 +14,4 @@ export function removeFalsyValues(array) {
   );
   return result;
 }
+
