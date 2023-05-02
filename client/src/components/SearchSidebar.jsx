@@ -1,13 +1,14 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Formik, Form } from "formik";
+import { useState, useEffect } from "react";
 
 import { FilterSVG, FilterSolidSVG, SearchSVG } from "../assets/svg";
-import BookList from "./BookList";
 import FormikControl from "./Formik/FormikControl";
 import { bookTags, bookFormats, bookPriceRanges } from "./FormSetup.js";
 import { removeFalsyValues } from "../helpers/helpers";
 import { Typography } from "./Typography";
+import { getVNDPrice } from "../helpers/helpers";
 
 export default function SearchSidebarNew() {
   const [filterActive, setFilterActive] = useState(false);
@@ -21,14 +22,13 @@ export default function SearchSidebarNew() {
   async function getSearchResult() {
     try {
       if (!key.trim()) {
-        console.log("trim")
+        console.log("trim");
         setSearchResult([]);
         return;
       }
       const response = await axios.get("/api/books", {
-        params: { searchQuery: key, _limit: 4 },
+        params: { searchQuery: key, _limit: 3 },
       });
-      console.log(response.data);
       setSearchResult(response.data);
     } catch (error) {
       alert(error);
@@ -63,8 +63,6 @@ export default function SearchSidebarNew() {
       alert(error);
     }
   }
-
-  console.log("searchresult", searchResult)
 
   return (
     <Formik
@@ -102,20 +100,48 @@ export default function SearchSidebarNew() {
               </button>
             </div>
           </div>
-          {(searchResult && searchResult.length >= 1) && (
-                <div className="flex flex-col">
-                  {searchResult.map((result) => {
-                    console.log("11111111111");
-                    return (
-                      <div key={result._id} className="flex h-[20%]">
-                        <img src={result.coverImage} alt="" height="100px"/>
-                        <Typography variant="body">{result.title}</Typography>
+          {searchResult && searchResult.length >= 1 && (
+            <div
+              className={
+                "grid grid-rows-[120px_120px_120px]" +
+                "mx-auto relative bottom-3"
+              }
+            >
+              {searchResult.map((result) => {
+                return (
+                  <div key={result._id}>
+                    <Link
+                      to={`/item/${result._id}`}
+                      className={
+                        "flex gap-2 md:gap-4 z-10 hover:text-white hover:bg-slate-900"
+                      }
+                    >
+                      <img
+                        src={result.coverImage}
+                        alt=""
+                        className="h-[120px]"
+                      />
+                      <div>
+                        <Typography
+                          variant="body"
+                          className="line-clamp-1 font-bold"
+                        >
+                          {result.title}
+                        </Typography>
                         <Typography variant="body">{result.author}</Typography>
+                        <Typography
+                          variant="body"
+                          className="text-red-600 font-bold"
+                        >
+                          {getVNDPrice(result.price)}
+                        </Typography>
                       </div>
-                    );
-                  })}
-                </div>
-              )}
+                    </Link>
+                  </div>
+                );
+              })}
+            </div>
+          )}
           <Form>
             {filterActive && (
               <div>
