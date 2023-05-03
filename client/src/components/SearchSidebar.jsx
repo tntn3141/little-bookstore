@@ -58,8 +58,8 @@ export default function SearchSidebarNew() {
       const response = await axios.get("/api/books", {
         params: { filterQuery: filteredValues },
       });
-      const result = response.data
-      navigate("/search-result", {state: {result}});
+      const result = response.data;
+      navigate("/search-result", { state: { result } });
     } catch (error) {
       alert(error);
     }
@@ -72,7 +72,7 @@ export default function SearchSidebarNew() {
       onSubmit={handleSearchSubmit}
     >
       {(formik) => (
-        <div className="flex flex-col my-2 mx-auto w-[90%] lg:w-[60%]">
+        <div className="flex flex-col my-2 mx-auto w-[90%] lg:w-[60%] relative">
           <div className="flex gap-3 my-2 justify-center">
             <button
               type="button"
@@ -87,6 +87,7 @@ export default function SearchSidebarNew() {
               <input
                 type="text"
                 className="my-1 text-justify border-2 
+                w-[200px] sm:w-[300px] md:w-[400px] 
                 p-1 border-gray-800 focus:outline-none 
                 focus:bg-white focus:border-blue-500"
                 onChange={(e) => setKey(e.target.value)}
@@ -105,7 +106,7 @@ export default function SearchSidebarNew() {
             <div
               className={
                 "grid grid-rows-[120px_120px_120px]" +
-                "mx-auto relative bottom-3"
+                "mx-auto z-10 absolute top-[47px] w-full sm:w-[80%] sm:left-[10%]"
               }
             >
               {searchResult.map((result, index) => {
@@ -113,10 +114,8 @@ export default function SearchSidebarNew() {
                   <div key={result._id} className="relative">
                     <Link
                       to={`/item/${result._id}`}
-                      className={
-                        `flex gap-2 md:gap-4 z-10 hover:text-white hover:bg-slate-900 
-                        absolute top-[${120 * index}px] bg-white w-[100%]`
-                      }
+                      className={`flex gap-2 md:gap-4 z-10 hover:text-white hover:bg-slate-900 
+                       bg-white w-[100%]`}
                     >
                       <img
                         src={result.coverImage}
