@@ -70,7 +70,9 @@ export default function Header() {
 
         <ul
           ref={wrapperRef}
-          className={`md:flex md:items-center md:pb-0 pb-12 mt-5 md:mt-0 absolute md:static bg-white md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-9 transition-all duration-500 ease-in ${
+          className={`md:flex md:items-center md:pb-0 pb-12 mt-5 md:mt-0 absolute  
+          md:static bg-white md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-9 
+          transition-all duration-500 ease-in ${
             open ? "top-15" : "top-[-490px]"
           }`}
         >

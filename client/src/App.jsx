@@ -9,6 +9,8 @@ import { UserContextProvider } from "./UserContext";
 import LoginPage1 from "./pages/LoginPage";
 import ItemPage from "./pages/ItemPage";
 import TagPage from "./pages/TagPage";
+import SearchResultPage from "./pages/SearchResultPage";
+import NotFound404Page from "./pages/NotFound404Page";
 
 axios.defaults.baseURL = "http://127.0.0.1:4000";
 axios.defaults.withCredentials = true;
@@ -24,6 +26,8 @@ function App() {
           <Route path="/account/:subpage?" element={<AccountPage />} />
           <Route path="/item/:itemId" element={<ItemPage />} />
           <Route path="/tags/:tag" element={<TagPage />} />
+          <Route path="/search-result" element={<SearchResultPage />} />
+          <Route path="*" element={<NotFound404Page />} />
         </Route>
       </Routes>
     </UserContextProvider>

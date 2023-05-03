@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form } from "formik";
 import { useState, useEffect } from "react";
 
@@ -14,6 +14,7 @@ export default function SearchSidebarNew() {
   const [filterActive, setFilterActive] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
   const [key, setKey] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     getSearchResult();
@@ -22,7 +23,6 @@ export default function SearchSidebarNew() {
   async function getSearchResult() {
     try {
       if (!key.trim()) {
-        console.log("trim");
         setSearchResult([]);
         return;
       }
@@ -58,7 +58,8 @@ export default function SearchSidebarNew() {
       const response = await axios.get("/api/books", {
         params: { filterQuery: filteredValues },
       });
-      console.log("Result: ", response.data);
+      const result = response.data
+      navigate("/search-result", {state: {result}});
     } catch (error) {
       alert(error);
     }
@@ -107,18 +108,19 @@ export default function SearchSidebarNew() {
                 "mx-auto relative bottom-3"
               }
             >
-              {searchResult.map((result) => {
+              {searchResult.map((result, index) => {
                 return (
-                  <div key={result._id}>
+                  <div key={result._id} className="relative">
                     <Link
                       to={`/item/${result._id}`}
                       className={
-                        "flex gap-2 md:gap-4 z-10 hover:text-white hover:bg-slate-900"
+                        `flex gap-2 md:gap-4 z-10 hover:text-white hover:bg-slate-900 
+                        absolute top-[${120 * index}px] bg-white w-[100%]`
                       }
                     >
                       <img
                         src={result.coverImage}
-                        alt=""
+                        alt={`${result.title} cover`}
                         className="h-[120px]"
                       />
                       <div>

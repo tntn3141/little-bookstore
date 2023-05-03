@@ -41,6 +41,7 @@ export const getBooks = async (req, res, next) => {
   const { _skip, _limit, searchQuery, filterQuery, recommendation } = req.query;
   // Get value of limit param. If undefined, set it to 10 by default
   const limit = parseInt(_limit) || 10;
+  console.log(req.query)
 
   // "Load more" pagination feature
   if (_skip) {
