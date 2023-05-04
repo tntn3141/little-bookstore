@@ -10,24 +10,27 @@ import {
   XSVG,
 } from "../assets/svg";
 import { UserContext } from "../UserContext";
+import { ShopContext } from "../ShopContext";
+import { Cart } from "./Cart";
 
 export default function Header() {
   let [open, setOpen] = useState(false);
   const { user } = useContext(UserContext);
-  
+  const { openCart, cartQuantity } = useContext(ShopContext);
+
   // To close submenu when changing route on mobile
   const { pathname } = useLocation();
   useEffect(() => {
     setOpen(false);
-  }, [pathname])
+  }, [pathname]);
 
   // To close submenu when clicking outside of it on mobile
   const wrapperRef = useRef(null);
   useOutsideAlerter(wrapperRef);
 
   const links = [
-    { name: "Trending", link: "/trending" },
     { name: "Best Sellers", link: "/best-sellers" },
+    { name: "Search", link: "/search" },
     { name: "About Us", link: "/about" },
   ];
 
@@ -50,8 +53,6 @@ export default function Header() {
   return (
     <header className="shadow-md w-full bg-white fixed top-0 z-10 m-0">
       <nav className="p-5 bg-white shadow md:flex md:items-center md:justify-between">
-        {/* Logo & menu icon */}
-
         <div className="flex justify-between items-center">
           <Link to={"/"}>
             <span className="text-2xl font-[Poppins] cursor-pointer flex items-center">
@@ -59,10 +60,12 @@ export default function Header() {
               <span className="mx-1">lorem</span>
             </span>
           </Link>
-
+          <div className="text-3xl absolute right-16 top-6 cursor-pointer md:hidden">
+            <ShoppingBagSVG onClick={openCart} />
+          </div>
           <div
             onClick={() => setOpen(!open)}
-            className="text-3xl absolute right-8 top-6 cursor-pointer md:hidden"
+            className="text-3xl absolute right-4 top-6 cursor-pointer md:hidden"
           >
             {open ? <XSVG /> : <MenuSVG />}
           </div>
@@ -70,8 +73,8 @@ export default function Header() {
 
         <ul
           ref={wrapperRef}
-          className={`md:flex md:items-center md:pb-0 pb-12 mt-5 md:mt-0 absolute  
-          md:static bg-white md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-9 
+          className={`md:flex md:items-center md:pb-0 pb-6 pt-2 md:pt-0 mt-5 md:mt-0 
+          absolute md:static bg-white md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-9 
           transition-all duration-500 ease-in ${
             open ? "top-15" : "top-[-490px]"
           }`}
@@ -87,10 +90,12 @@ export default function Header() {
             </li>
           ))}
           <li className="md:hidden text-xl my-10">
-            <Link to="/account" className="text-gray-800 hover:text-gray-400 duration-500">Account</Link>
-          </li>
-          <li className="md:hidden text-xl my-10">
-            <Link className="text-gray-800 hover:text-gray-400 duration-500">Cart</Link>
+            <Link
+              to="/account"
+              className="text-gray-800 hover:text-gray-400 duration-500"
+            >
+              Account
+            </Link>
           </li>
         </ul>
 
@@ -100,7 +105,8 @@ export default function Header() {
               <UserSVG fill={!!user ? "currentColor" : "none"} />
             </Link>
 
-            <ShoppingBagSVG />
+            <ShoppingBagSVG onClick={openCart} />
+            {cartQuantity}
           </span>
         </div>
       </nav>

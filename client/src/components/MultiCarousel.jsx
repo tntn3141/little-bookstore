@@ -25,10 +25,15 @@ function MultiCarousel(props) {
     },
   };
   return (
-    <Carousel responsive={responsive} itemClass="p-4 w-[60%]">
+    <Carousel
+      responsive={responsive}
+      infinite={true}
+      minimumTouchDrag={10}
+      itemClass="p-4 w-[60%]"
+    >
       {items.map((item) => (
         <div key={item._id} className="flex flex-col justify-center h-[150px]">
-          <Link to={`/item/${item._id}`}>
+          <Link to={`/items/${item._id}`}>
             <div className="flex justify-center h-[100px]">
               <img
                 src={item.coverImage}

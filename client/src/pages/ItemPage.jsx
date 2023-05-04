@@ -8,6 +8,7 @@ import LoadingIcon from "../components/LoadingIcon";
 import { getVNDPrice } from "../helpers/helpers";
 import { Typography } from "../components/Typography";
 import { UserContext } from "../UserContext";
+import { ShopContext } from "../ShopContext";
 
 import {
   BookSVG,
@@ -22,6 +23,7 @@ import Recommendation from "../components/Recommendation";
 
 export default function ItemPage() {
   const { user } = useContext(UserContext);
+  const { increaseItemQuantity } = useContext(ShopContext);
   let { itemId } = useParams();
   const {data, loading, error} = useFetch(`/api/books/${itemId}`)
 
@@ -67,7 +69,9 @@ export default function ItemPage() {
                   "w-full p-2 rounded-xl border border-slate-800 " +
                   "bg-white hover:bg-slate-900 hover:text-white "
                 }
-                onClick={() => console.log("Cart")}
+                // Pass every info of this item so cart doesn't have to
+                // retrieve them again?
+                onClick={() => increaseItemQuantity(data)}
               >
                 <Typography variant="lg">Add to Cart</Typography>
               </button>

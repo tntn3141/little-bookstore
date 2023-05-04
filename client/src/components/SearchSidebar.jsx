@@ -3,7 +3,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form } from "formik";
 import { useState, useEffect } from "react";
 
-import { FilterSVG, FilterSolidSVG, SearchSVG } from "../assets/svg";
+import {
+  FilterSVG,
+  FilterSolidSVG,
+  SearchSVG,
+  ArrowRightSVG,
+} from "../assets/svg";
 import FormikControl from "./Formik/FormikControl";
 import { bookTags, bookFormats, bookPriceRanges } from "./FormSetup.js";
 import { removeFalsyValues } from "../helpers/helpers";
@@ -13,6 +18,7 @@ import { getVNDPrice } from "../helpers/helpers";
 export default function SearchSidebarNew() {
   const [filterActive, setFilterActive] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
+  const [focused, setFocused] = useState(false);
   const [key, setKey] = useState("");
   const navigate = useNavigate();
 
@@ -73,7 +79,7 @@ export default function SearchSidebarNew() {
     >
       {(formik) => (
         <div className="flex flex-col my-2 mx-auto w-[90%] lg:w-[60%] relative">
-          <div className="flex gap-3 my-2 justify-center">
+          <div className="flex gap-3 mt-2 justify-center">
             <button
               type="button"
               onClick={() => {
@@ -86,66 +92,75 @@ export default function SearchSidebarNew() {
             <div className="flex">
               <input
                 type="text"
-                className="my-1 text-justify border-2 
-                w-[200px] sm:w-[300px] md:w-[400px] 
+                className="mt-1 text-justify border-2 md:w-[300px] 
                 p-1 border-gray-800 focus:outline-none 
                 focus:bg-white focus:border-blue-500"
                 onChange={(e) => setKey(e.target.value)}
+                onFocus={() => setFocused(true)}
+                onBlur={() => setFocused(false)}
               />
 
               <button
                 type="button"
-                className="bg-black text-white font-bold px-2 h-[35px] mt-1"
+                className="bg-black text-white font-bold px-2 h-[36px] mt-1"
                 onClick={() => console.log("clicked")}
               >
                 <SearchSVG />
               </button>
             </div>
           </div>
-          {searchResult && searchResult.length >= 1 && (
-            <div
-              className={
-                "grid grid-rows-[120px_120px_120px]" +
-                "mx-auto z-10 absolute top-[47px] w-full sm:w-[80%] sm:left-[10%]"
-              }
-            >
-              {searchResult.map((result, index) => {
-                return (
-                  <div key={result._id} className="relative">
-                    <Link
-                      to={`/item/${result._id}`}
-                      className={`flex gap-2 md:gap-4 z-10 hover:text-white hover:bg-slate-900 
-                       bg-white w-[100%]`}
-                    >
-                      <img
-                        src={result.coverImage}
-                        alt={`${result.title} cover`}
-                        className="h-[120px]"
-                      />
-                      <div>
-                        <Typography
-                          variant="body"
-                          className="line-clamp-1 font-bold"
-                        >
-                          {result.title}
-                        </Typography>
-                        <Typography variant="body">{result.author}</Typography>
-                        <Typography
-                          variant="body"
-                          className="text-red-600 font-bold"
-                        >
-                          {getVNDPrice(result.price)}
-                        </Typography>
-                      </div>
-                    </Link>
-                  </div>
-                );
-              })}
+          {focused && (
+            <div className="flex flex-col relative">
+              <div className="mx-auto w-[100%] border border-slate-600 p-2 flex justify-between">
+                <span className="font-bold">Enter some query...</span>
+                <ArrowRightSVG className="w-6 h-6 hover:text-blue-600 cursor-pointer" onClick={() => console.log("advanced search clicked")}/>
+              </div>
+              <div
+                className={
+                  "grid grid-rows-[120px_120px_120px] z-10 absolute top-[47px] " +
+                  "mx-auto w-full sm:w-[80%] sm:left-[10%] "
+                }
+              >
+                {searchResult.map((result) => {
+                  return (
+                    <div key={result._id}>
+                      <Link
+                        to={`/items/${result._id}`}
+                        className={`flex gap-2 md:gap-4 z-10 hover:text-white hover:bg-slate-900 
+                       bg-white w-[100%] border border-slate-300`}
+                      >
+                        <img
+                          src={result.coverImage}
+                          alt={`${result.title} cover`}
+                          className="h-[120px] w-[90px]"
+                        />
+                        <div>
+                          <Typography
+                            variant="body"
+                            className="line-clamp-2 font-bold"
+                          >
+                            {result.title}
+                          </Typography>
+                          <Typography variant="body-small" className="italic">
+                            {result.author}
+                          </Typography>
+                          <Typography
+                            variant="body"
+                            className="text-red-600 font-bold"
+                          >
+                            {getVNDPrice(result.price)}
+                          </Typography>
+                        </div>
+                      </Link>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           )}
           <Form>
             {filterActive && (
-              <div>
+              <div className="absolute z-10 bg-white p-4 border-2 border-slate-800 top-11 flex flex-col">
                 <div className="sm:grid sm:grid-cols-2">
                   <FormikControl
                     control="input"
@@ -189,9 +204,9 @@ export default function SearchSidebarNew() {
                 />
                 <button
                   type="submit"
-                  className="bg-black text-white font-bold p-2"
+                  className="bg-black text-white font-bold p-2 w-[200px] mx-auto"
                 >
-                  SEARCH!
+                  Search
                 </button>
               </div>
             )}
