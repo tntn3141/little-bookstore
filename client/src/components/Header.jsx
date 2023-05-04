@@ -14,14 +14,15 @@ import { ShopContext } from "../ShopContext";
 import { Cart } from "./Cart";
 
 export default function Header() {
-  let [open, setOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [cartOpen, setCartOpen] = useState(false);
   const { user } = useContext(UserContext);
-  const { openCart, cartQuantity } = useContext(ShopContext);
+  const { cartQuantity } = useContext(ShopContext);
 
   // To close submenu when changing route on mobile
   const { pathname } = useLocation();
   useEffect(() => {
-    setOpen(false);
+    setMenuOpen(false);
   }, [pathname]);
 
   // To close submenu when clicking outside of it on mobile
@@ -38,7 +39,7 @@ export default function Header() {
     useEffect(() => {
       function handleClickOutside(event) {
         if (ref.current && !ref.current.contains(event.target)) {
-          setOpen(false);
+          setMenuOpen(false);
         }
       }
       // Bind the event listener
@@ -61,13 +62,13 @@ export default function Header() {
             </span>
           </Link>
           <div className="text-3xl absolute right-16 top-6 cursor-pointer md:hidden">
-            <ShoppingBagSVG onClick={openCart} />
+            <ShoppingBagSVG onClick={() => setCartOpen(!cartOpen)} />
           </div>
           <div
-            onClick={() => setOpen(!open)}
+            onClick={() => setMenuOpen(!menuOpen)}
             className="text-3xl absolute right-4 top-6 cursor-pointer md:hidden"
           >
-            {open ? <XSVG /> : <MenuSVG />}
+            {menuOpen ? <XSVG /> : <MenuSVG />}
           </div>
         </div>
 
@@ -76,7 +77,7 @@ export default function Header() {
           className={`md:flex md:items-center md:pb-0 pb-6 pt-2 md:pt-0 mt-5 md:mt-0 
           absolute md:static bg-white md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-9 
           transition-all duration-500 ease-in ${
-            open ? "top-15" : "top-[-490px]"
+            menuOpen ? "top-15" : "top-[-490px]"
           }`}
         >
           {links.map((link) => (
@@ -105,11 +106,12 @@ export default function Header() {
               <UserSVG fill={!!user ? "currentColor" : "none"} />
             </Link>
 
-            <ShoppingBagSVG onClick={openCart} />
-            {cartQuantity}
+            <ShoppingBagSVG onClick={() => setCartOpen(!cartOpen)} />
+            <span className="relative left-2 border rounded-full">{cartQuantity}</span>
           </span>
         </div>
       </nav>
+      <Cart open={cartOpen} />
     </header>
   );
 }

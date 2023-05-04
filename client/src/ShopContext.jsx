@@ -8,7 +8,6 @@ export const ShopContext = createContext(null);
 
 export const ShopContextProvider = ({ children }) => {
   const [cartItems, setCartItems] = useLocalStorage("cart", []);
-  const [open, setOpen] = useState(false);
   const cartQuantity = cartItems.reduce(
     (quantity, item) => item.quantity + quantity,
     0
@@ -34,6 +33,7 @@ export const ShopContextProvider = ({ children }) => {
       }
     });
   };
+
   const decreaseItemQuantity = (data) => {
     setCartItems((currentItems) => {
       // If there's one copy of the item, remove it from cartItems
@@ -62,17 +62,11 @@ export const ShopContextProvider = ({ children }) => {
     0
   );
 
-  const openCart = () => setOpen(true);
-
-  const closeCart = () => setOpen(false);
-
   const contextValue = {
     getItemQuantity,
     increaseItemQuantity,
     decreaseItemQuantity,
     removeItem,
-    openCart,
-    closeCart,
     cartItems,
     cartQuantity,
     cartTotal
@@ -81,7 +75,6 @@ export const ShopContextProvider = ({ children }) => {
   return (
     <ShopContext.Provider value={contextValue}>
       {children}
-      <Cart open={open} />
     </ShopContext.Provider>
   );
 };

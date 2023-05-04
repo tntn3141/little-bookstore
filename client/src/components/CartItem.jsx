@@ -37,18 +37,18 @@ export const CartItem = (props) => {
         </Typography>
         <div className="flex my-2 gap-4">
           <div className="flex">
-            <span className="border border-black">
+            <span className="border border-black bg-slate-800 text-white">
               <MinusSVG onClick={() => decreaseItemQuantity(item)} />
             </span>
             <span className="border-t border-b border-black px-4">
               {item.quantity}
             </span>
-            <span className="border border-black">
+            <span className="border border-black bg-slate-800 text-white">
               <PlusSVG onClick={() => increaseItemQuantity(item)} />
             </span>
           </div>
           <span
-            className="border border-black px-1"
+            className="border border-black px-1 bg-slate-800 text-white"
             onClick={() => removeItem(item)}
           >
             Remove
