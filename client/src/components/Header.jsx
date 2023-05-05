@@ -19,21 +19,16 @@ export default function Header() {
   const { user } = useContext(UserContext);
   const { cartQuantity } = useContext(ShopContext);
 
-  // To close submenu when changing route on mobile
+  // To close submenu/cart when changing route on mobile
   const { pathname } = useLocation();
   useEffect(() => {
     setMenuOpen(false);
+    setCartOpen(false);
   }, [pathname]);
 
   // To close submenu when clicking outside of it on mobile
   const wrapperRef = useRef(null);
   useOutsideAlerter(wrapperRef);
-
-  const links = [
-    { name: "Best Sellers", link: "/best-sellers" },
-    { name: "Search", link: "/search" },
-    { name: "About Us", link: "/about" },
-  ];
 
   function useOutsideAlerter(ref) {
     useEffect(() => {
@@ -50,6 +45,12 @@ export default function Header() {
       };
     }, [ref]);
   }
+
+  const links = [
+    { name: "Best Sellers", link: "/best-sellers" },
+    { name: "Search", link: "/search" },
+    { name: "About Us", link: "/about" },
+  ];
 
   return (
     <header className="shadow-md w-full bg-white fixed top-0 z-10 m-0">

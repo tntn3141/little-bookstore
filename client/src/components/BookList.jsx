@@ -12,12 +12,12 @@ export default function BookList(props) {
   const [hover, setHover] = useState(false);
   const { increaseItemQuantity } = useContext(ShopContext)
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6 p-4">
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6 p-2 md:p-4">
       {items.map((item) => {
         return (
-          <div key={item._id} className="relative text-center h-[90%]">
+          <div key={item._id} className="relative text-center h-[85%]">
             <Link to={`/items/${item._id}`}>
-              <div className="h-[100%] m-1">
+              <div className="h-[100%] mb-2 md:mb-0">
                 <img src={item.coverImage} alt="" className="h-[75%] mx-auto" />
                 <div className="text-center">
                   <Typography
@@ -35,7 +35,7 @@ export default function BookList(props) {
                 </div>
               </div>
             </Link>
-            <button type="button" className={"bg-slate-800 text-white w-full p-1 " + 
+            <button type="button" className={"bg-slate-800 text-white w-[90%] p-1 mx-auto relative " + 
             "border-2 border-black hover:bg-white hover:text-slate-900 absolute left-0"}
             onClick={() => increaseItemQuantity(item)}>
               Add to Cart
