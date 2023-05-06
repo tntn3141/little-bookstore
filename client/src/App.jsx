@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import IndexPage from "./pages/IndexPage";
 import Layout from "./Layout";
 import RegisterPage from "./pages/RegisterPage";
+import BookEditPage from "./pages/BookEditPage";
 import AccountPage from "./pages/AccountPage";
 import LoginPage1 from "./pages/LoginPage";
 import ItemPage from "./pages/ItemPage";
@@ -28,6 +29,7 @@ function App() {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/account/:subpage?" element={<AccountPage />} />
             <Route path="/items/:itemId" element={<ItemPage />} />
+            <Route path="/items/:itemId/edit" element={<BookEditPage />} />
             <Route path="/tags/:tag" element={<TagPage />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/search-result" element={<SearchResultPage />} />

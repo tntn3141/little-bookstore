@@ -5,7 +5,11 @@ import mongoose from "mongoose";
 
 const BookSchema = mongoose.Schema(
   {
-    uploader: {
+    uploadedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "UserModel",
+    },
+    lastModifiedBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "UserModel",
     },
@@ -19,6 +23,10 @@ const BookSchema = mongoose.Schema(
     },
     tags: {
       type: [String],
+      // required: true
+    },
+    language: {
+      type: String,
       // required: true
     },
     publisher: {
@@ -49,9 +57,6 @@ const BookSchema = mongoose.Schema(
       type: Number,
       // required: true
     },
-    ISBN: {
-      type: String,
-    },
     price: {
       type: Number,
       // required: true
@@ -59,10 +64,6 @@ const BookSchema = mongoose.Schema(
     description: {
       type: String,
       // required: true
-    },
-    featured: {
-      type: Boolean,
-      default: false,
     },
     stock: {
       type: Number,
@@ -80,7 +81,11 @@ const BookSchema = mongoose.Schema(
     virtuals: {
       averageRating: {
         get() {
-          return this.ratingAllPoints / this.ratingAllTimes || 0;
+          if (this.ratingAllTimes > 0) {
+            return this.ratingAllPoints / this.ratingAllTimes;
+          } else {
+            return 0
+          }
         },
       },
     },

@@ -4,7 +4,7 @@ import { Formik, Form } from "formik";
 import { useEffect, useState, useContext } from "react";
 
 import { UserContext } from "../UserContext";
-import FormikControl from "./Formik/FormikControl";
+import FormikControl from "../components/Formik/FormikControl";
 import {
   bookInitialValues,
   bookValidationSchema,
@@ -12,9 +12,9 @@ import {
   bookFormats,
   bookCategories,
   bookTags,
-} from "./FormSetup";
+} from "../components/FormSetup";
 
-export default function BookRegistrationForm() {
+export default function BookCreatePage() {
   const { user } = useContext(UserContext);
   const [cover, setCover] = useState();
   const [coverPreview, setCoverPreview] = useState();
@@ -48,7 +48,7 @@ export default function BookRegistrationForm() {
       }
     }
     // To identify the uploader
-    formData.append("seller", user._id);
+    formData.append("uploadedBy", user._id);
 
     try {
       const response = await axios.post("/api/books/", formData);
@@ -75,7 +75,7 @@ export default function BookRegistrationForm() {
         return (
           <Form
             encType="multipart/form-data"
-            className="mx-auto mt-8 max-w-[80%]"
+            className="mx-auto mt-8 max-w-[90%] md:max-w-[80%]"
           >
             <div className="md:grid md:grid-cols-2 md:gap-x-10">
               <FormikControl

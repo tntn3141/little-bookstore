@@ -39,6 +39,7 @@ export const bookValidationSchema = Yup.object().shape({
 
 // Meant for select
 export const bookLanguages = [
+  { key: "Choose one", value: "" },
   { key: "English", value: "English" },
   { key: "Vietnamese", value: "Vietnamese" },
   { key: "Others", value: "Others" },
@@ -76,6 +77,7 @@ export const bookTags = [
   { key: "Memoir", value: "Memoir" },
   { key: "Graphic Novel", value: "Graphic Novel" },
   { key: "Arts", value: "Arts" },
+  { key: "Science", value: "Science" }
 ];
 
 // Meant for price range in search/filter

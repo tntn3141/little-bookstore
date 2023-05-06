@@ -22,6 +22,7 @@ export const updateBook = async (req, res, next) => {
       { $set: req.body },
       { new: true }
     );
+    console.log(updatedBook);
     res.status(200).json(updatedBook);
   } catch (error) {
     next(error);
@@ -84,7 +85,7 @@ export const getBooks = async (req, res, next) => {
       // The value to $and should be an array that contains the conditions,
       // all of which should be objects.
 
-      // Transforming filterQuery into an array of objects
+      // To include all queries from the arrays in the compiled query
       if (Array.isArray(filterQuery[key])) {
         for (let i in filterQuery[key]) {
           const x = {};
@@ -106,16 +107,23 @@ export const getBooks = async (req, res, next) => {
     }
   }
 
-
-  // Simple recommendation algorithm (average rating)
+  // Simple recommendation algorithm (highest average rating)
   if (recommendation) {
     try {
       const recommendedBooks = await BookModel.aggregate([
+        // To exclude the current item (NOT WORKING atm for some reason)
         { $match: { _id: { $nin: [recommendation] } } },
         {
+          // Temporary doc to be returned for the frontend
           $project: {
             averageRating: {
-              $divide: ["$ratingAllPoints", "$ratingAllTimes"],
+              $cond: [
+                {
+                  $eq: ["$ratingAllTimes", 0],
+                },
+                0,
+                { $divide: ["$ratingAllPoints", "$ratingAllTimes"] },
+              ],
             },
             _id: "$_id",
             coverImage: 1,
@@ -123,8 +131,10 @@ export const getBooks = async (req, res, next) => {
             title: 1,
           },
         },
-        { $limit: 10 },
+          // Get x items
+        { $limit: 15 },
         {
+          // Descending order
           $sort: { averageRating: -1 },
         },
       ]);

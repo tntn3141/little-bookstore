@@ -66,6 +66,14 @@ export default function Header() {
             <ShoppingBagSVG onClick={() => setCartOpen(!cartOpen)} />
           </div>
           <div
+              className={
+                "text-white text-[0.75rem] bg-red-600 rounded-full justify-center items-center text-center " +
+                "w-4 h-4 flex relative right-10 top-2 select-none md:hidden"
+              }
+            >
+              {cartQuantity}
+            </div>
+          <div
             onClick={() => setMenuOpen(!menuOpen)}
             className="text-3xl absolute right-4 top-6 cursor-pointer md:hidden"
           >
@@ -101,15 +109,27 @@ export default function Header() {
           </li>
         </ul>
 
-        <div>
-          <span className="md:flex md:items-center z-[-1] md:z-auto md:static absolute bg-white w-full left-0 md:w-auto md:py-0 py-4 md:pl-0 pl-7 md:opacity-100 opacity-0 top-[-400px] transition-all ease-in duration-500 text-3xl cursor-pointer mx-2 block flex ">
-            <Link to={user ? "/account" : "/login"}>
-              <UserSVG fill={!!user ? "currentColor" : "none"} />
-            </Link>
-
-            <ShoppingBagSVG onClick={() => setCartOpen(!cartOpen)} />
-            <span className="relative left-2 border rounded-full">{cartQuantity}</span>
-          </span>
+        <div
+          className={
+            "md:flex md:items-center z-[-1] md:z-auto md:static absolute flex gap-4 " +
+            "bg-white w-full left-0 md:w-auto md:py-0 py-4 md:pl-0 pl-7 md:opacity-100 opacity-0 " +
+            "top-[-400px] transition-all ease-in duration-500 text-3xl cursor-pointer mx-2 block flex"
+          }
+        >
+          <Link to={user ? "/account" : "/login"}>
+            <UserSVG fill={!!user ? "currentColor" : "none"} />
+          </Link>
+          <div onClick={() => setCartOpen(!cartOpen)} className="grid grid-cols-[100%_0]">
+            <ShoppingBagSVG />
+            <div
+              className={
+                "text-white text-[0.75rem] bg-red-600 rounded-full justify-center items-center text-center " +
+                "w-4 h-4 flex relative right-3 top-3 select-none"
+              }
+            >
+              {cartQuantity}
+            </div>
+          </div>
         </div>
       </nav>
       <Cart open={cartOpen} />
