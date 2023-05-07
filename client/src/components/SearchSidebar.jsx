@@ -18,7 +18,6 @@ import { getVNDPrice } from "../helpers/helpers";
 export default function SearchSidebarNew() {
   const [filterActive, setFilterActive] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
-  const [focused, setFocused] = useState(false);
   const [key, setKey] = useState("");
   const navigate = useNavigate();
 
@@ -96,8 +95,6 @@ export default function SearchSidebarNew() {
                 p-1 border-gray-800 focus:outline-none 
                 focus:bg-white focus:border-blue-500"
                 onChange={(e) => setKey(e.target.value)}
-                onFocus={() => setFocused(true)}
-                onBlur={() => setFocused(false)}
               />
 
               <button
@@ -109,53 +106,47 @@ export default function SearchSidebarNew() {
               </button>
             </div>
           </div>
-          {focused && (
-            <div className="flex flex-col relative">
-              <div className="mx-auto w-[100%] border border-slate-600 p-2 flex justify-between">
-                <span className="font-bold">Enter some query...</span>
-                <ArrowRightSVG className="w-6 h-6 hover:text-blue-600 cursor-pointer" onClick={() => console.log("advanced search clicked")}/>
-              </div>
-              <div
-                className={
-                  "grid grid-rows-[120px_120px_120px] z-10 absolute top-[47px] " +
-                  "mx-auto w-full sm:w-[80%] sm:left-[10%] "
-                }
-              >
-                {searchResult.map((result) => {
-                  return (
-                    <div key={result._id}>
-                      <Link
-                        to={`/items/${result._id}`}
-                        className={`flex gap-2 md:gap-4 z-10 hover:text-white hover:bg-slate-900 
+          {searchResult && searchResult.length > 0 && (
+            <div
+              className={
+                "grid grid-rows-[120px_120px_120px] z-10 absolute top-[47px] " +
+                "mx-auto w-full sm:w-[80%] sm:left-[10%] "
+              }
+            >
+              {searchResult.map((result) => {
+                return (
+                  <div key={result._id}>
+                    <Link
+                      to={`/items/${result._id}`}
+                      className={`flex gap-2 md:gap-4 z-10 hover:text-white hover:bg-slate-900 
                        bg-white w-[100%] border border-slate-300`}
-                      >
-                        <img
-                          src={result.coverImage}
-                          alt={`${result.title} cover`}
-                          className="h-[120px] w-[90px]"
-                        />
-                        <div>
-                          <Typography
-                            variant="body"
-                            className="line-clamp-2 font-bold"
-                          >
-                            {result.title}
-                          </Typography>
-                          <Typography variant="body-small" className="italic">
-                            {result.author}
-                          </Typography>
-                          <Typography
-                            variant="body"
-                            className="text-red-600 font-bold"
-                          >
-                            {getVNDPrice(result.price)}
-                          </Typography>
-                        </div>
-                      </Link>
-                    </div>
-                  );
-                })}
-              </div>
+                    >
+                      <img
+                        src={result.coverImage}
+                        alt={`${result.title} cover`}
+                        className="h-[120px] w-[90px]"
+                      />
+                      <div>
+                        <Typography
+                          variant="body"
+                          className="line-clamp-2 font-bold"
+                        >
+                          {result.title}
+                        </Typography>
+                        <Typography variant="body-small" className="italic">
+                          {result.author}
+                        </Typography>
+                        <Typography
+                          variant="body"
+                          className="text-red-600 font-bold"
+                        >
+                          {getVNDPrice(result.price)}
+                        </Typography>
+                      </div>
+                    </Link>
+                  </div>
+                );
+              })}
             </div>
           )}
           <Form>

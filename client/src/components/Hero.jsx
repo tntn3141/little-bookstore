@@ -4,10 +4,10 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Hero() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   return (
-    <div className="flex flex-wrap mt-24">
+    <div className="flex flex-wrap mt-24 w-[90%] mx-auto">
       <div className="w-full md:w-[60%]">
         <Carousel
           autoPlay
@@ -16,15 +16,18 @@ export default function Hero() {
           showStatus={false}
           showThumbs={false}
         >
-          <div className='cursor-pointer' onClick={() => navigate("/login")}>
+          <div className="cursor-pointer" onClick={() => navigate("/login")}>
             <img
               src="/assets/266524-P53SH3-817a.png"
               alt="to featured article 1"
             />
           </div>
 
-          <div className='cursor-pointer' onClick={() => navigate("/register")}>
-            <img src="/assets/266524-P53SH3-817b.png" alt="to featured article 2"/>
+          <div className="cursor-pointer" onClick={() => navigate("/register")}>
+            <img
+              src="/assets/266524-P53SH3-817b.png"
+              alt="to featured article 2"
+            />
           </div>
         </Carousel>
       </div>
