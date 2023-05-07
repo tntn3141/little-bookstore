@@ -9,6 +9,7 @@ import AccountPage from "./pages/AccountPage";
 import LoginPage1 from "./pages/LoginPage";
 import ItemPage from "./pages/ItemPage";
 import TagPage from "./pages/TagPage";
+import SearchPage from "./pages/SearchPage";
 import SearchResultPage from "./pages/SearchResultPage";
 import NotFound404Page from "./pages/NotFound404Page";
 import { UserContextProvider } from "./UserContext";
@@ -32,7 +33,7 @@ function App() {
             <Route path="/items/:itemId/edit" element={<BookEditPage />} />
             <Route path="/tags/:tag" element={<TagPage />} />
             <Route path="/cart" element={<Cart />} />
-            <Route path="/search-result" element={<SearchResultPage />} />
+            <Route path="/search" element={<SearchPage />} />
             <Route path="*" element={<NotFound404Page />} />
           </Route>
         </Routes>

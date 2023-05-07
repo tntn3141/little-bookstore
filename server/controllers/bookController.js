@@ -39,7 +39,8 @@ export const getBook = async (req, res, next) => {
 };
 
 export const getBooks = async (req, res, next) => {
-  const { _skip, _limit, searchQuery, filterQuery, recommendation } = req.query;
+  const { _skip, _limit, keyword, searchQuery, filterQuery, recommendation } =
+    req.query;
   // Get value of limit param. If undefined, set it to 10 by default
   const limit = parseInt(_limit) || 10;
 
@@ -54,16 +55,26 @@ export const getBooks = async (req, res, next) => {
     }
   }
 
+  // Generic search
+  if (keyword) {
+    const regex = new RegExp(`(^|\\s)(${keyword})`, "i");
+    try {
+      const result = await BookModel.find({
+        $or: [{ title: { $regex: regex } }, { author: { $regex: regex } }],
+      }).limit(limit).skip(_skip);
+      return res.status(200).json(result);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   // Search bar feature
   if (searchQuery) {
-    // (^|\s): Start of the string or after a whitespace
-    // (${query}): Contains the query string
-    // i: case insensitive
     const regex = new RegExp(`(^|\\s)(${searchQuery})`, "i");
     try {
-      const books = await BookModel.find({ title: { $regex: regex } }).limit(
-        limit
-      );
+      const books = await BookModel.find({ title: { $regex: regex } })
+        .limit(limit)
+        .skip(_skip);
       return res.status(200).json(books);
     } catch (error) {
       next(error);
@@ -131,7 +142,7 @@ export const getBooks = async (req, res, next) => {
             title: 1,
           },
         },
-          // Get x items
+        // Get x items
         { $limit: 15 },
         {
           // Descending order
