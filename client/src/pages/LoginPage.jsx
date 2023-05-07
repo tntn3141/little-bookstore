@@ -6,7 +6,7 @@ import axios from "axios";
 import { UserContext } from "../UserContext";
 import FormikControl from "../components/Formik/FormikControl";
 
-export default function LoginForm() {
+export default function LoginPage() {
   const { user, setUser } = useContext(UserContext);
   const [redirect, setRedirect] = useState(false);
 

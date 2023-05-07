@@ -6,7 +6,7 @@ import { useEffect, useState, useContext } from "react";
 
 import Error from "../components/Error";
 import { UserContext } from "../UserContext";
-import NotFound404Page from "./NotFound404Page";
+import NotFound404Page from "./NotFoundPage";
 import LoadingIcon from "../components/LoadingIcon";
 import FormikControl from "../components/Formik/FormikControl";
 
