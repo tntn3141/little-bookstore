@@ -47,8 +47,9 @@ export default function Header() {
   }
 
   const links = [
+    { name: "New Arrivals", link: "/new" },
     { name: "Best Sellers", link: "/best-sellers" },
-    { name: "Search", link: "/search" },
+    { name: "Offers", link: "/offers" },
     { name: "About Us", link: "/about" },
   ];
 

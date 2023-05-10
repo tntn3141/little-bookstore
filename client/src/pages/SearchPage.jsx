@@ -9,12 +9,18 @@ import Filter from "../components/Filter";
 
 export default function SearchPage() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const keyword = searchParams.get("keyword");
-  console.log("keyword", keyword);
-  console.log("searchparams", searchParams.get("format"))
-  const { data, loading, error } = useFetch("/api/books", {
-    params: { keyword: keyword },
-  });
+
+  const urlSearchParams = new URLSearchParams(window.location.search);
+  const params = Object.fromEntries(urlSearchParams.entries());
+
+
+  const { data, loading, error } = useFetch(
+    "/api/books",
+    {
+      params: { filterQuery: params },
+    },
+    searchParams
+  );
 
   if (loading) return <LoadingIcon />;
 
@@ -25,7 +31,6 @@ export default function SearchPage() {
       <div className="mt-24">
         <h1>Search result</h1>
         <div className="flex">
-          <Filter />
           <SearchSidebarNew />
         </div>
       </div>
@@ -37,7 +42,6 @@ export default function SearchPage() {
       <div className="mt-24">
         <h1>Search result</h1>
         <div className="flex">
-          <Filter />
           <SearchSidebarNew />
         </div>
         <BookList items={data} />

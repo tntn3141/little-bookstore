@@ -18,11 +18,11 @@ import { getVNDPrice } from "../helpers/helpers";
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
-    items: 5,
+    items: 4,
   },
   tablet: {
     breakpoint: { max: 1024, min: 768 },
-    items: 4,
+    items: 3,
   },
   smalltablet: {
     breakpoint: { max: 768, min: 640 },
@@ -49,13 +49,14 @@ export default function Recommendation({ _id }) {
 
   if (data) {
     return (
-      <div>
+      <div className="my-4">
         <Typography variant="xl">You might also like</Typography>
         <Carousel
           responsive={responsive}
           infinite={true}
           minimumTouchDrag={10}
           itemClass="p-4 w-[60%]"
+          containerClass="my-2"
         >
           {data.map((item) => (
             <div
@@ -63,7 +64,7 @@ export default function Recommendation({ _id }) {
               className="flex flex-col justify-center h-[150px]"
             >
               <Link to={`/items/${item._id}`}>
-                <div className="flex justify-center h-[100px]">
+                <div className="flex justify-center h-[120px]">
                   <img
                     src={item.coverImage}
                     alt="picture"

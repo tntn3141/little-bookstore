@@ -32,11 +32,11 @@ const responsive = {
 
 export default function BookInfo({ data }) {
   return (
-    <Carousel responsive={responsive} containerClass="h-30">
+    <Carousel responsive={responsive} containerClass="h-30 border-t border-b border-gray-600">
       <div className="info-wrapper">
         <span className="info-name">Tags</span>
         <TagSVG className="h-6 w-6" />
-        <span className="info-content">{data.tags.join(", ")}, Nonfiction</span>
+        <span className="info-content">{data.category}, {data.tags.join(", ")}</span>
       </div>
       <div className="info-wrapper">
         <span className="info-name">Pages</span>

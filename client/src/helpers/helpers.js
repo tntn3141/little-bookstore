@@ -15,3 +15,13 @@ export function removeFalsyValues(array) {
   return result;
 }
 
+// Expected output: getQuery("?title=abc&author=xyz")
+// => {title: "abc", author: "xyz"}
+export function getQuery(str) {
+  const queryString = (search || location.search).replace("?", "");
+  return queryString.split("&").reduce((prev, cur) => {
+    const [key, value] = cur.split("=");
+    prev[key] = value;
+    return prev;
+  }, {});
+}

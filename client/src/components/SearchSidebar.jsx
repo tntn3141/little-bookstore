@@ -3,12 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form } from "formik";
 import { useState, useEffect } from "react";
 
-import {
-  FilterSVG,
-  FilterSolidSVG,
-  SearchSVG,
-  ArrowRightSVG,
-} from "../assets/svg";
+import { FilterSVG, FilterSolidSVG, SearchSVG } from "../assets/svg";
 import FormikControl from "./Formik/FormikControl";
 import { bookTags, bookFormats, bookPriceRanges } from "./FormSetup.js";
 import { removeFalsyValues } from "../helpers/helpers";
@@ -45,29 +40,43 @@ export default function SearchSidebarNew() {
     author: "",
     publicationYear: "",
     price: "",
-    format: [],
-    tags: [],
+    includedFormat: [],
+    excludedFormat: [],
+    includedTags: [],
+    excludedTags: [],
   };
 
-  async function handleSearchSubmit(values) {
-    const filteredValues = removeFalsyValues(values);
-    if (filteredValues.price) {
-      filteredValues.price = JSON.parse(filteredValues.price);
-    }
-    // Remove all falsy values
-    let { format, tags } = filteredValues;
-    filteredValues.tags = tags.filter(Boolean);
-    filteredValues.format = format.filter(Boolean);
+  function handleSearchBar() {
+    navigate(`/search?title=${key}&author=${key}&or=true`);
+  }
 
-    try {
-      const response = await axios.get("/api/books", {
-        params: { filterQuery: filteredValues },
-      });
-      const result = response.data;
-      navigate("/search-result", { state: { result } });
-    } catch (error) {
-      alert(error);
+  function handleSearchSubmit(values) {
+    const filteredValues = removeFalsyValues(values);
+    setFilterActive(false);
+    for (const key in filteredValues) {
+      // To trim leading/trailing whitespaces
+      if (typeof filteredValues[key] === "string") {
+        filteredValues[key] = filteredValues[key].trim();
+      }
+      // To remove undefineds from arrays
+      if (Array.isArray(filteredValues[key])) {
+        filteredValues[key] = filteredValues[key].filter(Boolean);
+      }
     }
+
+    // Remove all empty arrays
+    let params = new URLSearchParams(filteredValues);
+    let keysForDel = [];
+    params.forEach((value, key) => {
+      if (value == "") {
+        keysForDel.push(key);
+      }
+    });
+    keysForDel.forEach((key) => {
+      params.delete(key);
+    });
+
+    navigate(`/search?${params}`);
   }
 
   return (
@@ -77,8 +86,8 @@ export default function SearchSidebarNew() {
       onSubmit={handleSearchSubmit}
     >
       {(formik) => (
-        <div className="flex flex-col my-2 mx-auto w-[90%] lg:w-[60%] relative">
-          <div className="flex gap-3 mt-2 justify-center">
+        <div className="flex flex-col my-4 mx-auto w-[90%] lg:w-[60%] relative">
+          <div className="flex gap-3 my-4 justify-center">
             <button
               type="button"
               onClick={() => {
@@ -91,76 +100,73 @@ export default function SearchSidebarNew() {
             <div className="flex">
               <input
                 type="text"
-                className="mt-1 text-justify border-2 md:w-[300px] 
+                className="text-justify border-2 md:w-[300px] 
                 p-1 border-gray-800 focus:outline-none 
                 focus:bg-white focus:border-blue-500"
+                placeholder="Title or author name"
                 onChange={(e) => setKey(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key == "Enter") {
+                    handleSearchBar();
+                  }
+                }}
               />
 
               <button
                 type="button"
-                className="bg-black text-white font-bold px-2 h-[36px] mt-1"
-                onClick={() => console.log("clicked")}
+                className="bg-black text-white font-bold px-2 h-[37px]"
+                onClick={handleSearchBar}
               >
                 <SearchSVG />
               </button>
             </div>
           </div>
           {searchResult && searchResult.length > 0 && (
-            <div className="flex flex-col relative">
-              <div className="mx-auto w-[100%] border border-slate-600 p-2 flex justify-between">
-                <span className="font-bold">Enter some query...</span>
-                <ArrowRightSVG
-                  className="w-6 h-6 hover:text-blue-600 cursor-pointer"
-                  onClick={() => console.log("advanced search clicked")}
-                />
-              </div>
-              <div
-                className={
-                  "grid grid-rows-[120px_120px_120px] z-10 absolute top-[47px] " +
-                  "mx-auto w-full sm:w-[80%] sm:left-[10%] "
-                }
-              >
-                {searchResult.map((result) => {
-                  return (
-                    <div key={result._id}>
-                      <Link
-                        to={`/items/${result._id}`}
-                        className={`flex gap-2 md:gap-4 z-10 hover:text-white hover:bg-slate-900 
+            <div
+              className={
+                "grid grid-rows-[120px_120px_120px] z-10 absolute top-[47px] " +
+                "mx-auto w-full sm:w-[80%] sm:left-[10%] "
+              }
+            >
+              {searchResult.map((result) => {
+                return (
+                  <div key={result._id}>
+                    <Link
+                      to={`/items/${result._id}`}
+                      className={`flex gap-2 md:gap-4 z-10 hover:text-white hover:bg-slate-900 
                        bg-white w-[100%] border border-slate-300`}
-                      >
-                        <img
-                          src={result.coverImage}
-                          alt={`${result.title} cover`}
-                          className="h-[120px] w-[90px]"
-                        />
-                        <div>
-                          <Typography
-                            variant="body"
-                            className="line-clamp-2 font-bold"
-                          >
-                            {result.title}
-                          </Typography>
-                          <Typography variant="body-small" className="italic">
-                            {result.author}
-                          </Typography>
-                          <Typography
-                            variant="body"
-                            className="text-red-600 font-bold"
-                          >
-                            {getVNDPrice(result.price)}
-                          </Typography>
-                        </div>
-                      </Link>
-                    </div>
-                  );
-                })}
-              </div>
+                    >
+                      <img
+                        src={result.coverImage}
+                        alt={`${result.title} cover`}
+                        className="h-[120px] w-[90px]"
+                      />
+                      <div>
+                        <Typography
+                          variant="body"
+                          className="line-clamp-2 font-bold"
+                        >
+                          {result.title}
+                        </Typography>
+                        <Typography variant="body-small" className="italic">
+                          {result.author}
+                        </Typography>
+                        <Typography
+                          variant="body"
+                          className="text-red-600 font-bold"
+                        >
+                          {getVNDPrice(result.price)}
+                        </Typography>
+                      </div>
+                    </Link>
+                  </div>
+                );
+              })}
             </div>
           )}
           <Form>
             {filterActive && (
-              <div className="absolute z-10 bg-white p-4 border-2 border-slate-800 top-11 flex flex-col">
+              <div className="absolute z-10 bg-white p-4 border border-slate-800 top-12 flex flex-col">
                 <div className="sm:grid sm:grid-cols-2">
                   <FormikControl
                     control="input"
@@ -190,7 +196,7 @@ export default function SearchSidebarNew() {
                   <FormikControl
                     control="tristate-checkbox"
                     label="Format"
-                    name="format"
+                    name={["includedFormat", "excludedFormat"]}
                     manualSetFieldValue={formik.setFieldValue}
                     options={bookFormats}
                   />
@@ -198,16 +204,25 @@ export default function SearchSidebarNew() {
                 <FormikControl
                   control="tristate-checkbox"
                   label="Tags"
-                  name="tags"
+                  name={["includedTags", "excludedTags"]}
                   manualSetFieldValue={formik.setFieldValue}
                   options={bookTags}
                 />
-                <button
-                  type="submit"
-                  className="bg-black text-white font-bold p-2 w-[200px] mx-auto"
-                >
-                  Search
-                </button>
+                <div className="flex flex-col md:flex-row mx-auto gap-4">
+                  <button
+                    type="submit"
+                    className="bg-black text-white font-bold p-2 w-[200px] mx-auto"
+                  >
+                    Search
+                  </button>
+                  <button
+                    type="button"
+                    className="bg-black text-white font-bold p-2 w-[200px] mx-auto"
+                    onClick={() => setFilterActive(false)}
+                  >
+                    Close
+                  </button>
+                </div>
               </div>
             )}
           </Form>

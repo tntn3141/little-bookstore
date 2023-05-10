@@ -222,7 +222,7 @@ export default function BookCreatePage() {
                 disabled={!formik.isValid}
                 className="uppercase mx-auto w-[60%] sm:w-[40%] my-10 p-4 bg-gray-900 font-bold text-white"
               >
-                Submit
+                Finish
               </button>
             </div>
           </Form>

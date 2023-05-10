@@ -18,10 +18,9 @@ import {
   bookTags,
 } from "../components/FormSetup";
 
-export default function BookRegistrationForm() {
+export default function BookEditPage() {
   const { user } = useContext(UserContext);
   const { itemId } = useParams();
-  console.log(user)
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -30,8 +29,6 @@ export default function BookRegistrationForm() {
   const [cover, setCover] = useState();
   const [coverPreview, setCoverPreview] = useState();
   const [didChangeCover, setDidChangeCover] = useState(false);
-  // For generating random ratings
-  const [test, setTest] = useState();
 
   useEffect(() => {
     (async () => {
@@ -60,6 +57,7 @@ export default function BookRegistrationForm() {
     let formData = new FormData();
 
     if (didChangeCover) {
+      console.log("cover changed")
       let fileId = uuidv4();
       let blob = cover.slice(0, cover.size, "image/jpeg");
       // To assign a new name (that uuid generated) to the image file
@@ -68,6 +66,7 @@ export default function BookRegistrationForm() {
       // Using FormData to send both the form values (in req.body) and the file(s)
       // (in req.file, extracted via multer middleware) to the backend
       formData.append("coverImage", newFile);
+      formData.set("coverImage", newFile);
     }
 
     for (const key in values) {
@@ -78,8 +77,11 @@ export default function BookRegistrationForm() {
         formData.append(key, values[key]);
       }
     }
-    // To identify the uploader
-    formData.append("lastModifiedBy", user._id);
+
+    for (const value of formData.values()) {
+      console.log(value);
+    }
+
 
     try {
       const response = await axios.put(`/api/books/${data._id}`, formData);
@@ -236,34 +238,6 @@ export default function BookRegistrationForm() {
                     width="125"
                     className="mx-auto mt-4"
                   />
-                )}
-              </div>
-              <div>
-                <p className="font-bold text-base my-1">
-                  Generate random rating values for testing?
-                </p>
-                <button
-                  type="button"
-                  className="uppercase p-2 bg-gray-900 font-bold text-white"
-                  onClick={() => {
-                    let randomTimes = Math.floor(Math.random() * 50) + 1;
-                    let randomPoints =
-                      randomTimes * Math.floor(Math.floor(Math.random() * 5)) +
-                      1;
-                    let randomAverage = randomPoints / randomTimes;
-                    formik.setFieldValue("ratingAllTimes", randomTimes);
-                    formik.setFieldValue("ratingAllPoints", randomPoints);
-                    setTest([randomTimes, randomPoints, randomAverage]);
-                  }}
-                >
-                  Generate
-                </button>
-                {test ? (
-                  <div>
-                    Ratings {test[0]}, points {test[1]}. Average {test[2]}{" "}
-                  </div>
-                ) : (
-                  ""
                 )}
               </div>
               <div className="flex">

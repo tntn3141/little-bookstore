@@ -17,12 +17,16 @@ export const createBook = async (req, res, next) => {
 
 export const updateBook = async (req, res, next) => {
   try {
+    if (req.file) {
+      const image = req.file;
+      const imageUrl = await uploadImage(image);
+      req.body.coverImage = imageUrl;
+    }
     const updatedBook = await BookModel.findByIdAndUpdate(
       req.params.id,
       { $set: req.body },
       { new: true }
     );
-    console.log(updatedBook);
     res.status(200).json(updatedBook);
   } catch (error) {
     next(error);
@@ -44,7 +48,7 @@ export const getBooks = async (req, res, next) => {
   // Get value of limit param. If undefined, set it to 10 by default
   const limit = parseInt(_limit) || 10;
 
-  // "Load more" pagination feature
+  // "LOAD MORE" PAGINATION
   if (_skip) {
     const skip = parseInt(_skip);
     try {
@@ -61,14 +65,16 @@ export const getBooks = async (req, res, next) => {
     try {
       const result = await BookModel.find({
         $or: [{ title: { $regex: regex } }, { author: { $regex: regex } }],
-      }).limit(limit).skip(_skip);
+      })
+        .limit(limit)
+        .skip(_skip);
       return res.status(200).json(result);
     } catch (error) {
       next(error);
     }
   }
 
-  // Search bar feature
+  // SEARCH BAR
   if (searchQuery) {
     const regex = new RegExp(`(^|\\s)(${searchQuery})`, "i");
     try {
@@ -81,44 +87,110 @@ export const getBooks = async (req, res, next) => {
     }
   }
 
-  // Filter feature
+  // FILTER
   if (filterQuery) {
     let compiledQuery = [];
     for (const key in filterQuery) {
-      if (typeof filterQuery[key] === "string") {
-        // To remove all the extra whitespaces. Reference:
-        // https://stackoverflow.com/questions/18065807/regular-expression-for-removing-whitespaces
-        filterQuery[key] = filterQuery[key].replace(/^\s+|\s+$|\s+(?=\s)/g, "");
-        // To improve searchability (case insensitive, finding any word that starts with the value)
-        filterQuery[key] = new RegExp(`(^|\\s)(${filterQuery[key]})`, "i");
-      }
-      // We want to find items that meet ALL of the user's conditions, so $and is used.
-      // The value to $and should be an array that contains the conditions,
-      // all of which should be objects.
+      const implicitArrays = [
+        "includedTags",
+        "excludedTags",
+        "includedFormat",
+        "excludedFormat",
+      ];
 
-      // To include all queries from the arrays in the compiled query
-      if (Array.isArray(filterQuery[key])) {
-        for (let i in filterQuery[key]) {
-          const x = {};
-          x[key] = filterQuery[key][i];
-          compiledQuery.push(x);
-        }
-      } else {
-        const x = {};
-        x[key] = filterQuery[key];
-        compiledQuery.push(x);
+      if (implicitArrays.includes(key) && filterQuery[key].includes(",")) {
+        filterQuery[key] = filterQuery[key].split(",");
       }
+
+      // New object to store the renamed key:value pair of certain fields,
+      // to be added to the final compiledQuery
+      const newObject = {};
+
+      // Rename the keys and values into ones that mongoDB understands
+      switch (key) {
+        // If the value is not an implicit array, transform it into a regex to improve
+        // searchability (case insensitive, matching one word/phrase in any position)
+        case "title":
+        case "author":
+          filterQuery[key] = new RegExp(`(^|\\s)(${filterQuery[key]})`, "i");
+          break;
+        // Convert price shorthands
+        case "price":
+          switch (filterQuery[key]) {
+            case 0:
+              break;
+            case "1":
+              filterQuery[key] = { $lte: 200000 };
+              break;
+            case "2":
+              filterQuery[key] = { $gte: 200000, $lte: 400000 };
+              break;
+            case "3":
+              filterQuery[key] = { $gte: 600000 };
+              break;
+          }
+          break;
+
+        // Rename to correct field names of mongoDB / Transform values to ones
+        // that the database understands
+        case "includedTags":
+          delete Object.assign(
+            newObject,
+            { [key]: filterQuery[key] },
+            {
+              ["tags"]: filterQuery["includedTags"],
+            }
+          )["includedTags"];
+          break;
+        case "includedFormat":
+          delete Object.assign(
+            newObject,
+            { [key]: filterQuery[key] },
+            {
+              ["format"]: filterQuery["includedFormat"],
+            }
+          )["includedFormat"];
+          break;
+        case "excludedTags":
+          filterQuery[key] = { $nin: filterQuery[key] };
+          console.log(filterQuery[key]);
+
+          delete Object.assign(
+            newObject,
+            { [key]: filterQuery[key] },
+            {
+              ["tags"]: filterQuery["excludedTags"],
+            }
+          )["excludedTags"];
+          break;
+        case "excludedFormat":
+          filterQuery[key] = { $nin: filterQuery[key] };
+          console.log(filterQuery[key]);
+          delete Object.assign(
+            newObject,
+            { [key]: filterQuery[key] },
+            {
+              ["format"]: filterQuery["excludedFormat"],
+            }
+          )["excludedFormat"];
+          break;
+      }
+      // Add queries to the final query using the renamed keys
+
+      compiledQuery.push(newObject);
     }
 
     try {
-      const books = await BookModel.find({ $and: compiledQuery });
+      const books = await BookModel.find({ $and: compiledQuery })
+        .limit(limit)
+        .skip(_skip);
       return res.status(200).json(books);
     } catch (error) {
       next(error);
     }
   }
 
-  // Simple recommendation algorithm (highest average rating)
+  // RECOMMENDATION (highest average rating)
   if (recommendation) {
     try {
       const recommendedBooks = await BookModel.aggregate([
