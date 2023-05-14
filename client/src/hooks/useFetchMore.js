@@ -5,7 +5,7 @@ import axios from "axios";
 // - Instead of replacing previous data like useFetch,
 // useFetchMore attaches the new response data to the end of the previous data
 
-export default function useFetchMore(url, configOptions) {
+export default function useFetchMore(url, configOptions, condition) {
   const [dataMore, setDataMore] = useState(null);
   const [loadingMore, setLoadingMore] = useState(false);
   const [errorMore, setErrorMore] = useState(null);
@@ -25,7 +25,7 @@ export default function useFetchMore(url, configOptions) {
       )
       .catch((error) => setErrorMore(error))
       .finally(setLoadingMore(false));
-  }, [url]);
+  }, [url, condition]);
 
   const refetchMore = () => {
     setLoadingMore(true);

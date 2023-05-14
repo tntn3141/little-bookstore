@@ -14,7 +14,7 @@ export default function ProductDisplay() {
 
   const url = "/api/books/";
   const { dataMore, loadingMore, errorMore, refetchMore } = useFetchMore(url, {
-    params: { _skip: skip, _limit: limit },
+    params: { normal: true, _skip: skip, _limit: limit },
   });
 
   // Loads more items on demand (clicking "load more" button)

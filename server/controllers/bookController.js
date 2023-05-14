@@ -43,13 +43,15 @@ export const getBook = async (req, res, next) => {
 };
 
 export const getBooks = async (req, res, next) => {
-  const { _skip, _limit, keyword, searchQuery, filterQuery, recommendation } =
+  const { _skip, _limit, normal, filterQuery, recommendation } =
     req.query;
   // Get value of limit param. If undefined, set it to 10 by default
   const limit = parseInt(_limit) || 10;
 
+  console.log(req.session)
+
   // "LOAD MORE" PAGINATION
-  if (_skip) {
+  if (normal) {
     const skip = parseInt(_skip);
     try {
       const books = await BookModel.find().limit(limit).skip(skip);
@@ -59,37 +61,13 @@ export const getBooks = async (req, res, next) => {
     }
   }
 
-  // Generic search
-  if (keyword) {
-    const regex = new RegExp(`(^|\\s)(${keyword})`, "i");
-    try {
-      const result = await BookModel.find({
-        $or: [{ title: { $regex: regex } }, { author: { $regex: regex } }],
-      })
-        .limit(limit)
-        .skip(_skip);
-      return res.status(200).json(result);
-    } catch (error) {
-      next(error);
-    }
-  }
-
-  // SEARCH BAR
-  if (searchQuery) {
-    const regex = new RegExp(`(^|\\s)(${searchQuery})`, "i");
-    try {
-      const books = await BookModel.find({ title: { $regex: regex } })
-        .limit(limit)
-        .skip(_skip);
-      return res.status(200).json(books);
-    } catch (error) {
-      next(error);
-    }
-  }
-
   // FILTER
   if (filterQuery) {
     let compiledQuery = [];
+    // Filter by "and" (all conditions must be true) by default
+    // If the key "or" is present, change the value to "$or"
+    let type = "$and";
+
     for (const key in filterQuery) {
       const implicitArrays = [
         "includedTags",
@@ -104,7 +82,7 @@ export const getBooks = async (req, res, next) => {
 
       // New object to store the renamed key:value pair of certain fields,
       // to be added to the final compiledQuery
-      const newObject = {};
+      const tempObject = {};
 
       // Rename the keys and values into ones that mongoDB understands
       switch (key) {
@@ -114,10 +92,11 @@ export const getBooks = async (req, res, next) => {
         case "author":
           filterQuery[key] = new RegExp(`(^|\\s)(${filterQuery[key]})`, "i");
           break;
-        // Convert price shorthands
+        // Convert price shorthands into mongoDB queries
         case "price":
           switch (filterQuery[key]) {
-            case 0:
+            case "0":
+              filterQuery[key] = { $gte: 0 };
               break;
             case "1":
               filterQuery[key] = { $lte: 200000 };
@@ -126,6 +105,9 @@ export const getBooks = async (req, res, next) => {
               filterQuery[key] = { $gte: 200000, $lte: 400000 };
               break;
             case "3":
+              filterQuery[key] = { $gte: 400000, $lte: 600000 };
+              break;
+            case "4":
               filterQuery[key] = { $gte: 600000 };
               break;
           }
@@ -135,7 +117,7 @@ export const getBooks = async (req, res, next) => {
         // that the database understands
         case "includedTags":
           delete Object.assign(
-            newObject,
+            tempObject,
             { [key]: filterQuery[key] },
             {
               ["tags"]: filterQuery["includedTags"],
@@ -144,7 +126,7 @@ export const getBooks = async (req, res, next) => {
           break;
         case "includedFormat":
           delete Object.assign(
-            newObject,
+            tempObject,
             { [key]: filterQuery[key] },
             {
               ["format"]: filterQuery["includedFormat"],
@@ -153,10 +135,8 @@ export const getBooks = async (req, res, next) => {
           break;
         case "excludedTags":
           filterQuery[key] = { $nin: filterQuery[key] };
-          console.log(filterQuery[key]);
-
           delete Object.assign(
-            newObject,
+            tempObject,
             { [key]: filterQuery[key] },
             {
               ["tags"]: filterQuery["excludedTags"],
@@ -165,23 +145,28 @@ export const getBooks = async (req, res, next) => {
           break;
         case "excludedFormat":
           filterQuery[key] = { $nin: filterQuery[key] };
-          console.log(filterQuery[key]);
           delete Object.assign(
-            newObject,
+            tempObject,
             { [key]: filterQuery[key] },
             {
               ["format"]: filterQuery["excludedFormat"],
             }
           )["excludedFormat"];
           break;
+
+        case "or":
+          type = "$or";
       }
       // Add queries to the final query using the renamed keys
-
-      compiledQuery.push(newObject);
+      if (Object.keys(tempObject).length > 0) {
+        compiledQuery.push(tempObject);
+      } else {
+        compiledQuery.push({ [key]: filterQuery[key] });
+      }
     }
 
     try {
-      const books = await BookModel.find({ $and: compiledQuery })
+      const books = await BookModel.find({ [type]: compiledQuery })
         .limit(limit)
         .skip(_skip);
       return res.status(200).json(books);

@@ -18,10 +18,6 @@ const UserSchema = mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    saleItems: {
-      type: Schema.Types.ObjectId,
-      ref: "BookModel"
-    },
   },
   { timestamps: true }
 );

@@ -5,14 +5,12 @@ import LoadingIcon from "../components/LoadingIcon";
 import Error from "../components/Error";
 import BookList from "../components/BookList";
 import SearchSidebarNew from "../components/SearchSidebar";
-import Filter from "../components/Filter";
 
 export default function SearchPage() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const urlSearchParams = new URLSearchParams(window.location.search);
   const params = Object.fromEntries(urlSearchParams.entries());
-
 
   const { data, loading, error } = useFetch(
     "/api/books",

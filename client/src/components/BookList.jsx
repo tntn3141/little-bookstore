@@ -1,15 +1,12 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 
 import { Typography } from "./Typography";
 import { ShopContext } from "../ShopContext";
 import { getVNDPrice } from "../helpers/helpers";
-import { PlusSVG, ShoppingBagSVG } from "../assets/svg";
-import addtocart from "../assets/images/addtocart.png";
 
 export default function BookList(props) {
   const { items } = props;
-  const [hover, setHover] = useState(false);
   const { increaseItemQuantity } = useContext(ShopContext);
   return (
     <div
