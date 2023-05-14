@@ -7,7 +7,7 @@ export const ShopContext = createContext(null);
 // Getdefaultcart / checkout missing
 
 export const ShopContextProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useLocalStorage("cart", []);
+  const [cartItems, setCartItems] = useLocalStorage("cart", []); //getCart
   const cartQuantity = cartItems.reduce(
     (quantity, item) => item.quantity + quantity,
     0
