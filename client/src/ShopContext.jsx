@@ -1,13 +1,10 @@
-import { createContext, useState } from "react";
-import { Cart } from "./components/Cart";
+import { createContext } from "react";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 
 export const ShopContext = createContext(null);
 
-// Getdefaultcart / checkout missing
-
 export const ShopContextProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useLocalStorage("cart", []); //getCart
+  const [cartItems, setCartItems] = useLocalStorage("cart", []);
   const cartQuantity = cartItems.reduce(
     (quantity, item) => item.quantity + quantity,
     0
@@ -69,12 +66,10 @@ export const ShopContextProvider = ({ children }) => {
     removeItem,
     cartItems,
     cartQuantity,
-    cartTotal
+    cartTotal,
   };
 
   return (
-    <ShopContext.Provider value={contextValue}>
-      {children}
-    </ShopContext.Provider>
+    <ShopContext.Provider value={contextValue}>{children}</ShopContext.Provider>
   );
 };
