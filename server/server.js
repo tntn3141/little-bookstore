@@ -3,7 +3,6 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import Multer from "multer";
 
@@ -14,6 +13,7 @@ import ratingRoute from "./routes/ratingRoute.js";
 
 const app = express();
 dotenv.config();
+const port = process.env.PORT || 8080
 const multer = Multer({
   storage: Multer.memoryStorage(),
   limits: {
@@ -66,7 +66,7 @@ app.get("/profile", (req, res) => {
   }
 });
 
-app.listen(process.env.PORT, () => {
+app.listen(port, () => {
   connect();
-  console.log(`Listening on port ${process.env.PORT}`);
+  console.log(`Listening on port ${port}`);
 });
