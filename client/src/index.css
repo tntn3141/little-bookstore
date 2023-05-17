@@ -99,17 +99,17 @@ input[type="radio"]:checked + label {
 
 /* Book info START */
 .info-wrapper {
-  @apply flex md:flex-col text-center md:w-[120px] 
+  @apply flex flex-col text-center md:w-[120px] 
   items-center gap-2 md:gap-1
 }
 .info-content {
   @apply text-sm font-bold 
 }
 .info-name {
-  @apply italic text-sm hidden md:block
+  @apply italic text-sm
 }
 .carousel-part-wrapper {
-  @apply flex flex-col md:flex-row mx-auto select-none 
+  @apply flex md:flex-row mx-auto select-none 
   min-h-[100px] px-4
 }
 
