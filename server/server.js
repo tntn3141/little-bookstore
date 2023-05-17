@@ -25,11 +25,11 @@ const multer = Multer({
 app.use(
   cors({
     credentials: true,
-    origin: "https://little-bookstore.netlify.app",
+    origin: "http://127.0.0.1:5173",
   })
 );
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "https://little-bookstore.netlify.app");
+  res.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:5173");
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
