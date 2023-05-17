@@ -25,7 +25,7 @@ const multer = Multer({
 app.use(
   cors({
     credentials: true,
-    origin: "https://little-bookstore.netlify.app/",
+    origin: "https://little-bookstore.netlify.app",
   })
 );
 app.use((req, res, next) => {
