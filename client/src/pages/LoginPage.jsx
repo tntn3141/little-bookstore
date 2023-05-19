@@ -24,9 +24,7 @@ export default function LoginPage() {
     // If the code below isn't async, we need to add the second arg "actions" after "values"
     // in handleLoginSubmit and set actions.setSubmitting to false at the end
     try {
-      const response = await axios.post("/api/auth/login", values, {
-        withCredentials: true,
-      });
+      const response = await axios.post("/api/auth/login", values);
       if (response.data) {
         console.log(response.data);
         setUser(response.data);
