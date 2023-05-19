@@ -57,7 +57,6 @@ export default function BookEditPage() {
     let formData = new FormData();
 
     if (didChangeCover) {
-      console.log("cover changed")
       let fileId = uuidv4();
       let blob = cover.slice(0, cover.size, "image/jpeg");
       // To assign a new name (that uuid generated) to the image file
@@ -78,11 +77,6 @@ export default function BookEditPage() {
       }
     }
 
-    for (const value of formData.values()) {
-      console.log(value);
-    }
-
-
     try {
       const response = await axios.put(`/api/books/${data._id}`, formData);
       if (response) {
@@ -98,8 +92,8 @@ export default function BookEditPage() {
     }
   }
 
-  if ((user == null) || !user.isAdmin) {
-    return <NotFound404Page />
+  if (user == null || !user.isAdmin) {
+    return <NotFound404Page />;
   }
 
   if (loading) {
@@ -182,7 +176,6 @@ export default function BookEditPage() {
                 control="select"
                 label="Language"
                 name="language"
-                selected="English" // English by default
                 options={bookLanguages}
               />
               <FormikControl
