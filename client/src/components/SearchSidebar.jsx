@@ -21,8 +21,10 @@ export default function SearchSidebarNew() {
   }, [key]);
 
   async function getSearchResult() {
+    console.log("1")
     try {
       if (!key.trim()) {
+        console.log("empty")
         setSearchResult([]);
         return;
       }
