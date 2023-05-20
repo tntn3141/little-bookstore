@@ -1,6 +1,5 @@
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Hero() {
@@ -15,11 +14,12 @@ export default function Hero() {
           emulateTouch
           showStatus={false}
           showThumbs={false}
+          showIndicators={false}
         >
           <div className="cursor-pointer" onClick={() => navigate("/login")}>
             <img
               src="/assets/266524-P53SH3-817a.png"
-              width="200"
+              width="100%"
               alt="to featured article 1"
             />
           </div>
@@ -27,7 +27,7 @@ export default function Hero() {
           <div className="cursor-pointer" onClick={() => navigate("/register")}>
             <img
               src="/assets/266524-P53SH3-817b.png"
-              width="200"
+              width="100%"
               alt="to featured article 2"
             />
           </div>
