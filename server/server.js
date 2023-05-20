@@ -13,7 +13,7 @@ import ratingRoute from "./routes/ratingRoute.js";
 
 const app = express();
 dotenv.config();
-const port = process.env.PORT || 8080
+const port = process.env.PORT || 8080;
 const multer = Multer({
   storage: Multer.memoryStorage(),
   limits: {
@@ -28,14 +28,17 @@ app.use(
     origin: "https://little-bookstore.netlify.app",
   })
 );
+
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "https://little-bookstore.netlify.app");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
+  res.set({
+    "Access-Control-Allow-Origin": "https://little-bookstore.netlify.app",
+    "Access-Control-Allow-Headers":
+      "Origin, X-Requested-With, Content-Type, Accept",
+    "Content-Security-Policy": "default-src 'self'",
+  });
   next();
 });
+
 app.use(express.json());
 app.use(multer.single("coverImage"));
 app.use(cookieParser());
