@@ -34,7 +34,10 @@ app.use((req, res, next) => {
     "Access-Control-Allow-Origin": "https://little-bookstore.netlify.app",
     "Access-Control-Allow-Headers":
       "Origin, X-Requested-With, Content-Type, Accept",
-    "Content-Security-Policy": "default-src 'self'",
+    "Content-Security-Policy":
+      `default-src 'self'; 
+      "script-src 'nonce-random123' 'strict-dynamic' 'unsafe-inline' https:; 
+      "object-src 'none'; base-uri 'none';`,
   });
   next();
 });
