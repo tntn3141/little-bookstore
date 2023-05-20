@@ -35,9 +35,7 @@ app.use((req, res, next) => {
     "Access-Control-Allow-Headers":
       "Origin, X-Requested-With, Content-Type, Accept",
     "Content-Security-Policy":
-      `default-src 'self'; 
-      "script-src 'nonce-random123' 'strict-dynamic' 'unsafe-inline' https:; 
-      "object-src 'none'; base-uri 'none';`,
+      "default-src 'self'; script-src 'nonce-random123' 'strict-dynamic' 'unsafe-inline' https:; object-src 'none'; base-uri 'none';",
   });
   next();
 });
