@@ -1,5 +1,6 @@
 import RatingModel from "../models/ratingModel.js";
 import BookModel from "../models/bookModel.js";
+import { startSession } from "mongoose";
 
 export const getRating = async (req, res, next) => {
   const { user_id, item_id } = req.body;
@@ -16,11 +17,13 @@ export const getRating = async (req, res, next) => {
 
 export const createRating = async (req, res, next) => {
   const { user_id, item_id, value } = req.body;
+  const session = await startSession();
   try {
     let currentRating = await RatingModel.findOne({
       userId: user_id,
       itemId: item_id,
     });
+    session.startTransaction();
     if (!currentRating) {
       // Register user's rating
       const newRating = await RatingModel.create({
@@ -44,7 +47,6 @@ export const createRating = async (req, res, next) => {
           value: value,
         }
       );
-      console.log(updatedBook)
       return res.status(200).json(updatedRating);
     }
   } catch (error) {

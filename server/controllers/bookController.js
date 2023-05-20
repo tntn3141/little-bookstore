@@ -61,8 +61,8 @@ export const getBooks = async (req, res, next) => {
   // FILTER
   if (filterQuery) {
     let compiledQuery = [];
-    // Filter by "and" (all conditions must be true) by default
-    // If the key "or" is present, change the value to "$or"
+    // Filter by "$and" (all conditions must be true) by default
+    // If the key "or" is present, change the value to "$or" (at least one condition is true)
     let type = "$and";
 
     for (const key in filterQuery) {
@@ -73,6 +73,7 @@ export const getBooks = async (req, res, next) => {
         "excludedFormat",
       ];
 
+      // To properly separate items in implicit arrays
       if (implicitArrays.includes(key) && filterQuery[key].includes(",")) {
         filterQuery[key] = filterQuery[key].split(",");
       }
