@@ -12,8 +12,7 @@ export default function ProductDisplay() {
   const [limit, setLimit] = useState(5);
   const isFirstRender = useFirstRender();
 
-  const url = "https://little-bookstore-api.fly.dev/api/books";
-  const { dataMore, loadingMore, errorMore, refetchMore } = useFetchMore(url, {
+  const { dataMore, loadingMore, errorMore, refetchMore } = useFetchMore("/api/books", {
     params: { normal: true, _skip: skip, _limit: limit },
   });
 
