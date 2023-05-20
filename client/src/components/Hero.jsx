@@ -40,7 +40,7 @@ export default function Hero() {
             <img
               src="/assets/5109069a.png"
               alt="to feature article 3"
-              width="200"
+              width="100%"
             />
           </Link>
         </div>
@@ -49,7 +49,7 @@ export default function Hero() {
             <img
               src="/assets/7913448.png"
               alt="to feature article 4"
-              width="200"
+              width="100%"
             />
           </Link>
         </div>
