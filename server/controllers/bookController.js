@@ -43,7 +43,8 @@ export const getBook = async (req, res, next) => {
 };
 
 export const getBooks = async (req, res, next) => {
-  const { _skip, _limit, normal, filterQuery, recommendation } = req.query;
+  const { _skip, _limit, normal, searchQuery, filterQuery, recommendation } =
+    req.query;
   // Get value of limit param. If undefined, set it to 10 by default
   const limit = parseInt(_limit) || 10;
 
@@ -52,6 +53,23 @@ export const getBooks = async (req, res, next) => {
     const skip = parseInt(_skip);
     try {
       const books = await BookModel.find().limit(limit).skip(skip);
+      return res.status(200).json(books);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  if (searchQuery) {
+    // (^|\s): Start of the string or after a whitespace
+    // (${query}): Contains the query string
+    // i: case insensitive
+    const regex = new RegExp(`(^|\\s)(${searchQuery})`, "i");
+    try {
+      const books = await BookModel.find({
+        $or: [{ title: regex }, { author: regex }],
+      })
+        .limit(limit)
+        .skip(_skip);
       return res.status(200).json(books);
     } catch (error) {
       next(error);
