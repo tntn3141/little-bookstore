@@ -19,6 +19,7 @@ export default function Hero() {
           <div className="cursor-pointer" onClick={() => navigate("/login")}>
             <img
               src="/assets/266524-P53SH3-817a.png"
+              width="200"
               alt="to featured article 1"
             />
           </div>
@@ -26,6 +27,7 @@ export default function Hero() {
           <div className="cursor-pointer" onClick={() => navigate("/register")}>
             <img
               src="/assets/266524-P53SH3-817b.png"
+              width="200"
               alt="to featured article 2"
             />
           </div>
@@ -35,12 +37,20 @@ export default function Hero() {
       <div className="flex md:flex-col md:w-[39%] mx-auto justify-between">
         <div className="min-w-[50%]">
           <Link to={"/login"}>
-            <img src="/assets/5109069a.png" />
+            <img
+              src="/assets/5109069a.png"
+              alt="to feature article 3"
+              width="200"
+            />
           </Link>
         </div>
         <div className="min-w-[50%]">
           <Link to={"/register"}>
-            <img src="/assets/7913448.png" />
+            <img
+              src="/assets/7913448.png"
+              alt="to feature article 4"
+              width="200"
+            />
           </Link>
         </div>
       </div>
