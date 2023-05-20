@@ -57,7 +57,7 @@ export default function Header() {
     <header className="shadow-md w-full bg-white fixed top-0 z-10 m-0">
       <nav className="p-5 bg-white shadow md:flex md:items-center md:justify-between">
         <div className="flex justify-between items-center">
-          <Link to={"/"}>
+          <Link to={"/"} aria-label="to index page">
             <span className="text-2xl font-[Poppins] cursor-pointer flex items-center">
               <BookSolidSVG />
               <span className="mx-1">lorem</span>
@@ -67,13 +67,13 @@ export default function Header() {
             <ShoppingBagSVG onClick={() => setCartOpen(!cartOpen)} />
           </div>
           <div
-              className={
-                "text-white text-[0.75rem] bg-red-600 rounded-full justify-center items-center text-center " +
-                "w-4 h-4 flex relative right-10 top-2 select-none md:hidden"
-              }
-            >
-              {cartQuantity}
-            </div>
+            className={
+              "text-white text-[0.75rem] bg-red-600 rounded-full justify-center items-center text-center " +
+              "w-4 h-4 flex relative right-10 top-2 select-none md:hidden"
+            }
+          >
+            {cartQuantity}
+          </div>
           <div
             onClick={() => setMenuOpen(!menuOpen)}
             className="text-3xl absolute right-4 top-6 cursor-pointer md:hidden"
@@ -94,6 +94,7 @@ export default function Header() {
             <li key={link.name} className="md:ml-8 text-xl md:my-0 my-10">
               <Link
                 to={link.link}
+                aria-label={`to ${link} page`}
                 className="text-gray-800 hover:text-gray-400 duration-500"
               >
                 {link.name}
@@ -103,6 +104,7 @@ export default function Header() {
           <li className="md:hidden text-xl my-10">
             <Link
               to="/account"
+              aria-label="to account page"
               className="text-gray-800 hover:text-gray-400 duration-500"
             >
               Account
@@ -117,10 +119,16 @@ export default function Header() {
             "top-[-400px] transition-all ease-in duration-500 text-3xl cursor-pointer mx-2 block flex"
           }
         >
-          <Link to={user ? "/account" : "/login"}>
+          <Link
+            to={user ? "/account" : "/login"}
+            aria-label={user ? "to account page" : "to login page"}
+          >
             <UserSVG fill={!!user ? "currentColor" : "none"} />
           </Link>
-          <div onClick={() => setCartOpen(!cartOpen)} className="grid grid-cols-[100%_0]">
+          <div
+            onClick={() => setCartOpen(!cartOpen)}
+            className="grid grid-cols-[100%_0]"
+          >
             <ShoppingBagSVG />
             <div
               className={
