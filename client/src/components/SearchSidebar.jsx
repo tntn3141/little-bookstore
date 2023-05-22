@@ -23,13 +23,14 @@ export default function SearchSidebarNew() {
   async function getSearchResult() {
     try {
       if (!key.trim()) {
+        console.log("set empty");
         setSearchResult([]);
-        return;
+      } else {
+        const response = await axios.get("/api/books", {
+          params: { searchQuery: key, _limit: 3 },
+        });
+        setSearchResult(response.data);
       }
-      const response = await axios.get("/api/books", {
-        params: { searchQuery: key, _limit: 3 },
-      });
-      setSearchResult(response.data);
     } catch (error) {
       alert(error);
     }
@@ -121,7 +122,7 @@ export default function SearchSidebarNew() {
               </button>
             </div>
           </div>
-          {!key.trim() && searchResult.length > 0 && (
+          {searchResult.length > 0 && (
             <div
               className={
                 "grid grid-rows-[120px_120px_120px] z-10 absolute top-[47px] " +
