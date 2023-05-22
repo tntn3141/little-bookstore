@@ -23,7 +23,6 @@ export default function SearchSidebarNew() {
   async function getSearchResult() {
     try {
       if (!key.trim()) {
-        console.log("set empty");
         setSearchResult([]);
       } else {
         const response = await axios.get("/api/books", {
@@ -122,7 +121,7 @@ export default function SearchSidebarNew() {
               </button>
             </div>
           </div>
-          {searchResult.length > 0 && (
+          {key.length > 0 && searchResult.length > 0 && (
             <div
               className={
                 "grid grid-rows-[120px_120px_120px] z-10 absolute top-[47px] " +
