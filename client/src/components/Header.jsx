@@ -4,7 +4,6 @@ import { Link, useLocation } from "react-router-dom";
 import {
   BookSolidSVG,
   MenuSVG,
-  SearchSVG,
   UserSVG,
   ShoppingBagSVG,
   XSVG,
@@ -15,7 +14,7 @@ import { Cart } from "./Cart";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [cartOpen, setCartOpen] = useState(false);
+  const [cartOpen, setCartOpen] = useState(true);
   const { user } = useContext(UserContext);
   const { cartQuantity } = useContext(ShopContext);
 
@@ -67,13 +66,13 @@ export default function Header() {
             <ShoppingBagSVG onClick={() => setCartOpen(!cartOpen)} />
           </div>
           <div
-              className={
-                "text-white text-[0.75rem] bg-red-600 rounded-full justify-center items-center text-center " +
-                "w-4 h-4 flex relative right-10 top-2 select-none md:hidden"
-              }
-            >
-              {cartQuantity}
-            </div>
+            className={
+              "text-white text-[0.75rem] bg-red-600 rounded-full justify-center items-center text-center " +
+              "w-4 h-4 flex relative right-10 top-2 select-none md:hidden"
+            }
+          >
+            {cartQuantity}
+          </div>
           <div
             onClick={() => setMenuOpen(!menuOpen)}
             className="text-3xl absolute right-4 top-6 cursor-pointer md:hidden"
@@ -120,7 +119,10 @@ export default function Header() {
           <Link to={user ? "/account" : "/login"}>
             <UserSVG fill={!!user ? "currentColor" : "none"} />
           </Link>
-          <div onClick={() => setCartOpen(!cartOpen)} className="grid grid-cols-[100%_0]">
+          <div
+            onClick={() => setCartOpen(!cartOpen)}
+            className="grid grid-cols-[100%_0]"
+          >
             <ShoppingBagSVG />
             <div
               className={
@@ -133,7 +135,7 @@ export default function Header() {
           </div>
         </div>
       </nav>
-      <Cart open={cartOpen} />
+      <Cart />
     </header>
   );
 }
