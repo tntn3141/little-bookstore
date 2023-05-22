@@ -17,14 +17,12 @@ export default function SearchSidebarNew() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("key changed")
     getSearchResult();
   }, [key]);
 
   async function getSearchResult() {
     try {
       if (!key.trim()) {
-        console.log(key.trim())
         setSearchResult([]);
         return;
       }
@@ -32,7 +30,6 @@ export default function SearchSidebarNew() {
         params: { searchQuery: key, _limit: 3 },
       });
       setSearchResult(response.data);
-      console.log(searchResult)
     } catch (error) {
       alert(error);
     }
@@ -124,7 +121,7 @@ export default function SearchSidebarNew() {
               </button>
             </div>
           </div>
-          {searchResult.length > 0 && (
+          {!key.trim() && searchResult.length > 0 && (
             <div
               className={
                 "grid grid-rows-[120px_120px_120px] z-10 absolute top-[47px] " +
