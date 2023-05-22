@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useRef } from "react";
 import { ShopContext } from "../ShopContext";
 import { CartItem } from "./CartItem";
 import { Typography } from "./Typography";
