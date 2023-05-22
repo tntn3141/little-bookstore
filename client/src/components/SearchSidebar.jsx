@@ -17,12 +17,14 @@ export default function SearchSidebarNew() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log("key changed")
     getSearchResult();
   }, [key]);
 
   async function getSearchResult() {
     try {
       if (!key.trim()) {
+        console.log(key.trim())
         setSearchResult([]);
         return;
       }
@@ -30,6 +32,7 @@ export default function SearchSidebarNew() {
         params: { searchQuery: key, _limit: 3 },
       });
       setSearchResult(response.data);
+      console.log(searchResult)
     } catch (error) {
       alert(error);
     }
