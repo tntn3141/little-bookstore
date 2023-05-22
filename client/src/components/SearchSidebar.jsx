@@ -121,7 +121,7 @@ export default function SearchSidebarNew() {
               </button>
             </div>
           </div>
-          {searchResult && searchResult.length > 0 && (
+          {searchResult.length > 0 && (
             <div
               className={
                 "grid grid-rows-[120px_120px_120px] z-10 absolute top-[47px] " +
