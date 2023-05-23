@@ -10,9 +10,8 @@ import {
 } from "../assets/svg";
 import { UserContext } from "../UserContext";
 import { ShopContext } from "../ShopContext";
-import { CartItem } from "./CartItem";
-import { Typography } from "./Typography";
-import { getVNDPrice } from "../helpers/helpers";
+import { useOutsideClick } from "../hooks/useOutsideClick";
+import { Cart } from "./Cart";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -28,26 +27,8 @@ export default function Header() {
   }, [pathname]);
 
   // To close submenu when clicking outside of it on mobile
-  const wrapperRef = useRef(null);
-  const cartWrapperRef = useRef(null);
-  useOutsideAlerter(() => setMenuOpen(false), wrapperRef);
-  useOutsideAlerter(() => setCartOpen(false), cartWrapperRef);
-
-  function useOutsideAlerter(callback, ref) {
-    useEffect(() => {
-      function handleClickOutside(event) {
-        if (ref.current && !ref.current.contains(event.target)) {
-          callback();
-        }
-      }
-      // Bind the event listener
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => {
-        // Unbind the event listener on clean up
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
-    }, [ref]);
-  }
+  const navWrapperRef = useRef(null);
+  useOutsideClick(() => setMenuOpen(false), navWrapperRef);
 
   const links = [
     { name: "New Arrivals", link: "/new" },
@@ -86,7 +67,7 @@ export default function Header() {
         </div>
 
         <ul
-          ref={wrapperRef}
+          ref={navWrapperRef}
           className={`md:flex md:items-center md:pb-0 pb-6 pt-2 md:pt-0 mt-5 md:mt-0 
           absolute md:static bg-white md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-9 
           transition-all duration-500 ease-in ${
@@ -144,51 +125,7 @@ export default function Header() {
           </div>
         </div>
       </nav>
-      {/* Temp */}
-      {cartOpen && (
-        <div
-          ref={cartWrapperRef}
-          className={
-            "absolute right-0 z-10 w-full md:w-[70%] lg:w-[50%] " +
-            "bg-white p-5 pt-0 overflow-y-auto max-h-[90vh]"
-          }
-        >
-          <Typography variant="h2" className="font-bold text-center mb-2">
-            Cart
-          </Typography>
-          {cartItems.map((item) => {
-            return <CartItem key={item._id} item={item} />;
-          })}
-          <div className="py-4">
-            Total:{" "}
-            <span className="text-red-600 font-bold text-2xl">
-              {getVNDPrice(cartTotal)}
-            </span>
-            <div className="flex flex-col gap-2 md:grid md:grid-cols-2 mt-4">
-              <button
-                type="button"
-                className={
-                  "border border-black px-1 bg-slate-800 " +
-                  "text-white rounded-xl w-[95%] py-2 mx-auto"
-                }
-                onClick={() => {}}
-              >
-                Continue Shopping
-              </button>
-              <button
-                type="button"
-                className={
-                  "border border-black px-1 bg-slate-800 " +
-                  "text-white rounded-xl w-[95%] py-2 mx-auto"
-                }
-                onClick={() => {}}
-              >
-                Checkout
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <Cart open={cartOpen} />
     </header>
   );
 }

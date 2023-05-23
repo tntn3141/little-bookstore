@@ -3,32 +3,14 @@ import { ShopContext } from "../ShopContext";
 import { CartItem } from "./CartItem";
 import { Typography } from "./Typography";
 import { getVNDPrice } from "../helpers/helpers";
+import { useOutsideClick } from "../hooks/useOutsideClick"
 
 export const Cart = ({ open }) => {
   const { cartItems, cartTotal } = useContext(ShopContext);
   const [isOpen, setIsOpen] = useState(open);
 
-  const wrapperRef = useRef(null);
-  useOutsideAlerter(wrapperRef);
-
-  function useOutsideAlerter(ref) {
-    useEffect(() => {
-      /**
-       * Alert if clicked on outside of element
-       */
-      function handleClickOutside(event) {
-        if (ref.current && !ref.current.contains(event.target)) {
-          setIsOpen(false);
-        }
-      }
-      // Bind the event listener
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => {
-        // Unbind the event listener on clean up
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
-    }, [ref]);
-  }
+  const cartWrapperRef = useRef(null);
+  useOutsideClick(() => setIsOpen(false), cartWrapperRef);
 
   return (
     <div ref={wrapperRef}>
