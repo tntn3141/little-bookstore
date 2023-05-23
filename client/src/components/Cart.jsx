@@ -15,7 +15,8 @@ export const Cart = () => {
     <div
       className={
         "absolute right-0 z-10 w-full md:w-[70%] lg:w-[50%] " +
-        "bg-white p-5 pt-0 overflow-y-auto max-h-[90vh]"
+        "bg-white p-5 pt-0 overflow-y-auto max-h-[90vh] " +
+        "shadow-lg border border-slate-600"
       }
     >
       <Typography variant="h2" className="font-bold text-center mb-2">
