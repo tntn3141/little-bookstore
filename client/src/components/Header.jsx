@@ -125,7 +125,7 @@ export default function Header() {
           </div>
         </div>
       </nav>
-      <Cart open={cartOpen} />
+      {cartOpen && <Cart />}
     </header>
   );
 }
