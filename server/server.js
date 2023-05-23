@@ -13,7 +13,7 @@ import ratingRoute from "./routes/ratingRoute.js";
 
 const app = express();
 dotenv.config();
-const port = process.env.PORT || 8080
+const port = process.env.PORT || 8080;
 const multer = Multer({
   storage: Multer.memoryStorage(),
   limits: {
@@ -28,6 +28,7 @@ app.use(
     origin: "http://127.0.0.1:5173",
   })
 );
+
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:5173");
   res.header(
@@ -36,6 +37,7 @@ app.use((req, res, next) => {
   );
   next();
 });
+
 app.use(express.json());
 app.use(multer.single("coverImage"));
 app.use(cookieParser());

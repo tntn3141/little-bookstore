@@ -43,7 +43,7 @@ export const getBook = async (req, res, next) => {
 };
 
 export const getBooks = async (req, res, next) => {
-  const { _skip, _limit, normal, filterQuery, searchQuery, recommendation } =
+  const { _skip, _limit, normal, searchQuery, filterQuery, recommendation } =
     req.query;
   // Get value of limit param. If undefined, set it to 10 by default
   const limit = parseInt(_limit) || 10;
@@ -59,11 +59,15 @@ export const getBooks = async (req, res, next) => {
     }
   }
 
-  // LIVE SEARCH
   if (searchQuery) {
+    // (^|\s): Start of the string or after a whitespace
+    // (${query}): Contains the query string
+    // i: case insensitive
     const regex = new RegExp(`(^|\\s)(${searchQuery})`, "i");
     try {
-      const books = await BookModel.find({ title: { $regex: regex } })
+      const books = await BookModel.find({
+        $or: [{ title: regex }, { author: regex }],
+      })
         .limit(limit)
         .skip(_skip);
       return res.status(200).json(books);
@@ -75,8 +79,8 @@ export const getBooks = async (req, res, next) => {
   // FILTER
   if (filterQuery) {
     let compiledQuery = [];
-    // Filter by "and" (all conditions must be true) by default
-    // If the key "or" is present, change the value to "$or"
+    // Filter by "$and" (all conditions must be true) by default
+    // If the key "or" is present, change the value to "$or" (at least one condition is true)
     let type = "$and";
 
     for (const key in filterQuery) {
@@ -87,6 +91,7 @@ export const getBooks = async (req, res, next) => {
         "excludedFormat",
       ];
 
+      // To properly separate items in implicit arrays
       if (implicitArrays.includes(key) && filterQuery[key].includes(",")) {
         filterQuery[key] = filterQuery[key].split(",");
       }

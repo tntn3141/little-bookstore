@@ -10,6 +10,7 @@ import {
 } from "../assets/svg";
 import { UserContext } from "../UserContext";
 import { ShopContext } from "../ShopContext";
+import { useOutsideClick } from "../hooks/useOutsideClick";
 import { Cart } from "./Cart";
 
 export default function Header() {
@@ -25,25 +26,11 @@ export default function Header() {
     setCartOpen(false);
   }, [pathname]);
 
-  // To close submenu when clicking outside of it on mobile
-  const wrapperRef = useRef(null);
-  useOutsideAlerter(wrapperRef);
-
-  function useOutsideAlerter(ref) {
-    useEffect(() => {
-      function handleClickOutside(event) {
-        if (ref.current && !ref.current.contains(event.target)) {
-          setMenuOpen(false);
-        }
-      }
-      // Bind the event listener
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => {
-        // Unbind the event listener on clean up
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
-    }, [ref]);
-  }
+  // To close menu/cart when clicking outside
+  const navWrapperRef = useRef(null);
+  useOutsideClick(() => setMenuOpen(false), navWrapperRef);
+  const cartWrapperRef = useRef(null);
+  useOutsideClick(() => setCartOpen(false), cartWrapperRef);
 
   const links = [
     { name: "New Arrivals", link: "/new" },
@@ -56,7 +43,7 @@ export default function Header() {
     <header className="shadow-md w-full bg-white fixed top-0 z-10 m-0">
       <nav className="p-5 bg-white shadow md:flex md:items-center md:justify-between">
         <div className="flex justify-between items-center">
-          <Link to={"/"}>
+          <Link to={"/"} aria-label="to index page">
             <span className="text-2xl font-[Poppins] cursor-pointer flex items-center">
               <BookSolidSVG />
               <span className="mx-1">lorem</span>
@@ -82,7 +69,7 @@ export default function Header() {
         </div>
 
         <ul
-          ref={wrapperRef}
+          ref={navWrapperRef}
           className={`md:flex md:items-center md:pb-0 pb-6 pt-2 md:pt-0 mt-5 md:mt-0 
           absolute md:static bg-white md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-9 
           transition-all duration-500 ease-in ${
@@ -93,6 +80,7 @@ export default function Header() {
             <li key={link.name} className="md:ml-8 text-xl md:my-0 my-10">
               <Link
                 to={link.link}
+                aria-label={`to ${link} page`}
                 className="text-gray-800 hover:text-gray-400 duration-500"
               >
                 {link.name}
@@ -102,6 +90,7 @@ export default function Header() {
           <li className="md:hidden text-xl my-10">
             <Link
               to="/account"
+              aria-label="to account page"
               className="text-gray-800 hover:text-gray-400 duration-500"
             >
               Account
@@ -116,7 +105,10 @@ export default function Header() {
             "top-[-400px] transition-all ease-in duration-500 text-3xl cursor-pointer mx-2 block flex"
           }
         >
-          <Link to={user ? "/account" : "/login"}>
+          <Link
+            to={user ? "/account" : "/login"}
+            aria-label={user ? "to account page" : "to login page"}
+          >
             <UserSVG fill={!!user ? "currentColor" : "none"} />
           </Link>
           <div
@@ -135,7 +127,11 @@ export default function Header() {
           </div>
         </div>
       </nav>
-      <Cart />
+      {cartOpen && (
+        <div ref={cartWrapperRef}>
+          <Cart />
+        </div>
+      )}
     </header>
   );
 }
