@@ -7,7 +7,6 @@ import Layout from "./Layout";
 import TagPage from "./pages/TagPage";
 import { UserContextProvider } from "./UserContext";
 import { ShopContextProvider } from "./ShopContext";
-import { Cart } from "./components/Cart";
 import LoadingIcon from "./components/LoadingIcon";
 const LazyRegisterPage = lazy(() => import("./pages/RegisterPage"));
 const LazyLoginPage = lazy(() => import("./pages/LoginPage"));
@@ -37,7 +36,6 @@ function App() {
                 element={<LazyBookEditPage />}
               />
               <Route path="/tags/:tag" element={<TagPage />} />
-              <Route path="/cart" element={<Cart />} />
               <Route path="/search" element={<LazySearchPage />} />
               <Route path="*" element={<LazyNotFoundPage />} />
             </Route>

@@ -127,11 +127,11 @@ export default function Header() {
           </div>
         </div>
       </nav>
-      {/* {cartOpen && (
-        <div>
+      {cartOpen && (
+        <div ref={cartWrapperRef}>
           <Cart />
         </div>
-      )} */}
+      )}
     </header>
   );
 }
