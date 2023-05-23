@@ -1,5 +1,9 @@
 import { useContext, useState, useRef, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { ShopContext } from "../ShopContext";
+import { CartItem } from "./CartItem";
+import { Typography } from "./Typography";
+import { getVNDPrice } from "../helpers/helpers";
 
 import {
   BookSolidSVG,
