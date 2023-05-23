@@ -1,9 +1,5 @@
 import { useContext, useState, useRef, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ShopContext } from "../ShopContext";
-import { CartItem } from "./CartItem";
-import { Typography } from "./Typography";
-import { getVNDPrice } from "../helpers/helpers";
 
 import {
   BookSolidSVG,
@@ -14,7 +10,9 @@ import {
 } from "../assets/svg";
 import { UserContext } from "../UserContext";
 import { ShopContext } from "../ShopContext";
-import { Cart } from "./Cart";
+import { CartItem } from "./CartItem";
+import { Typography } from "./Typography";
+import { getVNDPrice } from "../helpers/helpers";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -146,6 +144,7 @@ export default function Header() {
           </div>
         </div>
       </nav>
+      {/* Temp */}
       {cartOpen && (
         <div
           ref={cartWrapperRef}
