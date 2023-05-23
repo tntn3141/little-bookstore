@@ -26,9 +26,11 @@ export default function Header() {
     setCartOpen(false);
   }, [pathname]);
 
-  // To close submenu when clicking outside of it on mobile
+  // To close menu/cart when clicking outside
   const navWrapperRef = useRef(null);
   useOutsideClick(() => setMenuOpen(false), navWrapperRef);
+  const cartWrapperRef = useRef(null);
+  useOutsideClick(() => setCartOpen(false), cartWrapperRef);
 
   const links = [
     { name: "New Arrivals", link: "/new" },
@@ -125,7 +127,11 @@ export default function Header() {
           </div>
         </div>
       </nav>
-      {cartOpen && <Cart cartOpen />}
+      {cartOpen && (
+        <div ref={cartWrapperRef}>
+          <Cart />
+        </div>
+      )}
     </header>
   );
 }
