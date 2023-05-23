@@ -37,19 +37,26 @@ export const CartItem = (props) => {
         </Typography>
         <div className="flex my-2 gap-4">
           <div className="flex">
-            <span className="border border-black bg-slate-800 text-white">
-              <MinusSVG onClick={() => decreaseItemQuantity(item)} />
-            </span>
+            <button
+              disabled={item.quantity < 1}
+              onClick={() => decreaseItemQuantity(item)}
+              className="border border-black bg-slate-800 text-white"
+            >
+              <MinusSVG />
+            </button>
             <span className="border-t border-b border-black px-4">
               {item.quantity}
             </span>
-            <span className="border border-black bg-slate-800 text-white">
-              <PlusSVG onClick={() => increaseItemQuantity(item)} />
-            </span>
+            <button
+              onClick={() => increaseItemQuantity(item)}
+              className="border border-black bg-slate-800 text-white"
+            >
+              <PlusSVG />
+            </button>
           </div>
           <span
-            className="border border-black px-1 bg-slate-800 text-white"
             onClick={() => removeItem(item)}
+            className="border border-black px-1 bg-slate-800 text-white"
           >
             Remove
           </span>
