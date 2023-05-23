@@ -13,7 +13,7 @@ export const Cart = ({ open }) => {
   useOutsideClick(() => setIsOpen(false), cartWrapperRef);
 
   return (
-    <div ref={wrapperRef}>
+    <div ref={cartWrapperRef}>
       {isOpen && (
         <div
           className={
