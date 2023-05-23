@@ -5,9 +5,9 @@ import { Typography } from "./Typography";
 import { getVNDPrice } from "../helpers/helpers";
 import { useOutsideClick } from "../hooks/useOutsideClick"
 
-export const Cart = () => {
+export const Cart = ({ cartOpen }) => {
   const { cartItems, cartTotal } = useContext(ShopContext);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(cartOpen);
 
   const cartWrapperRef = useRef(null);
   useOutsideClick(() => setIsOpen(false), cartWrapperRef);
