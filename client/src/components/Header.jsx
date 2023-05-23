@@ -4,7 +4,6 @@ import { Link, useLocation } from "react-router-dom";
 import {
   BookSolidSVG,
   MenuSVG,
-  SearchSVG,
   UserSVG,
   ShoppingBagSVG,
   XSVG,
@@ -28,13 +27,15 @@ export default function Header() {
 
   // To close submenu when clicking outside of it on mobile
   const wrapperRef = useRef(null);
-  useOutsideAlerter(wrapperRef);
+  const cartWrapperRef = useRef(null);
+  useOutsideAlerter(() => setMenuOpen(false), wrapperRef);
+  useOutsideAlerter(() => setCartOpen(false), cartWrapperRef);
 
-  function useOutsideAlerter(ref) {
+  function useOutsideAlerter(callback, ref) {
     useEffect(() => {
       function handleClickOutside(event) {
         if (ref.current && !ref.current.contains(event.target)) {
-          setMenuOpen(false);
+          callback();
         }
       }
       // Bind the event listener
@@ -141,7 +142,50 @@ export default function Header() {
           </div>
         </div>
       </nav>
-      <Cart open={cartOpen} />
+      {cartOpen && (
+        <div
+          ref={cartWrapperRef}
+          className={
+            "absolute right-0 z-10 w-full md:w-[70%] lg:w-[50%] " +
+            "bg-white p-5 pt-0 overflow-y-auto max-h-[90vh]"
+          }
+        >
+          <Typography variant="h2" className="font-bold text-center mb-2">
+            Cart
+          </Typography>
+          {cartItems.map((item) => {
+            return <CartItem key={item._id} item={item} />;
+          })}
+          <div className="py-4">
+            Total:{" "}
+            <span className="text-red-600 font-bold text-2xl">
+              {getVNDPrice(cartTotal)}
+            </span>
+            <div className="flex flex-col gap-2 md:grid md:grid-cols-2 mt-4">
+              <button
+                type="button"
+                className={
+                  "border border-black px-1 bg-slate-800 " +
+                  "text-white rounded-xl w-[95%] py-2 mx-auto"
+                }
+                onClick={() => {}}
+              >
+                Continue Shopping
+              </button>
+              <button
+                type="button"
+                className={
+                  "border border-black px-1 bg-slate-800 " +
+                  "text-white rounded-xl w-[95%] py-2 mx-auto"
+                }
+                onClick={() => {}}
+              >
+                Checkout
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </header>
   );
 }
