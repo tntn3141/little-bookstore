@@ -36,11 +36,10 @@ export default function LoginPage() {
     }
   }
 
-  // If the user logs in successfully, redirect them to the home page
+
   if (redirect) {
     return <Navigate to={"/"} />;
   }
-  // If the user is already logged in, redirect them to their account page instead
   if (user) {
     return <Navigate to={"/account"} />;
   }

@@ -5,7 +5,7 @@ export function getVNDPrice(value) {
   }).format(value);
 }
 
-// Remove all falsy values ("", 0, false, null, undefined )
+// Remove all falsy values ("", 0, false, null, undefined)
 // Reference: https://stackoverflow.com/questions/286141/remove-blank-attributes-from-an-object-in-javascript
 export function removeFalsyValues(array) {
   let result = Object.entries(array).reduce(

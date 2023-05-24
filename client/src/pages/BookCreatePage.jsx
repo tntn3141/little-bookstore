@@ -47,16 +47,15 @@ export default function BookCreatePage() {
         formData.append(key, values[key]);
       }
     }
-    // To identify the uploader
     formData.append("uploadedBy", user._id);
 
     try {
       const response = await axios.post("/api/books/", formData);
       if (response) {
         alert("Book submission succeeded.");
-        actions.resetForm(); // Reset form values
-        setCoverPreview(); // Remove old image preview
-        // Reset the file input value display
+        // Clean up the form
+        actions.resetForm();
+        setCoverPreview();
         const coverValue = document.getElementById("image-upload");
         coverValue.value = "";
       }
@@ -135,7 +134,6 @@ export default function BookCreatePage() {
               control="select"
               label="Language"
               name="language"
-              selected="English" // English by default
               options={bookLanguages}
             />
             <FormikControl
@@ -187,33 +185,6 @@ export default function BookCreatePage() {
                   width="125"
                   className="mx-auto mt-4"
                 />
-              )}
-            </div>
-            <div>
-              <p className="font-bold text-base my-1">
-                Generate random rating values for testing?
-              </p>
-              <button
-                type="button"
-                className="uppercase p-2 bg-gray-900 font-bold text-white"
-                onClick={() => {
-                  let randomTimes = Math.floor(Math.random() * 50) + 1;
-                  let randomPoints =
-                    randomTimes * Math.floor(Math.floor(Math.random() * 5)) + 1;
-                  let randomAverage = randomPoints / randomTimes;
-                  formik.setFieldValue("ratingAllTimes", randomTimes);
-                  formik.setFieldValue("ratingAllPoints", randomPoints);
-                  setTest([randomTimes, randomPoints, randomAverage]);
-                }}
-              >
-                Generate
-              </button>
-              {test ? (
-                <div>
-                  Ratings {test[0]}, points {test[1]}. Average {test[2]}{" "}
-                </div>
-              ) : (
-                ""
               )}
             </div>
             <div className="flex">

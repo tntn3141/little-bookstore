@@ -1,15 +1,10 @@
-import { useContext, useState, useRef, useEffect } from "react";
+import { useContext } from "react";
 import { ShopContext } from "../ShopContext";
 import { CartItem } from "./CartItem";
 import { Typography } from "./Typography";
 import { getVNDPrice } from "../helpers/helpers";
-import { useOutsideClick } from "../hooks/useOutsideClick";
-
 export const Cart = () => {
   const { cartItems, cartTotal } = useContext(ShopContext);
-
-  // const cartWrapperRef = useRef(null);
-  // useOutsideClick(() => setIsOpen(false), cartWrapperRef);
 
   return (
     <div

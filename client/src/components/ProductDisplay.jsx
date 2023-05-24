@@ -18,7 +18,8 @@ export default function ProductDisplay() {
   });
 
   // Loads more items on demand (clicking "load more" button)
-  // useFirstRender "overrides" useEffect's default behaviour (run on first render) 
+  // HACK: useFirstRender "overrides" useEffect's default behaviour (run on first render)
+  // to avoid double rendering on first render
   useEffect(() => {
     if (!isFirstRender) {
       refetchMore();

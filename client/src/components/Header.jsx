@@ -19,14 +19,14 @@ export default function Header() {
   const { user } = useContext(UserContext);
   const { cartQuantity } = useContext(ShopContext);
 
-  // To close submenu/cart when changing route on mobile
+  // To close menu/cart when changing route
   const { pathname } = useLocation();
   useEffect(() => {
     setMenuOpen(false);
     setCartOpen(false);
   }, [pathname]);
 
-  // To close menu/cart when clicking outside
+  // To close menu/cart when clicking outside the menu/cart
   const navWrapperRef = useRef(null);
   useOutsideClick(() => setMenuOpen(false), navWrapperRef);
   const cartWrapperRef = useRef(null);

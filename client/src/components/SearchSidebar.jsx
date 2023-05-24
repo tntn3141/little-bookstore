@@ -54,11 +54,9 @@ export default function SearchSidebarNew() {
     const filteredValues = removeFalsyValues(values);
     setFilterActive(false);
     for (const key in filteredValues) {
-      // To trim leading/trailing whitespaces
       if (typeof filteredValues[key] === "string") {
         filteredValues[key] = filteredValues[key].trim();
       }
-      // To remove undefineds from arrays
       if (Array.isArray(filteredValues[key])) {
         filteredValues[key] = filteredValues[key].filter(Boolean);
       }
@@ -91,7 +89,7 @@ export default function SearchSidebarNew() {
             <button
               type="button"
               onClick={() => {
-                formik.resetForm(); // Reset the filter form when closed
+                formik.resetForm();
                 setFilterActive(!filterActive);
               }}
             >

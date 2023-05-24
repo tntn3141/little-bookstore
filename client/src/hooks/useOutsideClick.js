@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 
+// Invoke callback when detecting clicks outside the element with ref
 export const useOutsideClick = (callback, ref) => {
   useEffect(() => {
     function handleClickOutside(event) {

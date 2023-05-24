@@ -1,7 +1,5 @@
 import * as Yup from "yup";
 
-// To be imported by BookRegistrationForm
-
 export const bookInitialValues = {
   title: "",
   author: "",
@@ -63,7 +61,6 @@ export const bookTags = [
   { key: "Romance", value: "Romance" },
   { key: "Thriller", value: "Thriller" },
   { key: "Horror", value: "Horror" },
-  { key: "Contemporary", value: "Contemporary" },
   { key: "Fantasy", value: "Fantasy" },
   { key: "Historical", value: "Historical" },
   { key: "Children", value: "Children" },
@@ -79,10 +76,6 @@ export const bookTags = [
   { key: "Arts", value: "Arts" },
   { key: "Science", value: "Science" },
 ];
-
-// Meant for price range in search/filter
-// The quote syntax of values should be ' "example": 123 '
-// so that JSON.parse works properly
 
 export const bookPriceRanges = [
   { key: "Any", value: 0 },

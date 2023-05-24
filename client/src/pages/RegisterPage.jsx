@@ -41,8 +41,6 @@ export default function Register() {
   if (redirect) {
     return <Navigate to={"/login"} />;
   }
-
-  // If the user is already logged in, redirect them to their account page instead
   if (user) {
     return <Navigate to={"/account"} />;
   }

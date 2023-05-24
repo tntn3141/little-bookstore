@@ -11,7 +11,7 @@ import { getVNDPrice } from "../helpers/helpers";
 // #1: IMPORTANT: This component should not be inside a parent element
 // that has "flex"/"grid" properties because react-multi-carousel will break
 // - Reference: https://github.com/YIZHUANG/react-multi-carousel/issues/59
-// #2: Param "recommendation" should be either true (returns some items
+// #2: Param "recommendation" should be either true (returns items
 // with highest average ratings) or some input for the recommendation
 // algorithm (currently not implemented)
 

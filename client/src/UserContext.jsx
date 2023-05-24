@@ -11,7 +11,6 @@ export function UserContextProvider({ children }) {
     if (!user) {
       axios.get("/api/auth/profile").then((response) => {
         setUser(response.data);
-        // Update ready state when user data finishes loading
         setReady(true);
       });
     }

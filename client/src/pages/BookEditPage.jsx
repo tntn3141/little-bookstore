@@ -6,7 +6,7 @@ import { useEffect, useState, useContext } from "react";
 
 import Error from "../components/Error";
 import { UserContext } from "../UserContext";
-import NotFound404Page from "./NotFoundPage";
+import NotFoundPage from "./NotFoundPage";
 import LoadingIcon from "../components/LoadingIcon";
 import FormikControl from "../components/Formik/FormikControl";
 
@@ -81,9 +81,9 @@ export default function BookEditPage() {
       const response = await axios.put(`/api/books/${data._id}`, formData);
       if (response) {
         alert("Book submission succeeded.");
-        actions.resetForm(); // Reset form values
-        setCoverPreview(); // Remove old image preview
-        // Reset the file input value display
+        // Clean up the form
+        actions.resetForm();
+        setCoverPreview();
         const coverValue = document.getElementById("image-upload");
         coverValue.value = "";
       }
@@ -93,7 +93,7 @@ export default function BookEditPage() {
   }
 
   if (user == null || !user.isAdmin) {
-    return <NotFound404Page />;
+    return <NotFoundPage />;
   }
 
   if (loading) {

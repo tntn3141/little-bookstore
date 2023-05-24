@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 import BookList from "../components/BookList"
-import NotFound404Page from "./NotFound404Page";
+import NotFoundPage from "./NotFoundPage";
 import { Typography } from "../components/Typography";
 import SearchSidebarNew from "../components/SearchSidebar";
 
@@ -8,7 +8,7 @@ export default function SearchResultPage() {
   const { state } = useLocation();
   
   if (!state) {
-    return <NotFound404Page />
+    return <NotFoundPage />
   }
 
   return (
