@@ -5,10 +5,9 @@ import { Typography } from "./Typography";
 import { getVNDPrice } from "../helpers/helpers";
 import { MinusSVG, PlusSVG } from "../assets/svg";
 
-export const CartItem = (props) => {
+export const CartItem = ({ item }) => {
   const { removeItem, increaseItemQuantity, decreaseItemQuantity } =
     useContext(ShopContext);
-  const { item } = props;
 
   return (
     <div
