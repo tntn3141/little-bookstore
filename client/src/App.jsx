@@ -5,8 +5,8 @@ import { lazy, Suspense } from "react";
 import IndexPage from "./pages/IndexPage";
 import Layout from "./Layout";
 import TagPage from "./pages/TagPage";
-// import { UserContextProvider } from "./UserContext";
-// import { ShopContextProvider } from "./ShopContext";
+import { UserContextProvider } from "./UserContext";
+import { ShopContextProvider } from "./ShopContext";
 import LoadingIcon from "./components/LoadingIcon";
 const LazyRegisterPage = lazy(() => import("./pages/RegisterPage"));
 const LazyLoginPage = lazy(() => import("./pages/LoginPage"));
@@ -21,8 +21,8 @@ axios.defaults.withCredentials = true;
 
 function App() {
   return (
-    // <UserContextProvider>
-      // <ShopContextProvider>
+    <UserContextProvider>
+      <ShopContextProvider>
         <Suspense fallback={<LoadingIcon />}>
           <Routes>
             <Route path="/" element={<Layout />}>
@@ -41,8 +41,8 @@ function App() {
             </Route>
           </Routes>
         </Suspense>
-    //   </ShopContextProvider>
-    // </UserContextProvider>
+      </ShopContextProvider>
+    </UserContextProvider>
   );
 }
 
