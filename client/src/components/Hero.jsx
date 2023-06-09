@@ -19,7 +19,7 @@ export default function Hero() {
           <div className="cursor-pointer" onClick={() => navigate("/login")}>
             <img
               src="/assets/266524-P53SH3-817a.png"
-              max-width="50%%"
+              max-width="50%"
               alt="to featured article 1"
             />
           </div>
