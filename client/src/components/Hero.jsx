@@ -18,9 +18,13 @@ export default function Hero() {
         >
           <div className="cursor-pointer" onClick={() => navigate("/login")}>
             <img
-              src="/assets/266524-P53SH3-817a.png"
-              max-width="50%"
+              src="/assets/world-book-day1-960.webp"
+              width="100%"
               alt="to featured article 1"
+              srcSet="
+              /assets/world-book-day1-640.webp 640w,
+              /assets/world-book-day1-360.webp 360w
+              "
             />
           </div>
 
@@ -47,9 +51,13 @@ export default function Hero() {
         <div className="min-w-[50%]">
           <Link to={"/register"}>
             <img
-              src="/assets/7913448.png"
+              src="/assets/book-sale-960.webp"
               alt="to feature article 4"
-              max-width="50%"
+              srcSet="
+              /assets/book-sale-640.webp 640w,
+              /assets/book-sale-360.webp 360w
+              "
+              width="100%"
             />
           </Link>
         </div>
