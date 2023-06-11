@@ -32,7 +32,7 @@ export default function Hero() {
             <img
               src="/assets/world-book-day2-960.webp"
               srcSet="
-              /assets/world-book-day2-640.webp 640w,
+              /assets/world-book-day2-640.webp 500w,
               /assets/world-book-day2-360.webp 360w
               "
               alt="to featured article 2"
@@ -46,7 +46,7 @@ export default function Hero() {
         <div className="min-w-[50%]">
           <Link to={"/login"}>
             <img
-              src="/assets/world-book-day-small1-480.webp"
+              src="/assets/world-book-day-small1-640.webp"
               srcSet="/assets/world-book-day-small1-360.webp 640w"
               alt="to feature article 3"
               width="100%"
@@ -56,7 +56,7 @@ export default function Hero() {
         <div className="min-w-[50%]">
           <Link to={"/register"}>
             <img
-              src="/assets/book-sale-480.webp"
+              src="/assets/book-sale-640.webp"
               srcSet="/assets/book-sale-360.webp 640w"
               alt="to feature article 4"
               width="100%"
