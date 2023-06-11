@@ -7,14 +7,18 @@ import useFirstRender from "../hooks/useFirstRender";
 import LoadingIcon from "./LoadingIcon";
 import Error from "./Error";
 
-export default function ProductDisplay() {
+// { type } should be a prop of these values below:
+// normal: returns default order from database
+// latest: returns books sorted by createdAt entry, from newest to oldest
+
+export default function ProductDisplay({ type }) {
   const [skip, setSkip] = useState(0);
   const [limit, setLimit] = useState(5);
   const isFirstRender = useFirstRender();
 
   const url = "https://little-bookstore-api.fly.dev/api/books";
   const { dataMore, loadingMore, errorMore, refetchMore } = useFetchMore(url, {
-    params: { normal: true, _skip: skip, _limit: limit },
+    params: { [type]: true, _skip: skip, _limit: limit },
   });
 
   // Loads more items on demand (clicking "load more" button)

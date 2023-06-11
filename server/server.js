@@ -43,7 +43,7 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(multer.single("coverImage"));
 app.use(cookieParser());
-app.disable("x-powered-by"); // For security reason
+app.disable("x-powered-by");
 
 // Routes
 app.use("/api/auth", authRoute);
@@ -63,19 +63,6 @@ const connect = async () => {
 
 mongoose.connection.on("disconnected", () => {
   console.log("mongoDB disconnected!");
-});
-
-app.get("/profile", (req, res) => {
-  const { token } = req.cookies;
-
-  if (token) {
-    jwt.verify(token, jwtSecret, {}, (error, user) => {
-      if (error) throw error;
-      res.json(user);
-    });
-  } else {
-    res.json(null);
-  }
 });
 
 app.listen(port, () => {

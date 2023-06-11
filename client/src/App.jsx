@@ -13,8 +13,9 @@ const LazyLoginPage = lazy(() => import("./pages/LoginPage"));
 const LazyItemPage = lazy(() => import("./pages/ItemPage"));
 const LazyAccountPage = lazy(() => import("./pages/AccountPage"));
 const LazyBookEditPage = lazy(() => import("./pages/BookEditPage"));
-const LazyNotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 const LazySearchPage = lazy(() => import("./pages/SearchPage"));
+const LazyNewBooksPage = lazy(() => import("./pages/NewBooksPage"));
+const LazyNotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 
 axios.defaults.baseURL = "https://little-bookstore-api.fly.dev/";
 axios.defaults.withCredentials = true;
@@ -35,6 +36,7 @@ function App() {
                 path="/items/:itemId/edit"
                 element={<LazyBookEditPage />}
               />
+              <Route path="/new" element={<LazyNewBooksPage />} />
               <Route path="/tags/:tag" element={<TagPage />} />
               <Route path="/search" element={<LazySearchPage />} />
               <Route path="*" element={<LazyNotFoundPage />} />

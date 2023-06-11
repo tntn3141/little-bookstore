@@ -56,7 +56,7 @@ export const CartItem = (props) => {
           </div>
           <span
             onClick={() => removeItem(item)}
-            className="border border-black px-1 bg-slate-800 text-white"
+            className="border border-black px-1 bg-slate-800 text-white cursor-pointer"
           >
             Remove
           </span>

@@ -5,7 +5,7 @@ export default function IndexPage() {
   return (
     <>
       <Hero />
-      <ProductDisplay />
+      <ProductDisplay normal />
     </>
   );
 }
