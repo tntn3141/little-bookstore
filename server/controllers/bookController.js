@@ -69,7 +69,7 @@ export const getBooks = async (req, res, next) => {
   // NEW BOOKS (NEWEST -> OLDEST)
   if (latest) {
     try {
-      const latestBooks = await BookModel.find().limit(limit).skip(skip).sort(-1);
+      const latestBooks = await BookModel.find().limit(limit).skip(skip);
       return res.status(200).json(latestBooks);
     } catch (error) {
       next(error);
