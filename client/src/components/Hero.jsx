@@ -19,20 +19,24 @@ export default function Hero() {
           <div className="cursor-pointer" onClick={() => navigate("/login")}>
             <img
               src="/assets/world-book-day1-960.webp"
-              width="100%"
-              alt="to featured article 1"
               srcSet="
               /assets/world-book-day1-640.webp 640w,
               /assets/world-book-day1-360.webp 360w
               "
+              alt="to featured article 1"
+              width="100%"
             />
           </div>
 
           <div className="cursor-pointer" onClick={() => navigate("/register")}>
             <img
-              src="/assets/266524-P53SH3-817b.png"
-              max-width="50%"
+              src="/assets/world-book-day2-960.webp"
+              srcSet="
+              /assets/world-book-day2-640.webp 640w,
+              /assets/world-book-day2-360.webp 360w
+              "
               alt="to featured article 2"
+              width="100%"
             />
           </div>
         </Carousel>
@@ -42,21 +46,19 @@ export default function Hero() {
         <div className="min-w-[50%]">
           <Link to={"/login"}>
             <img
-              src="/assets/5109069a.png"
+              src="/assets/world-book-day-small1-480.webp"
+              srcSet="/assets/world-book-day-small1-360.webp 640w"
               alt="to feature article 3"
-              max-width="50%"
+              width="100%"
             />
           </Link>
         </div>
         <div className="min-w-[50%]">
           <Link to={"/register"}>
             <img
-              src="/assets/book-sale-960.webp"
+              src="/assets/book-sale-480.webp"
+              srcSet="/assets/book-sale-360.webp 640w"
               alt="to feature article 4"
-              srcSet="
-              /assets/book-sale-640.webp 640w,
-              /assets/book-sale-360.webp 360w
-              "
               width="100%"
             />
           </Link>
