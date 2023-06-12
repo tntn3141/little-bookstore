@@ -3,7 +3,6 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import jwt from "jsonwebtoken";
 import Multer from "multer";
 
 import authRoute from "./routes/authRoute.js";
@@ -22,16 +21,18 @@ const multer = Multer({
 });
 
 // Middleware
+const baseUrl = "http://127.0.0.1:5173";
+
 app.use(
   cors({
     credentials: true,
-    origin: "https://little-bookstore.netlify.app",
+    origin: baseUrl,
   })
 );
 
 app.use((req, res, next) => {
   res.set({
-    "Access-Control-Allow-Origin": "https://little-bookstore.netlify.app",
+    "Access-Control-Allow-Origin": baseUrl,
     "Access-Control-Allow-Headers":
       "Origin, X-Requested-With, Content-Type, Accept",
     "Content-Security-Policy":
