@@ -2,7 +2,7 @@ import axios from "axios";
 import { Route, Routes } from "react-router-dom";
 import { lazy, Suspense } from "react";
 
-import dotenv from dotenv;
+import dotenv from "dotenv";
 dotenv.config()
 
 import IndexPage from "./pages/IndexPage";
