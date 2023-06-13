@@ -10,7 +10,7 @@ import { removeFalsyValues } from "../helpers/helpers";
 import { Typography } from "./Typography";
 import { getVNDPrice } from "../helpers/helpers";
 
-export default function SearchSidebarNew() {
+export default function SearchSidebar() {
   const [filterActive, setFilterActive] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
   const [key, setKey] = useState("");

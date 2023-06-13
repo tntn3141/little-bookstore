@@ -19,7 +19,7 @@ const LazySearchPage = lazy(() => import("./pages/SearchPage"));
 const LazyNewBooksPage = lazy(() => import("./pages/NewBooksPage"));
 const LazyNotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 
-axios.defaults.baseURL = process.env.BASE_URL;
+axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
 axios.defaults.withCredentials = true;
 
 function App() {

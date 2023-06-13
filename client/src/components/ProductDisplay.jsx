@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 
 import BookList from "./BookList";
 import SearchSidebar from "./SearchSidebar";
@@ -7,13 +7,13 @@ import useFirstRender from "../hooks/useFirstRender";
 import LoadingIcon from "./LoadingIcon";
 import Error from "./Error";
 
-// { type } should be a prop of these values below:
-// normal: returns default order from database
-// latest: returns books sorted by createdAt entry, from newest to oldest
+// The value of { type } should be one of the strings below:
+// "normal": returns default order from database (oldest -> newest)
+// "latest": returns newest -> oldest
 
 export default function ProductDisplay({ type }) {
   const [skip, setSkip] = useState(0);
-  const [limit, setLimit] = useState(5);
+  const [limit, setLimit] = useState(10);
   const isFirstRender = useFirstRender();
 
   const { dataMore, loadingMore, errorMore, refetchMore } = useFetchMore("/api/books", {
