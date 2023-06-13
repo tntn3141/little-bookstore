@@ -17,7 +17,7 @@ const LazySearchPage = lazy(() => import("./pages/SearchPage"));
 const LazyNewBooksPage = lazy(() => import("./pages/NewBooksPage"));
 const LazyNotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 
-axios.defaults.baseURL = "http://127.0.0.1:4000/";
+axios.defaults.baseURL = "http://127.0.0.1:4000";
 axios.defaults.withCredentials = true;
 
 function App() {

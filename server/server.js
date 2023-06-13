@@ -23,6 +23,7 @@ const multer = Multer({
 // Middleware
 const baseUrl = "http://127.0.0.1:5173";
 
+
 app.use(
   cors({
     credentials: true,
