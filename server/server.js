@@ -21,7 +21,7 @@ const multer = Multer({
 });
 
 // Middleware
-const baseUrl = "http://127.0.0.1:5173";
+const baseUrl = "https://little-bookstore.netlify.app";
 
 app.use(
   cors({
