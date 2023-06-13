@@ -2,8 +2,6 @@ import axios from "axios";
 import { Route, Routes } from "react-router-dom";
 import { lazy, Suspense } from "react";
 
-import "dotenv/config";
-
 import IndexPage from "./pages/IndexPage";
 import Layout from "./Layout";
 import TagPage from "./pages/TagPage";
