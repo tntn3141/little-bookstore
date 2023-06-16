@@ -6,7 +6,7 @@ export default function Hero() {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-wrap mt-24 w-[90%] mx-auto">
+    <div className="flex flex-wrap mt-24 mb-4 w-[90%] mx-auto">
       <div className="w-full md:w-[60%]">
         <Carousel
           autoPlay

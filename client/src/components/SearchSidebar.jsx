@@ -84,8 +84,8 @@ export default function SearchSidebar() {
       onSubmit={handleSearchSubmit}
     >
       {(formik) => (
-        <div className="flex flex-col my-4 mx-auto w-[90%] lg:w-[60%] relative">
-          <div className="flex gap-3 my-4 justify-center">
+        <div className="flex flex-col mx-auto w-[90%] lg:w-[60%] relative">
+          <div className="flex gap-3 justify-center">
             <button
               type="button"
               onClick={() => {
@@ -119,52 +119,54 @@ export default function SearchSidebar() {
               </button>
             </div>
           </div>
-          {key.length > 0 && searchResult.length > 0 && (
-            <div
-              className={
-                "grid grid-rows-[120px_120px_120px] z-10 absolute top-[47px] " +
-                "mx-auto w-full sm:w-[80%] sm:left-[10%] "
-              }
-            >
-              {searchResult.map((result) => {
-                return (
-                  <div key={result._id}>
-                    <Link
-                      to={`/items/${result._id}`}
-                      className={`flex gap-2 md:gap-4 z-10 hover:text-white hover:bg-slate-900 
+          <div className="relative">
+            {key.length > 0 && searchResult.length > 0 && (
+              <div
+                className={
+                  "grid grid-rows-[120px_120px_120px] z-10 absolute " +
+                  "mx-auto w-full sm:w-[80%] sm:left-[10%] "
+                }
+              >
+                {searchResult.map((result) => {
+                  return (
+                    <div key={result._id}>
+                      <Link
+                        to={`/items/${result._id}`}
+                        className={`flex gap-2 md:gap-4 z-10 hover:text-white hover:bg-slate-900 
                        bg-white w-[100%] border border-slate-300`}
-                    >
-                      <img
-                        src={result.coverImage}
-                        alt={`${result.title} cover`}
-                        className="h-[120px] w-[90px]"
-                      />
-                      <div>
-                        <Typography
-                          variant="body"
-                          className="line-clamp-2 font-bold"
-                        >
-                          {result.title}
-                        </Typography>
-                        <Typography variant="body-small" className="italic">
-                          {result.author}
-                        </Typography>
-                        <Typography
-                          variant="body"
-                          className="text-red-600 font-bold"
-                        >
-                          {getVNDPrice(result.price)}
-                        </Typography>
-                      </div>
-                    </Link>
-                  </div>
-                );
-              })}
-            </div>
-          )}
+                      >
+                        <img
+                          src={result.coverImage}
+                          alt={`${result.title} cover`}
+                          className="h-[120px] w-[90px]"
+                        />
+                        <div>
+                          <Typography
+                            variant="body"
+                            className="line-clamp-2 font-bold"
+                          >
+                            {result.title}
+                          </Typography>
+                          <Typography variant="body-small" className="italic">
+                            {result.author}
+                          </Typography>
+                          <Typography
+                            variant="body"
+                            className="text-red-600 font-bold"
+                          >
+                            {getVNDPrice(result.price)}
+                          </Typography>
+                        </div>
+                      </Link>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
           <Form>
             {filterActive && (
-              <div className="absolute z-10 bg-white p-4 border border-slate-800 top-12 flex flex-col">
+              <div className="absolute z-10 bg-white p-4 border border-slate-800 flex flex-col">
                 <div className="sm:grid sm:grid-cols-2">
                   <FormikControl
                     control="input"

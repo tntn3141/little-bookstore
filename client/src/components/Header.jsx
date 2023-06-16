@@ -42,6 +42,7 @@ export default function Header() {
   return (
     <header className="shadow-md w-full bg-white fixed top-0 z-10 m-0">
       <nav className="p-5 bg-white shadow md:flex md:items-center md:justify-between">
+        {/* Mobile starts */}
         <div className="flex justify-between items-center">
           <Link to={"/"} aria-label="to index page">
             <span className="text-2xl font-[Poppins] cursor-pointer flex items-center">
@@ -67,7 +68,8 @@ export default function Header() {
             {menuOpen ? <XSVG /> : <MenuSVG />}
           </div>
         </div>
-
+        {/* Mobile ends */}
+        
         <ul
           ref={navWrapperRef}
           className={`md:flex md:items-center md:pb-0 pb-6 pt-2 md:pt-0 mt-5 md:mt-0 

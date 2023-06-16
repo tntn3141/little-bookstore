@@ -77,24 +77,22 @@ export const bookTags = [
   { key: "Science", value: "Science" },
 ];
 
+// Values should be mapped to objects for mongodb as follows:
+// 1: { $lte: 200000 }
+// 2: { $gte: 200000, $lte: 400000 }
+// 3: { $gte: 400000, $lte: 600000 }
+// 4: { $gte: 600000 }
+
 export const bookPriceRanges = [
   { key: "Any", value: 0 },
-
-  // { $lte: 200000 }
   { key: "< 200,000 VND", value: 1 },
-
-  // { $gte: 200000, $lte: 400000 }
   {
     key: "200,000 - 400,000 VND",
     value: 2,
   },
-
-  // { $gte: 400000, $lte: 600000 }
   {
     key: "400,000 - 600,000 VND",
     value: 3,
   },
-  
-  // { $gte: 600000 }
   { key: "> 600,000 VND", value: 4 },
 ];
