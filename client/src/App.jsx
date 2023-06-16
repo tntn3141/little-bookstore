@@ -17,7 +17,7 @@ const LazySearchPage = lazy(() => import("./pages/SearchPage"));
 const LazyNewBooksPage = lazy(() => import("./pages/NewBooksPage"));
 const LazyNotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 
-axios.defaults.baseURL = "http://little-bookstore-api.fly.dev";
+axios.defaults.baseURL = "https://little-bookstore-api.fly.dev";
 axios.defaults.withCredentials = true;
 
 function App() {
