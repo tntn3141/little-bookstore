@@ -38,7 +38,6 @@ export default function ProductDisplay({ type }) {
   if (dataMore) {
     return (
       <div>
-        <SearchSidebar />
         <BookList items={dataMore} />
         {!loadingMore && (
           <button
