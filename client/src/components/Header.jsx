@@ -40,7 +40,7 @@ export default function Header() {
   ];
 
   return (
-    <header className="shadow-md w-full bg-white fixed top-0 z-10 m-0">
+    <header className="shadow-md w-full bg-white fixed top-0 z-10">
       <nav className="p-5 bg-white shadow md:flex md:items-center md:justify-between">
         {/* Mobile starts */}
         <div className="flex justify-between items-center">

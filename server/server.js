@@ -21,7 +21,7 @@ const multer = Multer({
 });
 
 // Middleware
-const baseUrl = process.env.BASE_URL;
+const baseUrl = "http://127.0.0.1:5173";
 
 
 app.use(
