@@ -6,6 +6,7 @@ export default function IndexPage() {
   return (
     <>
       <Hero />
+      <SearchSidebar />
       <ProductDisplay type={"normal"} />
     </>
   );

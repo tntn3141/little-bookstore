@@ -4,7 +4,6 @@ import { Navigate, Link, useParams } from "react-router-dom";
 
 import { UserContext } from "../UserContext";
 import BookRegistrationForm from "./BookCreatePage";
-import ProductDisplay from "../components/ProductDisplay";
 
 export default function AccountPage() {
   const { ready, user, setUser } = useContext(UserContext);
@@ -57,18 +56,21 @@ export default function AccountPage() {
       {subpage === "profile" && (
         <div className="text-center max-w-lg mx-auto">
           <div>
-            {" "}
-            <p>
-              Logged in as {user.name}. Role:{" "}
-              {(user.isAdmin && "Admin") || "User"}
-            </p>
-            <button
-              onClick={handleLogOut}
-              className="bg-slate-950 text-white max-w-xl"
-            >
-              Log out
-            </button>
+            <img
+              src="../assets/images/blank-profile.png"
+              alt="profile picture"
+            />
           </div>
+          <p>
+            Logged in as {user.name}. Role:{" "}
+            {(user.isAdmin && "Admin") || "User"}
+          </p>
+          <button
+            onClick={handleLogOut}
+            className="bg-slate-950 text-white max-w-xl"
+          >
+            Log out
+          </button>
         </div>
       )}
       {subpage === "dashboard" && user.isAdmin && <BookRegistrationForm />}
