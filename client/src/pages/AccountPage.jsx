@@ -57,7 +57,7 @@ export default function AccountPage() {
         <div className="text-center max-w-lg mx-auto">
           <div>
             <img
-              src="../assets/images/blank-profile.png"
+              src="/assets/images/blank-profile.png"
               alt="profile picture"
             />
           </div>
