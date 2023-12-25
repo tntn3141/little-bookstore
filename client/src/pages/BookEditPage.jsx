@@ -9,6 +9,7 @@ import { UserContext } from "../UserContext";
 import NotFoundPage from "./NotFoundPage";
 import LoadingIcon from "../components/LoadingIcon";
 import FormikControl from "../components/Formik/FormikControl";
+import { getBase64 } from "../helpers/helpers";
 
 import {
   bookValidationSchema,
@@ -36,7 +37,7 @@ export default function BookEditPage() {
         setLoading(true);
         const response = await axios.get(`/api/books/${itemId}`);
         setData(response.data);
-        setCoverPreview(response.data.coverImage);
+        setCoverPreview(response.data.image);
       } catch (error) {
         setError(true);
       } finally {
@@ -50,22 +51,33 @@ export default function BookEditPage() {
     return () => coverPreview && URL.revokeObjectURL(coverPreview.tempPreview);
   }, [coverPreview]);
 
-  // TODO: make coverImage required (might have to make FormikControl)
+  // TODO: make image required (might have to make FormikControl)
   const validationSchema = bookValidationSchema;
 
   async function handleBookSubmit(values, actions) {
     let formData = new FormData();
 
     if (didChangeCover) {
+      // Working code for uploading to imgbb
       let fileId = uuidv4();
       let blob = cover.slice(0, cover.size, "image/jpeg");
-      // To assign a new name (that uuid generated) to the image file
       const newFile = new File([blob], fileId, { type: "image/jpeg" });
+      const base64 = await getBase64(newFile);
 
-      // Using FormData to send both the form values (in req.body) and the file(s)
-      // (in req.file, extracted via multer middleware) to the backend
-      formData.append("coverImage", newFile);
-      formData.set("coverImage", newFile);
+      formData.append("image", base64);
+      
+      // // Old working code for uploading to Google Cloud
+      // let fileId = uuidv4();
+      // let blob = cover.slice(0, cover.size, "image/jpeg");
+
+      // // To assign a new name (that uuid generated) to the image file
+      // const newFile = new File([blob], fileId, { type: "image/jpeg" });
+
+      // // Using FormData to send both the form values (in req.body) and the file(s)
+      // // (in req.file, extracted via multer middleware) to the backend
+
+      // formData.append("image", newFile);
+      // formData.set("image", newFile);
     }
 
     for (const key in values) {
@@ -76,6 +88,29 @@ export default function BookEditPage() {
         formData.append(key, values[key]);
       }
     }
+
+    // Working code for uploading to imgbb [from front end]
+
+    // try {
+    //   fetch(
+    //     `https://api.imgbb.com/1/upload?key=56ea470e4f78df54b81cb9939f829ae9`,
+    //     {
+    //       method: "POST",
+    //       body: formData
+    //     }
+    //   )
+    //     .then((res) => res.json())
+    //     .then((data) => {
+    //       console.log(data);
+    //       alert("Book submission succeeded.");
+    //       actions.resetForm();
+    //       setCoverPreview();
+    //       const coverValue = document.getElementById("image-upload");
+    //       coverValue.value = "";
+    //     });
+    // } catch (error) {
+    //   alert("Book submission failed. " + error);
+    // }
 
     try {
       const response = await axios.put(`/api/books/${data._id}`, formData);
@@ -206,7 +241,7 @@ export default function BookEditPage() {
               */}
               <div>
                 <label
-                  htmlFor="coverImage"
+                  htmlFor="image"
                   className="font-bold text-base my-1"
                 >
                   Book cover image
@@ -214,7 +249,7 @@ export default function BookEditPage() {
                 <input
                   id="image-upload"
                   type="file"
-                  name="coverImage"
+                  name="image"
                   className="mx-4"
                   onChange={(e) => {
                     const file = e.target.files[0];

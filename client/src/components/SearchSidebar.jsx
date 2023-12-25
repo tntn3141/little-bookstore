@@ -84,7 +84,7 @@ export default function SearchSidebar() {
       onSubmit={handleSearchSubmit}
     >
       {(formik) => (
-        <div className="flex flex-col mx-auto w-[90%] lg:w-[60%] relative">
+        <div className="flex flex-col mx-auto w-[90%] lg:w-[60%] relative pb-2">
           <div className="flex gap-3 justify-center">
             <button
               type="button"

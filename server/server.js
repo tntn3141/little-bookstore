@@ -16,12 +16,13 @@ const port = process.env.PORT || 8080;
 const multer = Multer({
   storage: Multer.memoryStorage(),
   limits: {
-    fileSize: 5 * 1024 * 1024,
+    fileSize: 24 * 1024 * 1024,
+    fieldSize: 2 * 1024 * 1024
   },
 });
 
 // Middleware
-const baseUrl = process.env.BASE_URL;
+const baseUrl = "http://localhost:5173";
 
 
 app.use(
@@ -43,7 +44,7 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
-app.use(multer.single("coverImage"));
+app.use(multer.single("image"));
 app.use(cookieParser());
 app.disable("x-powered-by");
 

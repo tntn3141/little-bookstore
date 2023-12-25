@@ -1,36 +1,74 @@
 import BookModel from "../models/bookModel.js";
-import { uploadImage } from "../utilities/upload.js";
+import axios from "axios";
+
+import { uploadImageGC, uploadImageIMGBB } from "../utilities/upload.js";
+
+const clientID = process.env.IMGUR_CLIENT_ID;
 
 export const createBook = async (req, res, next) => {
+  // Current code for uploading to imgur
   try {
     if (req.file) {
-      const image = req.file;
-      const imageUrl = await uploadImage(image);
-      req.body.coverImage = imageUrl;
+      const reader = new FileReader();
+      reader.readAsDataURL(req.file);
+      reader.onloadend = function () {
+        const base64data = reader.result;
+      };
     }
     const newBook = await BookModel.create(req.body);
     res.status(200).json(newBook);
   } catch (error) {
     next(error);
   }
+
+  // Old working code for uploading to Google Cloud
+  // try {
+  //   if (req.file) {
+  //     const image = req.file;
+  //     const imageUrl = await uploadImage(image);
+  //     req.body.coverImage = imageUrl;
+  //   }
+  //   const newBook = await BookModel.create(req.body);
+  //   res.status(200).json(newBook);
+  // } catch (error) {
+  //   next(error);
+  // }
 };
 
 export const updateBook = async (req, res, next) => {
   try {
-    if (req.file) {
-      const image = req.file;
-      const imageUrl = await uploadImage(image);
-      req.body.coverImage = imageUrl;
+    if (req.body.image) {
+      const imageUrl = await uploadImageIMGBB(req.body.image);
+      req.body.imgbb = imageUrl;
     }
+
     const updatedBook = await BookModel.findByIdAndUpdate(
       req.params.id,
       { $set: req.body },
       { new: true }
     );
+
     res.status(200).json(updatedBook);
   } catch (error) {
     next(error);
   }
+
+  // Old working code for uploading to Google Cloud
+  // try {
+  //   if (req.file) {
+  //     const image = req.file;
+  //     const imageUrl = await uploadImage(image);
+  //     req.body.coverImage = imageUrl;
+  //   }
+  //   const updatedBook = await BookModel.findByIdAndUpdate(
+  //     req.params.id,
+  //     { $set: req.body },
+  //     { new: true }
+  //   );
+  //   res.status(200).json(updatedBook);
+  // } catch (error) {
+  //   next(error);
+  // }
 };
 
 export const getBook = async (req, res, next) => {
@@ -69,7 +107,10 @@ export const getBooks = async (req, res, next) => {
   // NEW BOOKS (NEWEST -> OLDEST)
   if (latest) {
     try {
-      const latestBooks = await BookModel.find().sort({$natural: -1}).limit(limit).skip(skip);
+      const latestBooks = await BookModel.find()
+        .sort({ $natural: -1 })
+        .limit(limit)
+        .skip(skip);
       return res.status(200).json(latestBooks);
     } catch (error) {
       next(error);
