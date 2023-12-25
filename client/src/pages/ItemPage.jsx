@@ -47,7 +47,7 @@ export default function ItemPage() {
         <div className="md:grid md:grid-cols-[25%_75%]">
           <div className="mx-auto my-4 md:mx-0 justify-center justify-self-center mx-auto w-auto">
             <img
-              src={data.coverImage}
+              src={data.imgbb}
               alt={`${data.title} cover image`}
               title={data.title}
               className="mx-auto"

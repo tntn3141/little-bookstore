@@ -41,6 +41,10 @@ const BookSchema = mongoose.Schema(
       type: String,
       // required: true
     },
+    imgbb: {
+      type: String,
+      // required: true
+    },
     otherImages: {
       type: [String],
       // required: true

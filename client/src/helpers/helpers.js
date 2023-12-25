@@ -25,3 +25,13 @@ export function getQuery(str) {
     return prev;
   }, {});
 }
+
+// Convert input file into base64 (mainly for uploading to imgbb)
+export function getBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (err) => reject(err);
+  });
+}

@@ -20,7 +20,7 @@ export default function BookList(props) {
           <div key={item._id} className="relative text-center h-[100%]">
             <div className="h-[100%]">
               <Link to={`/items/${item._id}`}>
-                <img src={item.coverImage} alt="" className="h-[60%] mx-auto" />
+                <img src={item.imgbb} alt="" className="h-[60%] mx-auto" />
                 <div className="text-center">
                   <Typography
                     variant="lg"
