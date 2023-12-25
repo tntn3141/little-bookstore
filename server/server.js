@@ -22,7 +22,7 @@ const multer = Multer({
 });
 
 // Middleware
-const baseUrl = "http://localhost:5173";
+const baseUrl = "https://little-bookstore.netlify.app/";
 
 
 app.use(
