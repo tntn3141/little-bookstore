@@ -26,7 +26,7 @@ export default function BookCreatePage() {
   }, [coverPreview]);
 
   const initialValues = bookInitialValues;
-  // TODO: make coverImage required (might have to make FormikControl)
+  // TODO: make image required (might have to make FormikControl)
   const validationSchema = bookValidationSchema;
 
   async function handleBookSubmit(values, actions) {
@@ -38,7 +38,7 @@ export default function BookCreatePage() {
     // Using FormData to send both the form values (in req.body) and the file(s)
     // (in req.file, extracted via multer middleware) to the backend
     let formData = new FormData();
-    formData.append("coverImage", newFile);
+    formData.append("image", newFile);
     for (const key in values) {
       // To prevent parsing array values as a string
       if (Array.isArray(values[key])) {
@@ -163,13 +163,13 @@ export default function BookCreatePage() {
               TODO file type/size restriction
             */}
             <div>
-              <label htmlFor="coverImage" className="font-bold text-base my-1">
+              <label htmlFor="image" className="font-bold text-base my-1">
                 Book cover image
               </label>
               <input
                 id="image-upload"
                 type="file"
-                name="coverImage"
+                name="image"
                 className="mx-4"
                 onChange={(e) => {
                   const file = e.target.files[0];
