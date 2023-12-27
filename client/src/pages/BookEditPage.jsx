@@ -19,6 +19,10 @@ import {
   bookTags,
 } from "../components/FormSetup";
 
+// To configure whether the image should be uploaded to
+// Google Cloud ("gc") or imgbb ("imgbb")
+const imageUploadType = "imgbb";
+
 export default function BookEditPage() {
   const { user } = useContext(UserContext);
   const { itemId } = useParams();
@@ -51,34 +55,30 @@ export default function BookEditPage() {
     return () => coverPreview && URL.revokeObjectURL(coverPreview.tempPreview);
   }, [coverPreview]);
 
-  // TODO: make image required (might have to make FormikControl)
+  // TODO: make image required (might have to make FormikControl?)
   const validationSchema = bookValidationSchema;
 
   async function handleBookSubmit(values, actions) {
-    let formData = new FormData();
-
-    console.log("handlebooksubmit")
     if (didChangeCover) {
-      // Working code for uploading to imgbb
+      let formData = new FormData();
       let fileId = uuidv4();
       let blob = cover.slice(0, cover.size, "image/jpeg");
       const newFile = new File([blob], fileId, { type: "image/jpeg" });
-      const base64 = await getBase64(newFile);
 
-      formData.append("image", base64);
-      
-      // // Old working code for uploading to Google Cloud
-      // let fileId = uuidv4();
-      // let blob = cover.slice(0, cover.size, "image/jpeg");
+      console.log("didChangeCover")
 
-      // // To assign a new name (that uuid generated) to the image file
-      // const newFile = new File([blob], fileId, { type: "image/jpeg" });
-
-      // // Using FormData to send both the form values (in req.body) and the file(s)
-      // // (in req.file, extracted via multer middleware) to the backend
-
-      // formData.append("image", newFile);
-      // formData.set("image", newFile);
+      // Working code for uploading to imgbb
+      switch (imageUploadType) {
+        case "imgbb":
+          // Because imgbb API requires binary files, base64 data, or urls.
+          // This current implementation assumes that users use local files.
+          const base64 = await getBase64(newFile);
+          formData.append("image", base64);
+        case "gc":
+          // Using FormData to send both the form values (in req.body) and the file(s)
+          // (in req.file, extracted via multer middleware) to the backend
+          formData.append("image", newFile);
+      }
     }
 
     for (const key in values) {
@@ -90,58 +90,8 @@ export default function BookEditPage() {
       }
     }
 
-    // Working code for uploading to imgbb [from front end]
-
-    // try {
-    //   fetch(
-    //     `https://api.imgbb.com/1/upload?key=56ea470e4f78df54b81cb9939f829ae9`,
-    //     {
-    //       method: "POST",
-    //       body: formData
-    //     }
-    //   )
-    //     .then((res) => res.json())
-    //     .then((data) => {
-    //       console.log(data);
-    //       alert("Book submission succeeded.");
-    //       actions.resetForm();
-    //       setCoverPreview();
-    //       const coverValue = document.getElementById("image-upload");
-    //       coverValue.value = "";
-    //     });
-    // } catch (error) {
-    //   alert("Book submission failed. " + error);
-    // }
-
-    // Working code for uploading to imgbb [from front end]
-
-    // try {
-    //   fetch(
-    //     `https://api.imgbb.com/1/upload?key=56ea470e4f78df54b81cb9939f829ae9`,
-    //     {
-    //       method: "POST",
-    //       body: formData
-    //     }
-    //   )
-    //     .then((res) => res.json())
-    //     .then((data) => {
-    //       console.log(data);
-    //       alert("Book submission succeeded.");
-    //       actions.resetForm();
-    //       setCoverPreview();
-<<<<<<< HEAD
-    //       const coverValue = document.getElementById("image");
-=======
-    //       const coverValue = document.getElementById("image-upload");
->>>>>>> 239d9b49962bcafa303f3d794c698a00f14a3c67
-    //       coverValue.value = "";
-    //     });
-    // } catch (error) {
-    //   alert("Book submission failed. " + error);
-    // }
-
     try {
-      console.log("handlebooksubmit")
+      console.log("before making axios requests")
       const response = await axios.put(`/api/books/${data._id}`, formData);
       if (response) {
         alert("Book submission succeeded.");
@@ -269,10 +219,7 @@ export default function BookEditPage() {
                 TODO file type/size restriction
               */}
               <div>
-                <label
-                  htmlFor="image"
-                  className="font-bold text-base my-1"
-                >
+                <label htmlFor="image" className="font-bold text-base my-1">
                   Book cover image
                 </label>
                 <input
