@@ -37,7 +37,11 @@ export default function BookEditPage() {
         setLoading(true);
         const response = await axios.get(`/api/books/${itemId}`);
         setData(response.data);
+<<<<<<< HEAD
         setCoverPreview(response.data.imgbb);
+=======
+        setCoverPreview(response.data.image);
+>>>>>>> 239d9b49962bcafa303f3d794c698a00f14a3c67
       } catch (error) {
         setError(true);
       } finally {
@@ -60,7 +64,10 @@ export default function BookEditPage() {
     console.log("handlebooksubmit")
     if (didChangeCover) {
       // Working code for uploading to imgbb
+<<<<<<< HEAD
       console.log("didChangeCover")
+=======
+>>>>>>> 239d9b49962bcafa303f3d794c698a00f14a3c67
       let fileId = uuidv4();
       let blob = cover.slice(0, cover.size, "image/jpeg");
       const newFile = new File([blob], fileId, { type: "image/jpeg" });
@@ -107,7 +114,11 @@ export default function BookEditPage() {
     //       alert("Book submission succeeded.");
     //       actions.resetForm();
     //       setCoverPreview();
+<<<<<<< HEAD
     //       const coverValue = document.getElementById("image");
+=======
+    //       const coverValue = document.getElementById("image-upload");
+>>>>>>> 239d9b49962bcafa303f3d794c698a00f14a3c67
     //       coverValue.value = "";
     //     });
     // } catch (error) {

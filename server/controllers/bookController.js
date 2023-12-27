@@ -8,12 +8,18 @@ const clientID = process.env.IMGUR_CLIENT_ID;
 export const createBook = async (req, res, next) => {
   // Current code for uploading to imgur
   try {
+<<<<<<< HEAD
     if (req.file) {
       const reader = new FileReader();
       reader.readAsDataURL(req.file);
       reader.onloadend = function () {
         const base64data = reader.result;
       };
+=======
+    if (req.body.image) {
+      const imageUrl = await uploadImageIMGBB(req.body.image);
+      req.body.imgbb = imageUrl;
+>>>>>>> 239d9b49962bcafa303f3d794c698a00f14a3c67
     }
     const newBook = await BookModel.create(req.body);
     res.status(200).json(newBook);
