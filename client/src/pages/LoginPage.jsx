@@ -3,6 +3,7 @@ import { useContext, useState } from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+
 import { UserContext } from "../UserContext";
 import FormikControl from "../components/Formik/FormikControl";
 
@@ -26,7 +27,6 @@ export default function LoginPage() {
     try {
       const response = await axios.post("/api/auth/login", values);
       if (response.data) {
-        console.log(response.data);
         setUser(response.data);
         alert("Login successful. Redirecting you to the main page...");
         setRedirect(true);
@@ -36,7 +36,6 @@ export default function LoginPage() {
     }
   }
 
-
   if (redirect) {
     return <Navigate to={"/"} />;
   }
@@ -45,7 +44,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex flex-col max-w-md mx-auto mt-36">
+    <div className="flex flex-col max-w-md mx-auto mt-36 p-4">
       <h1 className="mx-auto text-5xl">Hello</h1>
       <Formik
         initialValues={initialValues}

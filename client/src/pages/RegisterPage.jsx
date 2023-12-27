@@ -7,7 +7,7 @@ import { Link, Navigate } from "react-router-dom";
 import { UserContext } from "../UserContext";
 import FormikControl from "../components/Formik/FormikControl";
 
-export default function Register() {
+export default function RegisterPage() {
   const [redirect, setRedirect] = useState(false);
   const { user } = useContext(UserContext);
 
@@ -28,7 +28,6 @@ export default function Register() {
     admin: Yup.boolean(),
   });
   const handleRegisterSubmit = async (values) => {
-    console.log(values)
     try {
       await axios.post("/api/auth/register", values);
       alert("Registration successful.");
@@ -46,7 +45,7 @@ export default function Register() {
   }
 
   return (
-    <div className="flex flex-col mt-36 max-w-md mx-auto">
+    <div className="flex flex-col mt-36 max-w-md mx-auto p-4">
       <h1 className="mx-auto text-5xl">Hello</h1>
       <Formik
         initialValues={initialValues}
@@ -70,7 +69,7 @@ export default function Register() {
                   <span className="text-black font-bold">Sign up</span>
                 </Link>
               </div>
-              <div className="flex gap-4">
+              <div className="flex flex-col md:flex-row gap-4">
                 <FormikControl
                   control="input"
                   type="text"
@@ -84,7 +83,7 @@ export default function Register() {
                   name="email"
                 />
               </div>
-              <div className="flex gap-4">
+              <div className="flex flex-col md:flex-row gap-4">
                 <FormikControl
                   control="input"
                   type="password"

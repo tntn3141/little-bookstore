@@ -12,7 +12,7 @@ export const bookInitialValues = {
   tags: [],
   category: "",
   description: "",
-  coverImage: "",
+  imgbb: "",
   ratingAllPoints: 0,
   ratingAllTimes: 0,
 };
@@ -32,10 +32,10 @@ export const bookValidationSchema = Yup.object().shape({
   description: Yup.string().required("Required"),
   ratingAllPoints: Yup.number(),
   ratingAllTimes: Yup.number(),
-  coverImage: Yup.mixed(),
+  imgbb: Yup.mixed()
 });
 
-// Meant for select
+// For select
 export const bookLanguages = [
   { key: "Choose one", value: "" },
   { key: "English", value: "English" },
@@ -43,19 +43,19 @@ export const bookLanguages = [
   { key: "Others", value: "Others" },
 ];
 
-// Meant for radio
+// For radio
 export const bookFormats = [
   { key: "Paperback", value: "Paperback" },
   { key: "Hardcover", value: "Hardcover" },
 ];
 
-// Meant for radio
+// For radio
 export const bookCategories = [
   { key: "Fiction", value: "Fiction" },
   { key: "Nonfiction", value: "Nonfiction" },
 ];
 
-// Meant for checkbox
+// For checkbox
 export const bookTags = [
   { key: "Adventure", value: "Adventure" },
   { key: "Romance", value: "Romance" },
