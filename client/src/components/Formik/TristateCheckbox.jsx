@@ -12,7 +12,7 @@ function TristateCheckbox(props) {
   
   // No click? Nothing happens. 1st click? Change the "name" to name[0], update the value in name[0]
   // 2nd click? Change the "name" to name[1], update the value in name[1], AND remove the old value in name[0]
-  // 3rd click? Change the "name to "" (basically this will link to nothing), AND remove the old value in name[1]
+  // 3rd click? Change the "name" to "" (basically this will link to nothing), AND remove the old value in name[1]
   // 4th click? Same as 1st click, and so on
   const NAME = ["", name[0], name[1]]
 
