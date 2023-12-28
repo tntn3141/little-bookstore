@@ -1,7 +1,7 @@
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import { Formik, Form } from "formik";
-import { useParams } from "react-router-dom";
+import { useParams, Navigate } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
 
 import Error from "../components/Error";
@@ -35,13 +35,15 @@ export default function BookEditPage() {
   const [coverPreview, setCoverPreview] = useState();
   const [didChangeCover, setDidChangeCover] = useState(false);
 
+  const [redirect, setRedirect] = useState(null);
+
   useEffect(() => {
     (async () => {
       try {
         setLoading(true);
         const response = await axios.get(`/api/books/${itemId}`);
         setData(response.data);
-        setCoverPreview(response.data.coverImage);
+        setCoverPreview(response.data.imgbb);
       } catch (error) {
         setError(true);
       } finally {
@@ -59,13 +61,12 @@ export default function BookEditPage() {
   const validationSchema = bookValidationSchema;
 
   async function handleBookSubmit(values, actions) {
+    let formData = new FormData();
+
     if (didChangeCover) {
-      let formData = new FormData();
       let fileId = uuidv4();
       let blob = cover.slice(0, cover.size, "image/jpeg");
       const newFile = new File([blob], fileId, { type: "image/jpeg" });
-
-      console.log("didChangeCover")
 
       // Working code for uploading to imgbb
       switch (imageUploadType) {
@@ -74,11 +75,15 @@ export default function BookEditPage() {
           // This current implementation assumes that users use local files.
           const base64 = await getBase64(newFile);
           formData.append("image", base64);
+          break;
         case "gc":
           // Using FormData to send both the form values (in req.body) and the file(s)
           // (in req.file, extracted via multer middleware) to the backend
           formData.append("image", newFile);
+          break;
       }
+      // So that our API knows where to upload
+      formData.append("imageUploadType", imageUploadType);
     }
 
     for (const key in values) {
@@ -91,7 +96,6 @@ export default function BookEditPage() {
     }
 
     try {
-      console.log("before making axios requests")
       const response = await axios.put(`/api/books/${data._id}`, formData);
       if (response) {
         alert("Book submission succeeded.");
@@ -106,6 +110,21 @@ export default function BookEditPage() {
     }
   }
 
+  async function handleBookDelete() {
+    const confirmDeletion = confirm("Are you sure you want to delete this item?")
+    if (confirmDeletion) {
+      try {
+        const response = await axios.delete(`/api/books/${data._id}`)
+        if (response) {
+          alert("Book deletion succeeded. Redirecting you to home page...");
+          setRedirect("/");
+        }
+      } catch (error) {
+        alert("Book deletion failed. " + error)
+      }
+    }
+  }
+
   if (user == null || !user.isAdmin) {
     return <NotFoundPage />;
   }
@@ -116,6 +135,10 @@ export default function BookEditPage() {
 
   if (error) {
     return <Error />;
+  }
+
+  if (redirect) {
+    return <Navigate to={redirect} />;
   }
 
   if (data) {
@@ -162,7 +185,6 @@ export default function BookEditPage() {
                   placeholder="Publisher's name..."
                 />
               </div>
-
               <div className="md:grid md:grid-cols-3 md:gap-x-10">
                 <FormikControl
                   control="input"
@@ -244,13 +266,20 @@ export default function BookEditPage() {
                   />
                 )}
               </div>
-              <div className="flex">
+              <div className="flex ">
                 <button
                   type="submit"
                   disabled={!formik.isValid}
                   className="uppercase mx-auto w-[60%] sm:w-[40%] my-10 p-4 bg-gray-900 font-bold text-white"
                 >
                   Submit
+                </button>
+                <button
+                  type="button"
+                  onClick={handleBookDelete}
+                  className="uppercase mx-auto w-[60%] sm:w-[40%] my-10 p-4 bg-red-900 font-bold text-white"
+                >
+                  Delete
                 </button>
               </div>
             </Form>
