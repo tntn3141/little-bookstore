@@ -96,31 +96,35 @@ export default function BookEditPage() {
     }
 
     try {
+      setLoading(true);
       const response = await axios.put(`/api/books/${data._id}`, formData);
       if (response) {
         alert("Book submission succeeded.");
+        setLoading(false);
         // Clean up the form
         actions.resetForm();
         setCoverPreview();
-        const coverValue = document.getElementById("image");
-        coverValue.value = "";
       }
     } catch (error) {
+      setLoading(false);
       alert("Book submission failed. " + error);
+      console.log(error);
     }
   }
 
   async function handleBookDelete() {
-    const confirmDeletion = confirm("Are you sure you want to delete this item?")
+    const confirmDeletion = confirm(
+      "Are you sure you want to delete this item?"
+    );
     if (confirmDeletion) {
       try {
-        const response = await axios.delete(`/api/books/${data._id}`)
+        const response = await axios.delete(`/api/books/${data._id}`);
         if (response) {
           alert("Book deletion succeeded. Redirecting you to home page...");
           setRedirect("/");
         }
       } catch (error) {
-        alert("Book deletion failed. " + error)
+        alert("Book deletion failed. " + error);
       }
     }
   }
@@ -260,6 +264,14 @@ export default function BookEditPage() {
                 {coverPreview && (
                   <img
                     src={coverPreview}
+                    alt="Book cover image preview"
+                    width="125"
+                    className="mx-auto mt-4"
+                  />
+                )}
+                {!coverPreview && data.imgbb && (
+                  <img
+                    src={data.imgbb}
                     alt="Book cover image preview"
                     width="125"
                     className="mx-auto mt-4"
