@@ -67,7 +67,7 @@ export default function Recommendation({ _id }) {
                 <div className="flex justify-center h-[120px]">
                   <img
                     src={item.imgbb}
-                    alt="picture"
+                    alt="cover picture"
                     className="object-contain"
                   />
                 </div>
