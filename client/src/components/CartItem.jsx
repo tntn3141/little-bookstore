@@ -21,7 +21,7 @@ export const CartItem = (props) => {
       <div className="h-[120px] w-[90px] flex mx-auto">
         <Link to={`/items/${item._id}`}>
           <img
-            src={item.coverImage}
+            src={item.imgbb}
             alt={`${item.title} cover`}
             className="h-[100%]"
           />
