@@ -66,7 +66,7 @@ export default function Recommendation({ _id }) {
               <Link to={`/items/${item._id}`}>
                 <div className="flex justify-center h-[120px]">
                   <img
-                    src={item.coverImage}
+                    src={item.imgbb}
                     alt="picture"
                     className="object-contain"
                   />
