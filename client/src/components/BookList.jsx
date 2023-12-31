@@ -38,11 +38,7 @@ export default function BookList(props) {
               </Link>
               <button
                 type="button"
-                className={
-                  "bg-slate-800 text-white w-[80%] p-1 mx-auto relative " +
-                  "border-2 border-black hover:bg-white hover:text-slate-900 " +
-                  "relative"
-                }
+                className="small-button"
                 onClick={() => increaseItemQuantity(item)}
               >
                 Add to Cart

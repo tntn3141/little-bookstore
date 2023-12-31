@@ -7,7 +7,6 @@ body {
   overflow-x: hidden;
 }
 
-
 input[type="radio"]:checked + label {
   background-color: rgb(30 41 59); /* Tailwind bg-slate-800 */
   color: white;
@@ -24,6 +23,19 @@ input[type="radio"]:checked + label {
   bottom: 0;
 }
 
+/* Buttons */
+.button {
+  @apply w-full p-2 rounded-xl border border-slate-800 bg-white hover:bg-black hover:text-white;
+}
+.small-button {
+  @apply rounded-xl bg-white text-black w-[80%] p-1 mx-auto relative border-2 border-black hover:bg-black hover:text-white relative;
+}
+.load-button {
+  @apply rounded-xl font-bold my-4 px-4 py-3 flex mx-auto text-white bg-black hover:bg-white hover:text-black border border-slate-800;
+}
+.edit-button {
+  @apply bg-black text-white hover:bg-white hover:text-black border border-slate-800 flex justify-center p-2 font-bold text-lg w-[240px] mx-auto
+}
 /* Formik and other types of input START */
 
 .default-container {
@@ -52,7 +64,7 @@ input[type="radio"]:checked + label {
 .default-list-label {
   @apply inline-flex items-center text-base  
   justify-between p-1 rounded-md cursor-pointer 
-  md:hover:text-white md:hover:bg-slate-500
+  md:hover:text-white md:hover:bg-slate-800
   border-2 border-slate-800 select-none;
 }
 
@@ -63,8 +75,8 @@ input[type="radio"]:checked + label {
 .default-checkbox-sublabel {
   @apply inline-flex items-center justify-between select-none
   p-1 rounded-md cursor-pointer border-2 border-slate-800
-  peer-checked:bg-slate-800 peer-checked:text-white
-  md:hover:text-white md:hover:bg-slate-500;
+  peer-checked:bg-black peer-checked:text-white
+  md:hover:text-white md:hover:bg-slate-800;
 }
 
 .default-textarea-input {
@@ -85,15 +97,15 @@ input[type="radio"]:checked + label {
 .default-tristate-input {
   @apply text-center justify-between p-1 rounded-md my-1
   cursor-pointer border-2 border-slate-800
-  md:hover:text-white md:hover:bg-slate-500;
+  md:hover:text-white md:hover:bg-slate-800;
 }
 
 .default-tristate-positive {
-  @apply text-white bg-slate-800;
+  @apply text-white bg-black;
 }
 
 .default-tristate-negative {
-  @apply bg-slate-300 border-dashed;
+  @apply bg-slate-800 border-dashed text-white;
 }
 
 /* Formik and other types of input END */
@@ -101,17 +113,17 @@ input[type="radio"]:checked + label {
 /* Book info START */
 .info-wrapper {
   @apply flex flex-col text-center md:w-[120px] 
-  items-center gap-2 md:gap-1
+  items-center gap-2 md:gap-1;
 }
 .info-content {
-  @apply text-sm font-bold 
+  @apply text-sm font-bold;
 }
 .info-name {
-  @apply italic text-sm
+  @apply italic text-sm;
 }
 .carousel-part-wrapper {
   @apply flex md:flex-row mx-auto select-none 
-  min-h-[100px] px-4
+  min-h-[100px] px-4;
 }
 
 /* Book info END */

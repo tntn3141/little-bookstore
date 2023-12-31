@@ -41,7 +41,7 @@ export default function ProductDisplay({ type }) {
         <BookList items={dataMore} />
         {!loadingMore && (
           <button
-            className="font-bold my-4 p-2 flex mx-auto text-white bg-slate-900"
+            className="load-button"
             onClick={() => setSkip((prev) => prev + limit)}
           >
             Load more
