@@ -3,8 +3,110 @@ import { ShopContext } from "../ShopContext";
 import { CartItem } from "./CartItem";
 import { Typography } from "./Typography";
 import { getVNDPrice } from "../helpers/helpers";
+import { PayPalButtons } from "@paypal/react-paypal-js";
+
+function resultMessage(message) {
+  const container = document.querySelector("#result-message");
+  container.innerHTML = message;
+}
+
 export const Cart = () => {
   const { cartItems, cartTotal } = useContext(ShopContext);
+
+  const createOrder = async () => {
+    try {
+      const response = await fetch("/api/orders", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        // use the "body" param to optionally pass additional order information
+        // like product ids and quantities
+        body: JSON.stringify({
+          cart: cartItems,
+        }),
+      });
+
+      const orderData = await response.json();
+
+      if (orderData.id) {
+        return orderData.id;
+      } else {
+        const errorDetail = orderData?.details?.[0];
+        const errorMessage = errorDetail
+          ? `${errorDetail.issue} ${errorDetail.description} (${orderData.debug_id})`
+          : JSON.stringify(orderData);
+
+        throw new Error(errorMessage);
+      }
+    } catch (error) {
+      console.error(error);
+      resultMessage(`Could not initiate PayPal Checkout...<br><br>${error}`);
+    }
+
+    return fetch(
+      "https://react-paypal-js-storybook.fly.dev/api/paypal/create-order",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          cart: cartItems,
+        }),
+      }
+    )
+      .then((response) => response.json())
+      .then((order) => {
+        return order.id;
+      });
+  };
+
+  const onApprove = async (data, actions) => {
+    try {
+      const response = await fetch(`/api/orders/${data.orderID}/capture`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const orderData = await response.json();
+      // Three cases to handle:
+      //   (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
+      //   (2) Other non-recoverable errors -> Show a failure message
+      //   (3) Successful transaction -> Show confirmation or thank you message
+      const errorDetail = orderData?.details?.[0];
+      if (errorDetail?.issue === "INSTRUMENT_DECLINED") {
+        // (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
+        // recoverable state, per https://developer.paypal.com/docs/checkout/standard/customize/handle-funding-failures/
+        return actions.restart();
+      } else if (errorDetail) {
+        // (2) Other non-recoverable errors -> Show a failure message
+        throw new Error(`${errorDetail.description} (${orderData.debug_id})`);
+      } else if (!orderData.purchase_units) {
+        throw new Error(JSON.stringify(orderData));
+      } else {
+        // (3) Successful transaction -> Show confirmation or thank you message
+        // Or go to another URL:  actions.redirect('thank_you.html');
+        const transaction =
+          orderData?.purchase_units?.[0]?.payments?.captures?.[0] ||
+          orderData?.purchase_units?.[0]?.payments?.authorizations?.[0];
+        resultMessage(
+          `Transaction ${transaction.status}: ${transaction.id}<br><br>See console for all available details`
+        );
+        console.log(
+          "Capture result",
+          orderData,
+          JSON.stringify(orderData, null, 2)
+        );
+      }
+    } catch (error) {
+      console.error(error);
+      resultMessage(
+        `Sorry, your transaction could not be processed...<br><br>${error}`
+      );
+    }
+  };
 
   return (
     <div
@@ -36,7 +138,10 @@ export const Cart = () => {
           >
             Continue Shopping
           </button>
-          <button
+          <PayPalButtons createOrder={createOrder} onApprove={onApprove} />
+          <div id="result-message">
+          </div>
+          {/* <button
             type="button"
             className={
               "border border-black px-1 bg-slate-800 " +
@@ -45,7 +150,7 @@ export const Cart = () => {
             onClick={() => {}}
           >
             Checkout
-          </button>
+          </button> */}
         </div>
       </div>
     </div>

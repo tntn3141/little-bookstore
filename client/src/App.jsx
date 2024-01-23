@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Route, Routes } from "react-router-dom";
 import { lazy, Suspense } from "react";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 import IndexPage from "./pages/IndexPage";
 import Layout from "./Layout";
@@ -20,29 +21,40 @@ const LazyNotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 axios.defaults.baseURL = "https://little-bookstore-api.fly.dev";
 axios.defaults.withCredentials = true;
 
+const initialOptions = {
+  clientId: "test",
+  currency: "USD",
+  intent: "capture",
+}
+
 function App() {
   return (
     <UserContextProvider>
       <ShopContextProvider>
-        <Suspense fallback={<LoadingIcon />}>
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route index element={<IndexPage />} />
-              <Route path="/login" element={<LazyLoginPage />} />
-              <Route path="/register" element={<LazyRegisterPage />} />
-              <Route path="/account/:subpage?" element={<LazyAccountPage />} />
-              <Route path="/items/:itemId" element={<LazyItemPage />} />
-              <Route
-                path="/items/:itemId/edit"
-                element={<LazyBookEditPage />}
-              />
-              <Route path="/new" element={<LazyNewBooksPage />} />
-              <Route path="/tags/:tag" element={<TagPage />} />
-              <Route path="/search" element={<LazySearchPage />} />
-              <Route path="*" element={<LazyNotFoundPage />} />
-            </Route>
-          </Routes>
-        </Suspense>
+        <PayPalScriptProvider options={initialOptions}>
+          <Suspense fallback={<LoadingIcon />}>
+            <Routes>
+              <Route path="/" element={<Layout />}>
+                <Route index element={<IndexPage />} />
+                <Route path="/login" element={<LazyLoginPage />} />
+                <Route path="/register" element={<LazyRegisterPage />} />
+                <Route
+                  path="/account/:subpage?"
+                  element={<LazyAccountPage />}
+                />
+                <Route path="/items/:itemId" element={<LazyItemPage />} />
+                <Route
+                  path="/items/:itemId/edit"
+                  element={<LazyBookEditPage />}
+                />
+                <Route path="/new" element={<LazyNewBooksPage />} />
+                <Route path="/tags/:tag" element={<TagPage />} />
+                <Route path="/search" element={<LazySearchPage />} />
+                <Route path="*" element={<LazyNotFoundPage />} />
+              </Route>
+            </Routes>
+          </Suspense>
+        </PayPalScriptProvider>
       </ShopContextProvider>
     </UserContextProvider>
   );
