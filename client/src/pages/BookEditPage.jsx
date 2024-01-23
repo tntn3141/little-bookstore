@@ -68,7 +68,6 @@ export default function BookEditPage() {
       let blob = cover.slice(0, cover.size, "image/jpeg");
       const newFile = new File([blob], fileId, { type: "image/jpeg" });
 
-      // Working code for uploading to imgbb
       switch (imageUploadType) {
         case "imgbb":
           // Because imgbb API requires binary files, base64 data, or urls.
@@ -86,6 +85,7 @@ export default function BookEditPage() {
       formData.append("imageUploadType", imageUploadType);
     }
 
+    // Formik stuffs
     for (const key in values) {
       // To prevent parsing array values as a string
       if (Array.isArray(values[key])) {

@@ -120,12 +120,12 @@ export default function AccountPage() {
               >
                 Change password
               </button>
-              <button
+              {/* <button
                 onClick={() => setConfirmDeletion(true)}
                 className="bg-slate-950 text-white max-w-xl rounded p-1"
               >
                 Delete account
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
@@ -133,7 +133,7 @@ export default function AccountPage() {
       {subpage === "dashboard" && user.isAdmin && <BookRegistrationForm />}
       {subpage === "wish-list" && "a"}
 
-      <dialog open={confirmDeletion} ref={wrapperRef} className="bg-blue-400">
+      {/* <dialog open={confirmDeletion} ref={wrapperRef} className="bg-blue-400">
         <form className="flex flex-col gap-2">
           <p>This action is irreversible. Delete the account?</p>
           <div className="flex gap-4 mx-auto">
@@ -148,7 +148,7 @@ export default function AccountPage() {
             </button>
           </div>
         </form>
-      </dialog>
+      </dialog> */}
       <dialog open={changePassword} className="bg-blue-400">
         <Formik
           initialValues={initialValues}
