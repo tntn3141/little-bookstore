@@ -113,7 +113,9 @@ export const Cart = () => {
           {getVNDPrice(cartTotal)}
         </span>
         <div className="flex flex-col gap-2 md:grid md:grid-cols-2 mt-4">
-          <button
+          <PayPalButtons createOrder={createOrder} onApprove={onApprove} />
+          <div id="result-message"></div>
+          {/* <button
             type="button"
             className={
               "border border-black px-1 bg-slate-800 " +
@@ -122,9 +124,8 @@ export const Cart = () => {
             onClick={() => {}}
           >
             Continue Shopping
-          </button>
-          <PayPalButtons createOrder={createOrder} onApprove={onApprove} />
-          <div id="result-message"></div>
+          </button> */}
+
           {/* <button
             type="button"
             className={
