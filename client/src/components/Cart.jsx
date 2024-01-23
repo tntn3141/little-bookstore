@@ -4,6 +4,7 @@ import { CartItem } from "./CartItem";
 import { Typography } from "./Typography";
 import { getVNDPrice } from "../helpers/helpers";
 import { PayPalButtons } from "@paypal/react-paypal-js";
+import axios from "axios";
 
 function resultMessage(message) {
   const container = document.querySelector("#result-message");
@@ -15,19 +16,14 @@ export const Cart = () => {
 
   const createOrder = async () => {
     try {
-      const response = await fetch("/api/orders", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+      const response = await axios.post(
+        "/api/orders",
+        { cart: cartItems }
         // use the "body" param to optionally pass additional order information
         // like product ids and quantities
-        body: JSON.stringify({
-          cart: cartItems,
-        }),
-      });
+      );
 
-      const orderData = await response.json();
+      const orderData = await response.data;
 
       if (orderData.id) {
         return orderData.id;
@@ -44,33 +40,22 @@ export const Cart = () => {
       resultMessage(`Could not initiate PayPal Checkout...<br><br>${error}`);
     }
 
-    return fetch(
-      "https://react-paypal-js-storybook.fly.dev/api/paypal/create-order",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+    return axios
+      .post(
+        "https://react-paypal-js-storybook.fly.dev/api/paypal/create-order",
+        {
           cart: cartItems,
-        }),
-      }
-    )
-      .then((response) => response.json())
-      .then((order) => {
-        return order.id;
+        }
+      )
+      .then((response) => {
+        return response.data.id;
       });
   };
 
   const onApprove = async (data, actions) => {
     try {
-      const response = await fetch(`/api/orders/${data.orderID}/capture`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const orderData = await response.json();
+      const response = await axios.post(`/api/orders/${data.orderID}/capture`);
+      const orderData = response.data;
       // Three cases to handle:
       //   (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
       //   (2) Other non-recoverable errors -> Show a failure message
@@ -139,8 +124,7 @@ export const Cart = () => {
             Continue Shopping
           </button>
           <PayPalButtons createOrder={createOrder} onApprove={onApprove} />
-          <div id="result-message">
-          </div>
+          <div id="result-message"></div>
           {/* <button
             type="button"
             className={
