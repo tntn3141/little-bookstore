@@ -9,6 +9,7 @@ import authRoute from "./routes/authRoute.js";
 import usersRoute from "./routes/usersRoute.js";
 import booksRoute from "./routes/booksRoute.js";
 import ratingRoute from "./routes/ratingRoute.js";
+import ordersRoute from "./routes/ordersRoute.js";
 
 const app = express();
 dotenv.config();
@@ -17,13 +18,12 @@ const multer = Multer({
   storage: Multer.memoryStorage(),
   limits: {
     fileSize: 24 * 1024 * 1024,
-    fieldSize: 2 * 1024 * 1024
+    fieldSize: 2 * 1024 * 1024,
   },
 });
 
 // Middleware
 const baseUrl = "http://localhost:5173";
-
 
 app.use(
   cors({
@@ -53,6 +53,7 @@ app.use("/api/auth", authRoute);
 app.use("/api/users", usersRoute);
 app.use("/api/books", booksRoute);
 app.use("/api/rating", ratingRoute);
+app.use("api/orders", ordersRoute);
 
 // Connect to mongoDB
 const connect = async () => {
