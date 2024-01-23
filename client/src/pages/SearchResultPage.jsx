@@ -14,8 +14,16 @@ export default function SearchResultPage() {
   return (
     <div className="mt-[112px] w-[90%] mx-auto">
       <SearchSidebar />
-      <Typography variant="h1">Search result:</Typography>
-      <BookList items={state.result} />
+      {!state && (
+        <div className="p-4 flex flex-col gap-2">
+          <p>No results.</p>
+          <p>Try double-checking the spelling, then try again.</p>
+          <p>Please note that the database is incomplete and does not include our entire catalogue.</p>
+        </div>
+      )}
+      {state && (
+        <BookList items={state.result} />
+      )}
     </div>
     )
 }

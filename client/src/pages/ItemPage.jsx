@@ -34,10 +34,7 @@ export default function ItemPage() {
       <div className="max-w-[90%] mx-auto mt-20">
         {user != null && user.isAdmin && (
           <button
-            className={
-              "bg-slate-800 text-white flex justify-center " +
-              "p-2 font-bold text-lg w-[240px] mx-auto"
-            }
+            className="edit-button"
             onClick={() => navigate("edit")}
           >
             Edit
@@ -60,20 +57,14 @@ export default function ItemPage() {
             >
               <button
                 type="button"
-                className={
-                  "w-full p-2 rounded-xl border border-slate-800 " +
-                  "bg-white hover:bg-slate-900 hover:text-white "
-                }
+                className={"button"}
                 onClick={() => increaseItemQuantity(data)}
               >
                 <Typography variant="lg">Add to Cart</Typography>
               </button>
               <button
                 type="button"
-                className={
-                  "w-full p-2 md:min-h-[12%] rounded-xl border border-slate-800 " +
-                  "bg-white hover:bg-slate-900 hover:text-white "
-                }
+                className={"button"}
                 onClick={() => console.log("Buy")}
               >
                 <Typography variant="lg">Buy</Typography>

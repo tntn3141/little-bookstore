@@ -136,7 +136,7 @@ export default function SearchSidebar() {
                        bg-white w-[100%] border border-slate-300`}
                       >
                         <img
-                          src={result.coverImage}
+                          src={result.imgbb}
                           alt={`${result.title} cover`}
                           className="h-[120px] w-[90px]"
                         />

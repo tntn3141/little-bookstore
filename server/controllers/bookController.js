@@ -245,7 +245,7 @@ export const getBooks = async (req, res, next) => {
               ],
             },
             _id: "$_id",
-            coverImage: 1,
+            imgbb: 1,
             price: 1,
             title: 1,
           },

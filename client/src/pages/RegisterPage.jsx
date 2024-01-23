@@ -97,17 +97,6 @@ export default function RegisterPage() {
                   name="confirmPassword"
                 />
               </div>
-              <div>
-                <FormikControl
-                  control="radio"
-                  label="Becomes an admin (for testing)"
-                  name="admin"
-                  options={[
-                    { key: "Yes", value: "true" },
-                    { key: "No", value: "false" },
-                  ]}
-                />
-              </div>
 
               <button
                 type="submit"
