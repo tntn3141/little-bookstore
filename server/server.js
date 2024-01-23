@@ -53,7 +53,7 @@ app.use("/api/auth", authRoute);
 app.use("/api/users", usersRoute);
 app.use("/api/books", booksRoute);
 app.use("/api/rating", ratingRoute);
-app.use("api/orders", ordersRoute);
+app.use("/api/orders", ordersRoute);
 
 // Connect to mongoDB
 const connect = async () => {
