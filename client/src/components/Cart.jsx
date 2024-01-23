@@ -37,7 +37,7 @@ export const Cart = () => {
       }
     } catch (error) {
       console.error(error);
-      resultMessage(`Could not initiate PayPal Checkout...<br><br>${error}`);
+      resultMessage(`Could not initiate PayPal Checkout... <br><br>Please try again later, or contact the admin.`);
     }
 
     return axios
@@ -114,7 +114,7 @@ export const Cart = () => {
         </span>
         <div className="flex flex-col gap-2 md:grid md:grid-cols-2 mt-4">
           <PayPalButtons createOrder={createOrder} onApprove={onApprove} />
-          <div id="result-message"></div>
+          <div id="result-message" className="text-red-600 font-bold"></div>
           {/* <button
             type="button"
             className={
