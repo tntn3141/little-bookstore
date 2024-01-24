@@ -1,15 +1,21 @@
+import { Typography } from "./Typography";
+
 // Hard-coded article for promotions and other programs
 
 const Article = () => {
   return (
-    <div className="flex flex-col justify-center md:w-[80%] mx-auto pt-10">
+    <div className="flex flex-col justify-center w-[95%] md:w-[80%] mx-auto pt-10">
       <img
         src="/assets/book-sale-640.webp"
         srcSet="/assets/book-sale-360.webp 640w"
         alt="to feature article 4"
         width="100%"
       />
-      <h1>Lorem Ispum 50%</h1>
+      <br></br>
+      <Typography variant="h1">
+        Lorem Ipsum
+      </Typography>
+      <br></br>
       <p className="break-words wrap text-justify">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a viverra
         justo. In sed semper tortor, sed maximus mauris. Nullam pulvinar nisi
@@ -18,6 +24,7 @@ const Article = () => {
         vitae ullamcorper. Proin feugiat tincidunt faucibus. Curabitur mollis
         justo non laoreet iaculis.
       </p>
+      <br></br>
       <p className="break-words wrap text-justify">
         Aliquam erat volutpat. Vestibulum ut turpis quis elit accumsan dapibus
         eu nec dui. Donec eleifend faucibus placerat. Vivamus scelerisque
@@ -31,6 +38,7 @@ const Article = () => {
         congue accumsan at finibus lorem. Sed ut volutpat orci, at finibus nunc.
         Phasellus aliquet ligula sapien, eu bibendum leo tincidunt sed.
       </p>
+      <br></br>
       <p className="break-words wrap text-justify">
         Fusce rutrum augue mi, at blandit elit faucibus a. Vivamus ultricies
         consequat velit vulputate tincidunt. Suspendisse felis nunc, vulputate

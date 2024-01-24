@@ -16,7 +16,7 @@ export default function Hero() {
           showThumbs={false}
           showIndicators={false}
         >
-          <div className="cursor-pointer" onClick={() => navigate("/login")}>
+          <div className="cursor-pointer" onClick={() => navigate("/offers/1")}>
             <img
               src="/assets/world-book-day1-960.webp"
               srcSet="
@@ -28,7 +28,7 @@ export default function Hero() {
             />
           </div>
 
-          <div className="cursor-pointer" onClick={() => navigate("/register")}>
+          <div className="cursor-pointer" onClick={() => navigate("/offers/1")}>
             <img
               src="/assets/world-book-day2-960.webp"
               srcSet="
@@ -44,7 +44,7 @@ export default function Hero() {
 
       <div className="flex md:flex-col md:w-[39%] mx-auto justify-between">
         <div className="min-w-[50%]">
-          <Link to={"/login"}>
+          <Link to={"/offers/1"}>
             <img
               src="/assets/world-book-day-small1-640.webp"
               srcSet="/assets/world-book-day-small1-360.webp 640w"
@@ -54,7 +54,7 @@ export default function Hero() {
           </Link>
         </div>
         <div className="min-w-[50%]">
-          <Link to={"/register"}>
+          <Link to={"/offers/1"}>
             <img
               src="/assets/book-sale-640.webp"
               srcSet="/assets/book-sale-360.webp 640w"
