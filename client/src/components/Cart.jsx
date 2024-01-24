@@ -96,7 +96,7 @@ export const Cart = () => {
   return (
     <div
       className={
-        "absolute right-0 z-10 w-full md:w-[70%] lg:w-[50%] " +
+        "absolute right-0 z-10 w-full md:w-[60%] lg:w-[25%] " +
         "bg-white p-5 pt-0 overflow-y-auto max-h-[90vh] " +
         "shadow-lg border border-slate-600"
       }
@@ -112,7 +112,7 @@ export const Cart = () => {
         <span className="text-red-600 font-bold text-2xl">
           {getVNDPrice(cartTotal)}
         </span>
-        <div className="flex flex-col gap-2 md:grid md:grid-cols-2 mt-4">
+        <div className="flex flex-col gap-2 md:grid md:grid-cols-2 mt-4 justify-center">
           <PayPalButtons createOrder={createOrder} onApprove={onApprove} />
           <div id="result-message" className="text-red-600 font-bold"></div>
           {/* <button
