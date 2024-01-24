@@ -4,7 +4,7 @@ import { Typography } from "./Typography";
 
 const Article = () => {
   return (
-    <div className="flex flex-col justify-center w-[95%] md:w-[80%] mx-auto pt-10">
+    <div className="flex flex-col justify-center w-[95%] md:w-[80%] mx-auto py-10">
       <img
         src="/assets/book-sale-640.webp"
         srcSet="/assets/book-sale-360.webp 640w"

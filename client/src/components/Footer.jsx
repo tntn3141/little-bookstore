@@ -11,7 +11,7 @@ export default function Footer() {
       <div className="flex flex-col">
         <div className="flex gap-2">
           <img src={phone} alt="" />
-          <Typography variant="md">+84 778 34 9944</Typography>
+          <Typography variant="md">+84 902 404 720</Typography>
         </div>
         <div className="flex gap-2">
           <img src={email} alt="" />
