@@ -18,6 +18,8 @@ const LazySearchPage = lazy(() => import("./pages/SearchPage"));
 const LazyNewBooksPage = lazy(() => import("./pages/NewBooksPage"));
 const LazyNotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 
+const LazyArticle = lazy(() => import ("./components/Article"));
+
 axios.defaults.baseURL = "https://little-bookstore-api.fly.dev";
 // axios.defaults.withCredentials = true;
 
@@ -48,8 +50,8 @@ function App() {
                   element={<LazyBookEditPage />}
                 />
                 <Route path="/new" element={<LazyNewBooksPage />} />
-                <Route path="/tags/:tag" element={<TagPage />} />
                 <Route path="/search" element={<LazySearchPage />} />
+                <Route path="/offers/1" element={<LazyArticle />} />
                 <Route path="*" element={<LazyNotFoundPage />} />
               </Route>
             </Routes>
