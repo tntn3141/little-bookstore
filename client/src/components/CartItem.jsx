@@ -40,7 +40,7 @@ export const CartItem = (props) => {
             <button
               disabled={item.quantity < 1}
               onClick={() => decreaseItemQuantity(item)}
-              className="border border-black bg-slate-800 text-white"
+              className="border border-black bg-[#1A1A1A] text-white"
             >
               <MinusSVG />
             </button>
@@ -49,7 +49,7 @@ export const CartItem = (props) => {
             </span>
             <button
               onClick={() => increaseItemQuantity(item)}
-              className="border border-black bg-slate-800 text-white"
+              className="border border-black bg-[#1A1A1A] text-white"
             >
               <PlusSVG />
             </button>
